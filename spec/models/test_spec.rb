@@ -1,4 +1,4 @@
-require'rails_helper'
+require 'rails_helper'
 
 describe "Testing" do
   it "has a test" do
