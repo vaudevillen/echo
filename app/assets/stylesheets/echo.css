@@ -1,0 +1,20 @@
+.half {
+  height:50%;
+  width:100%;
+  background-color: black;
+  text-align: center;
+  color: white;
+  position: absolute;
+}
+
+.bottom-boy{
+  height: 50%;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  background-color: #5a5c51;
+}
+
+.middle{
+  margin-top: 50px;
+}
