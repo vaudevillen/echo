@@ -1,23 +1,15 @@
 <!doctype html>
 <html>
   <head>
-    <!-- // <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
- <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=<% ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
-
-
   </head>
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
   <body>
    <%= search_field_tag 'search', 'Echo it'%>
-<!--
-    <div>
-    <h1>Hello!</h1>
-  </div> -->
-
 
   <div id="map"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<% ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
 
   </body>
 </html>
