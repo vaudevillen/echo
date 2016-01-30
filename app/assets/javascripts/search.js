@@ -14,9 +14,9 @@ $(function() {
       var request = {
         location: chicago,
         radius: '500',
-        keyword: [query]
+        query: [query]
       }
-      service.nearbySearch(request, callback);
+      service.textSearch(request, callback);
     }
   });
 });
@@ -39,14 +39,16 @@ $(function() {
     }
   };
 
-
+// Create the marker that has the info box that pops up!
 function createMarker(place) {
   var placeLoc = place.geometry.location;
+
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location,
-
+    position: place.geometry.location
   });
+
+
 
   var infoWindowOptions = {
     content: 'https://www.youtube.com/watch?v=9f16Fw_K45s'
@@ -60,12 +62,4 @@ function createMarker(place) {
 
 };
 
-// Below is a function that should open a pop up windo with info we can add to it!
 
-
-// var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-// google.maps.event.addListener(marker,'click',function(e){
-
-  // infoWindow.open(map, marker);
-
-// });
