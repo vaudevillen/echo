@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
   root 'welcome#index'
-  resources :maps
+  resources :users
 
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+  resources :maps
+  resources :pins
 end

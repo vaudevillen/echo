@@ -1,20 +1,8 @@
-.half {
-  height:50%;
-  width:100%;
-  background-color: black;
-  text-align: center;
-  color: white;
-  position: absolute;
+.up-top {
+  background-color: #1d2120;
 }
 
-.bottom-boy{
-  height: 50%;
-  bottom: 0;
-  width: 100%;
-  position: absolute;
+.top-nav {
+  height: 175px;
   background-color: #5a5c51;
-}
-
-.middle{
-  margin-top: 50px;
 }
