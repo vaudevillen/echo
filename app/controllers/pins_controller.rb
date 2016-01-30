@@ -1,6 +1,7 @@
 class PinsController < ApplicationController
   def index
-    friend = User.find(2)
+    # friend = User.find(2)
+    friend = nil
     if friend != nil
       @pins = Pin.where(user: friend)
     else
@@ -15,8 +16,7 @@ class PinsController < ApplicationController
 
   def create
     pin = Pin.new(song: Song.first, user: User.last, latitude: params[:lat], longitude: params[:lng])
-    if pin.save
-
-    end
+    pin.save
+    redirect_to :back
   end
 end
