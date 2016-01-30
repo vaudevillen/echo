@@ -2,7 +2,9 @@
 
   <body>
     <%= render template: "layouts/_navbar" %>
+
+
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<% ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&signed_in=true&callback=initMap" async defer></script>
   </body>
 

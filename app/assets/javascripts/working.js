@@ -1,4 +1,4 @@
-  // Add input from the user into the search bar
+//   Add input from the user into the search bar
 
 // $(function() {
 //   $('#search').keyup(function (e) {
