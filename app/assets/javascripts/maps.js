@@ -22,13 +22,14 @@ $(function()
         service.textSearch(request, callback);
       }
   });
-
 });
 
 //Initialize map
 function initMap()
 {
-  myLatLng = {lat: 41.88493208586154, lng: -87.63472080230713};
+
+
+  myLatLng = {lat: 41.885311, lng: 87.62850019999999};
 
   map = new google.maps.Map(document.getElementById('map'),
   {
@@ -55,6 +56,7 @@ function initMap()
   //add pins
   google.maps.event.addListener(map, 'rightclick', function(event)
   {
+    console.log(event.latLng);
     placeMarker(event.latLng, map);
     var token = $('meta[name=csrf-token]').attr('content');
     var data = {lat: event.latLng.lat(), lng: event.latLng.lng(), authenticity_token: token}
@@ -78,6 +80,24 @@ function initMap()
     {
       infoWindow.open(map, marker);
     });
+  }
+  //sets position of map to current location
+  var locWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      locWindow.setPosition(pos);
+      locWindow.setContent('Location found.');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, locWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, locWindow, map.getCenter());
   }
 
 };//closing of initMap function
