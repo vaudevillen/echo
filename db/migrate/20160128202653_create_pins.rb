@@ -5,7 +5,7 @@ class CreatePins < ActiveRecord::Migration
       t.references :song
       t.text :comment
       t.decimal :latitude
-      t.decimal :longtitude
+      t.decimal :longitude
 
       t.timestamps null: false
     end
