@@ -2,10 +2,10 @@ $(function() {
   var lastSearch = "";
   var idleCounter = 0;
   window.setInterval(searchRefresh, 100);
-  $('input').on('input', function() { idleCounter = 0; })
+  $('body').on('input', '#searchbar', function() { idleCounter = 0; })
   function searchRefresh() {
     idleCounter++;
-    var query = $('input').val();
+    var query = $('#searchbar').val();
     if (query == '') {
       $('#results *').remove();
     } else if (idleCounter > 2 && query != lastSearch) {
@@ -48,4 +48,7 @@ function showFirstTwentySongs(json) {
   }
 }
 
-
+function loadPinBox() {
+  var searchTemplate = Handlebars.compile($('#search-bar-template').html())
+  return searchTemplate();
+}

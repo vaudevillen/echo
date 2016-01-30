@@ -113,7 +113,9 @@ function initMap() {
     });
     var infoWindowOptions =
     {
-      content: 'https://www.google.com'
+      content: loadPinBox(),
+      maxWidth: 300,
+      maxHeight: 400
     };
     var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 

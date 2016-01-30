@@ -1,17 +1,22 @@
 #searchbar{
-  float: left;
+  /*float: left;*/
   width: 250px;
-  top:0;
+  /*top:0;*/
+  /*position: absolute;*/
+}
+
+#search-box {
+  height: 100px;
   position: absolute;
 }
 
 
-#player{
+/*#player{
   float: right;
   width: 50%
-}
+}*/
 
-#results{
+/*#results{
   float: left;
   width: 40%;
   height: 300px;
@@ -19,8 +24,8 @@
   overflow: scroll;
   position: relative;
 
-}
-ul {
+}*/
+/*ul {
     background: #2c3e50;
     padding: 20px;
     border-style: groove;
@@ -30,4 +35,8 @@ ul {
 ul li {
     background: #34495e;
     margin: 5px;
-}
+}*/
+
+/*.gm-style-iw {
+  width: 100px;
+}*/
