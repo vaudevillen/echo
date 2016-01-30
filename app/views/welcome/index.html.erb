@@ -19,14 +19,22 @@
         <div class="row center">
           <%= button_to('Register', new_user_path, :class => 'btn-large waves-effect waves-light teal darken-3', :method => :get)  %>
           <br>
-          <%= button_to('Login', '/login', :class => 'btn-large waves-effect waves-light teal darken-3', :method => :get)  %>
+
+  <!-- Modal Structure -->
+            <button data-target="modal1" class="btn modal-trigger teal darken-3">Login</button>
+<!-- Modal Structure -->
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+             <%= render template: "sessions/new" %>
+            </div>
+          </div>
+
         </div>
         <br><br>
       </div>
     </div>
     <div class="parallax up-top"><img src="background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
-
 
   <div class="section white">
     <div class="row container">
