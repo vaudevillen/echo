@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160128202657) do
     t.integer  "song_id"
     t.text     "comment"
     t.decimal  "latitude"
-    t.decimal  "longtitude"
+    t.decimal  "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
