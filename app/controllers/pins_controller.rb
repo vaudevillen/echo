@@ -1,15 +1,18 @@
 class PinsController < ApplicationController
   def index
-    # friend = User.find(2)
-    friend = nil
-    if friend != nil
-      @pins = Pin.where(user: friend)
-    else
-      @pins = Pin.all
-    end
+    @pins = Pin.all
     if request.xhr?
         respond_to do |format|
           format.json { render json: @pins }
+        end
+    end
+  end
+
+  def show
+    @friend_pins = Pin.where(user_id: params[:user_id])
+    if request.xhr?
+        respond_to do |format|
+          format.json { render json: @friend_pins }
         end
     end
   end
