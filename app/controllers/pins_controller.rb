@@ -18,7 +18,7 @@ class PinsController < ApplicationController
   end
 
   def create
-    pin = Pin.new(song: Song.first, user: User.last, latitude: params[:lat], longitude: params[:lng])
+    pin = Pin.new(song: Song.first, user: User.last, latitude: params[:lat], longitude: params[:lng], song_id: params:[:song_id])
     pin.save
     redirect_to :back
   end

@@ -1,0 +1,33 @@
+#searchbar{
+  float: left;
+  width: 250px;
+  top:0;
+  position: absolute;
+}
+
+
+#player{
+  float: right;
+  width: 50%
+}
+
+#results{
+  float: left;
+  width: 40%;
+  height: 300px;
+  top: 44px;
+  overflow: scroll;
+  position: relative;
+
+}
+ul {
+    background: #2c3e50;
+    padding: 20px;
+    border-style: groove;
+    border-color: #1abc9c;
+}
+
+ul li {
+    background: #34495e;
+    margin: 5px;
+}
