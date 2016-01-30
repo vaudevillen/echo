@@ -24,7 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'responders'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'react-rails', '~> 1.5.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
