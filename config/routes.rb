@@ -8,5 +8,4 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   resources :maps
   resources :pins
-  resources :player
 end
