@@ -40,7 +40,10 @@ class PinsController < ApplicationController
       redirect_to @pin
     else
       redirect_to edit_pin_path
+    end
   end
 
-
+  def user_params
+    params.require(:pin).permit(:comment)
+  end
 end
