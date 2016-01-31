@@ -11,3 +11,14 @@ states = [{:name=>"AL"}, {:name=>"AK"}, {:name=>"AZ"}, {:name=>"AR"}, {:name=>"C
 states.each do |state|
 State.create(state)
 end
+10.times do
+     User.create(
+        email: Faker::Internet.email,
+        password_digest: Faker::Internet.password,
+        first_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name,
+        username: Faker::Internet.user_name,
+        state: Faker::Address.state_abbr
+
+      )
+end
