@@ -45,3 +45,12 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker'
+  gem 'rake'
+  gem 'simplecov'
+end
+
