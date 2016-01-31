@@ -1,20 +1,18 @@
 var map;
-
+var chiTown = {lat: 41.885311, lng: 87.62850019999999}
 function initMap() {
-  myLatLng = {lat: 41.885311, lng: 87.62850019999999};
+var pin_data;
 
   map = new google.maps.Map(document.getElementById('map'),
   {
     zoom: 14,
-    center: myLatLng
+    center: chiTown
   });
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('loc-input'));
 
-
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-
   var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
     map: map,
@@ -69,7 +67,7 @@ function initMap() {
       for (var i = 0; i < response.length; i ++)
       {
         var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
-        placeMarker(pinLatlng, map);
+        initMarkers(pinLatlng, map);
       }
     }
   });
@@ -105,17 +103,23 @@ function initMap() {
     console.log(event.latLng);
     placeMarker(event.latLng, map);
     var token = $('meta[name=csrf-token]').attr('content');
-    var data = {lat: event.latLng.lat(), lng: event.latLng.lng(), authenticity_token: token}
-    $.post("/pins", data);
+    pin_data = {lat: event.latLng.lat(), lng: event.latLng.lng(), authenticity_token: token}
   });
-  //function for users to add pins. called in above listener
-  function placeMarker(position, map)
+  //function to instantiate pins from database
+  function initMarkers(position, map)
   {
     var marker = new google.maps.Marker(
     {
       position: position,
       map: map
     });
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
     var infoWindowOptions =
     {
       content: loadPinBox()
@@ -127,4 +131,38 @@ function initMap() {
       infoWindow.open(map, marker);
     });
   }
+  function placeMarker(position, map)
+  {
+    var marker = new google.maps.Marker(
+    {
+      position: position,
+      map: map
+    });
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
+    var infoWindowOptions =
+    {
+      content: loadPinBox()
+    };
+    var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+
+    google.maps.event.addListener(marker,'click',function(e)
+    {
+      infoWindow.open(map, marker);
+    });
+  }
+  //intercept data from song submit form
+  $(document).on("click", "#song_form", function(event){
+    event.preventDefault();
+    var spotify_id = $(this).find('input:first-child').val();
+    var data = {lat: pin_data["lat"], lng: pin_data["lng"], authenticity_token: pin_data["authenticity_token"], song_id: spotify_id};
+    $.post("/pins", data);
+  });
 };//closing of initMap function
+
+

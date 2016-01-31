@@ -23,7 +23,7 @@ $(function() {
     var song_code = song_uri.replace(/spotify%3Atrack%3A/, ""); //REMOVED 'g' from REPLACE
     var format = {song_id: song_code};
     var template = Handlebars.compile($('#player-template').html());
-    $('#player').append(template({spotify_uri: song_uri}))
+    $('#player').append(template({spotify_uri: song_uri, song_id: song_code}))
   })
 }) //end of document ready
 
