@@ -38,11 +38,12 @@ function initMap(){
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-  var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
     map: map,
     anchorPoint: new google.maps.Point(0, -29)
   });
+
+  var infowindow = new google.maps.InfoWindow();
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
@@ -72,8 +73,10 @@ function initMap(){
         (place.address_components[2] && place.address_components[2].short_name || '')
       ].join(' ');
     }
-
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log(loadPinBox(marker));
+    infowindow.setContent(loadPinBox(marker));
+    //infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
   });
 
