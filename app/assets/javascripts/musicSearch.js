@@ -50,6 +50,5 @@ function showFirstTwentySongs(json) {
 
 function loadPinBox() {
   var searchTemplate = Handlebars.compile($('#search-bar-template').html())
-  // var searchTemplate = Handlebars.compile($('#test-template').html())
   return searchTemplate();
 }
