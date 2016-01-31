@@ -28,9 +28,10 @@ class UsersController < ApplicationController
 
   def update
     @user = User.new(user_params)
-    if @user.save
+    if @user.update(params[:user])
       redirect_to @user
     else
+      @errors = @user.errors.full_messages
       redirect_to 'edit_user_path'
     end
   end
