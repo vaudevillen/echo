@@ -7,7 +7,8 @@ var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 ////////////////////////
 // Map Initialization //
 ////////////////////////
-function initMap() {
+function initMap(){
+  var pin_data;
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown});
 
   var getAjax = $.get("/pins", "json");
@@ -17,6 +18,70 @@ function initMap() {
       placeMarker(pinLatlng);
     }
   });
+
+//This centers map go user's browser provided current geolocation
+  var locWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+      var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+      locWindow.setPosition(pos);
+      locWindow.setContent('You are here... I hope...');
+      map.setCenter(pos);
+    }, function(){
+      handleLocationError(true, locWindow, map.getCenter());
+    });
+  }
+  else { handleLocationError(false, locWindow, map.getCenter());}
+//////////////////////////////////////////
+//Autocomplete for search/////////////////
+//////////////////////////////////////////
+  var input = /** @type {!HTMLInputElement} */(
+      document.getElementById('loc-input'));
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+  autocomplete.addListener('place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(transformers);
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+
+////////////////////////
+///End of autocomplete//
+////////////////////////
 
   //////////////////////
   // Event Responders //
@@ -47,9 +112,12 @@ function placeMarker(position) {
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
   // notice that functions defined here can see 'marker' in their scope.
-  google.maps.event.addListener(marker,'click',function(e) { infoWindow.open(map, marker); });
-  // google.maps.event.addListener(marker,'click',function(e) { console.log(marker.position); });
-  // google.maps.event.addListener(marker,'click',function(e) { console.log(infoWindow.position); });
+  google.maps.event.addListener(marker,'click',function(e)
+    {
+      infoWindow.open(map, marker);
+      // console.log(marker.position);
+      // console.log(infoWindow.position);
+    });
 }
 
 ////////////////////
@@ -58,8 +126,13 @@ function placeMarker(position) {
 $(function() {
   $(document).on("click", "#song_form", function(event){
     event.preventDefault();
-    var spotify_id = $(this).find('input:first-child').val();
-    var data = {lat: pin_data["lat"], lng: pin_data["lng"], authenticity_token: pin_data["authenticity_token"], song_id: spotify_id};
+    console.log("save called");
+    var token = $('meta[name=csrf-token]').attr('content');
+    var song_data = {};
+    $.each($(this).serializeArray(), function(i, field) {
+        song_data[field.name] = field.value;
+    });
+    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"] };
     $.post("/pins", data);
   });
 })
