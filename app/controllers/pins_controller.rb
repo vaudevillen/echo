@@ -34,16 +34,15 @@ class PinsController < ApplicationController
 
 
   def update
-    @user = User.find(params[:id])
     @pin = Pin.find(params[:id])
-    if @pin.update_atributes(pin_params)
-      redirect_to @pin
+    if @pin.update_attributes(pin_params)
+      redirect_to user_path(@pin.user_id)
     else
       redirect_to edit_pin_path
     end
   end
 
-  def user_params
+  def pin_params
     params.require(:pin).permit(:comment)
   end
 end
