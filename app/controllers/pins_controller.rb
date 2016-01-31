@@ -15,7 +15,7 @@ class PinsController < ApplicationController
   def create
     @user = User.find(params[:id])
     @pin = Pin.new(song_id: params[:song_id], user: @user.id, latitude: params[:lat], longitude: params[:lng], song_id: params[:song_id])
-    redirect_to maps_path
+    redirect_to "pins/_form"
   end
 
   def show

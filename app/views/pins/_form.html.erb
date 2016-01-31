@@ -2,6 +2,13 @@
    <form class="col s6">
       <div class="row">
         <div class="input-field col s3">
-          <%= f.text_field :first_name %>
-          <label for="last_name">First Name</label>
+          <%= f.text_field :comment %>
+          <label for="comment">Echo</label>
         </div>
+      </div>
+  <div class="input-field col s3">
+    <div class="input-field col s8">
+    <%= f.submit :class => "btn waves-effect waves-light" %>
+    </div>
+  </div>
+<% end %>
