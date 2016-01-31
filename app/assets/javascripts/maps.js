@@ -144,7 +144,7 @@ $(function() {
     $.each($(this).serializeArray(), function(i, field) {
         song_data[field.name] = field.value;
     });
-    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"] };
+    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'] };
     $.post("/pins", data);
   });
 })
