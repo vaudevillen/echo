@@ -33,3 +33,18 @@ end
     comment: Faker::Hipster.sentences(1)
   )
 end
+
+melissa = User.create(first_name: "Melissa", last_name: "Etheridge", username: "onlyone", password: "window", email: "come2window@google.com", city: "Leavenworth", state: "KS")
+FriendRequest.create(recipient_id: 11, sender_id: 1, status: true)
+FriendRequest.create(recipient_id: 11, sender_id: 2, status: true)
+FriendRequest.create(recipient_id: 11, sender_id: 3, status: true)
+FriendRequest.create(recipient_id: 11, sender_id: 4, status: true)
+FriendRequest.create(recipient_id: 11, sender_id: 5, status: true)
+FriendRequest.create(recipient_id: 11, sender_id: 6, status: true)
+FriendRequest.create(recipient_id: 11, sender_id: 7, status: true)
+
+Pin.create(user_id: 1, comment: "I really like this song, Go Cards!", song_id: "Hit Song")
+Pin.create(user_id: 2, comment: "This really gets me going", song_id: "Booty Dance")
+Pin.create(user_id: 3, comment: "Heartland Rock is the best guyzz", song_id: "The Best Song Ever")
+Pin.create(user_id: 4, comment: "Remember this one, guys?", song_id: "Mambo Number 5")
+Pin.create(user_id: 5, comment: "A real heartstopper", song_id: "4 33")
