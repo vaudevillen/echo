@@ -18,6 +18,7 @@ $(function() {
 
   $('body').on('click', '#search-box li a', function(event) {
     event.preventDefault();
+    console.log("link clicked");
     $('#player *').remove();
     var song_uri = $(this).attr('id');
     var song_code = song_uri.replace(/spotify%3Atrack%3A/, ""); //REMOVED 'g' from REPLACE
@@ -57,3 +58,10 @@ function loadPinBox(marker) {
   var searchTemplate = Handlebars.compile($('#search-bar-template').html())
   return searchTemplate({lat: lat, lng: lng});
 }
+
+function loadDBPinBox(pinData) {
+    var songUri = "spotify%3Atrack%3A" + pinData.song_id;
+    //after mvp, put in song data populated from database
+    var playerTemplate = Handlebars.compile($('#db-player-template').html());
+    return playerTemplate({song_uri: songUri, });
+  }

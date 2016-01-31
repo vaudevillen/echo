@@ -8,14 +8,12 @@ var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 // Map Initialization //
 ////////////////////////
 function initMap(){
-  var pin_data;
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown});
 
   var getAjax = $.get("/pins", "json");
   getAjax.done(function(response) {
     for (var i = 0; i < response.length; i ++) {
-      var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
-      placeMarker(pinLatlng);
+      placeDBMarker(response[i]);
     }
   });
 
@@ -118,6 +116,20 @@ function placeMarker(position) {
       // console.log(marker.position);
       // console.log(infoWindow.position);
     });
+}
+function placeDBMarker(pinData) {
+  var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
+  var marker = new google.maps.Marker({position: pinLatlng, map: map});
+  marker.setIcon(transformers);
+  var infoWindowOptions = { content: loadDBPinBox(pinData) };
+  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+  google.maps.event.addListener(marker,'click',function(e)
+    {
+      infoWindow.open(map, marker);
+    });
+
 }
 
 ////////////////////
