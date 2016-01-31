@@ -6,11 +6,15 @@
       <input id="loc-input" class="controls" type="text"
           placeholder="Enter a location">
       <%= button_to('Logout', logout_path, :class => 'logout waves-light btn', :method => :get)  %>
-      <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>  
+      <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>
     </div>
     <div class="col s4 offset-s2">
       <h6> Recent Posts</h6>
+        <% @user.friends.each do |friend| %>
+         <p> <%= friend.username %> </p>
+          <p> <%= friend.pins %> </p>
+        <% end %>
     </div>
   </div>
-  
+
 </nav>
