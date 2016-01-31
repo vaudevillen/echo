@@ -1,0 +1,17 @@
+<li class="collection-item avatar">
+      <%= image_tag('stick.png', size: "75x50", :class=>"circle responsive-img")%>
+      <span class="title">
+      <%= user.fullname %>
+      </span>
+      <p> <%= user.location  %> </p>
+      <a href="#!" class="secondary-content">
+    <% if current_friend?(user.id) %>
+      <p>This person is your friend</p>
+    <% elsif request_sent?(user.id) %>
+      <p>Request Pending</p>
+    <% elsif request_received?(user.id)%>
+      <p>Request Received</p>
+    <% else %>
+      <%= button_to 'Add Friend', {:controller=>"friend_requests", :action=> "create", :recipient_id=> user.id, :sender_id=>session[:user_id]}, :method=>:post, :class => 'btn btn-primary btn-sm' %>
+    <% end %> 
+</li>

@@ -1,5 +1,9 @@
-<% @users.each do |user| %>
-  <div>
-    <h1><%= link_to user.first_name, user %></h1>
+<div class="row container">
+  <div class="col s8 offset-s2">
+    <ul class="collection">
+      <% @users.each do |user| %>
+        <%= render template: "users/_searchResult", :locals => { user: user} %>
+      <% end %>
+  </ul>
   </div>
-<% end %>
+</div>
