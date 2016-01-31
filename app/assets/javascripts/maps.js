@@ -1,10 +1,10 @@
 var map;
 
-//Initialize map
 function initMap() {
-  myLatLng = {lat: 41.88493208586154, lng: -87.63472080230713};
+  myLatLng = {lat: 41.885311, lng: 87.62850019999999};
 
-  map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'),
+  {
     zoom: 14,
     center: myLatLng
   });
@@ -62,9 +62,12 @@ function initMap() {
 
 //get user's pins from database
   var getAjax = $.get("/pins", "json");
-  getAjax.done(function(response) {
-    if (response.length > 0) {
-      for (var i = 0; i < response.length; i ++) {
+  getAjax.done(function(response)
+  {
+    if (response.length > 0)
+    {
+      for (var i = 0; i < response.length; i ++)
+      {
         var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
         placeMarker(pinLatlng, map);
       }
@@ -97,7 +100,9 @@ function initMap() {
   }
 
   //add pins
-  google.maps.event.addListener(map, 'rightclick', function(event) {
+  google.maps.event.addListener(map, 'rightclick', function(event)
+  {
+    console.log(event.latLng);
     placeMarker(event.latLng, map);
     var token = $('meta[name=csrf-token]').attr('content');
     var data = {lat: event.latLng.lat(), lng: event.latLng.lng(), authenticity_token: token}
@@ -113,9 +118,7 @@ function initMap() {
     });
     var infoWindowOptions =
     {
-      content: loadPinBox(),
-      maxWidth: 300,
-      maxHeight: 400
+      content: loadPinBox()
     };
     var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 

@@ -16,7 +16,7 @@ $(function() {
   }
 
 
-  $('body').on('click', 'li a', function(event) {
+  $('body').on('click', '#search-box li a', function(event) {
     event.preventDefault();
     $('#player *').remove();
     var song_uri = $(this).attr('id');
@@ -50,5 +50,6 @@ function showFirstTwentySongs(json) {
 
 function loadPinBox() {
   var searchTemplate = Handlebars.compile($('#search-bar-template').html())
+  // var searchTemplate = Handlebars.compile($('#test-template').html())
   return searchTemplate();
 }
