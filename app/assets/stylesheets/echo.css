@@ -26,3 +26,9 @@
 .add-friend {
   float: right;
 }
+
+.chippy {
+  position: absolute;
+  margin-left: 110px;
+  margin-top: 5px;
+}
