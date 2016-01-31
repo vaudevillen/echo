@@ -23,7 +23,9 @@ $(function() {
     var song_code = song_uri.replace(/spotify%3Atrack%3A/, ""); //REMOVED 'g' from REPLACE
     var format = {song_id: song_code};
     var template = Handlebars.compile($('#player-template').html());
-    $('#player').append(template({spotify_uri: song_uri, song_id: song_code}))
+    $('#player').append(template({spotify_uri: song_uri}))
+    $('#form_type').attr("type", "submit");
+    $('#form_song_id').val(song_code);
   })
 }) //end of document ready
 
@@ -48,7 +50,10 @@ function showFirstTwentySongs(json) {
   }
 }
 
-function loadPinBox() {
+function loadPinBox(marker) {
+  var latLng = marker.position;
+  var lat = latLng.lat();
+  var lng = latLng.lng();
   var searchTemplate = Handlebars.compile($('#search-bar-template').html())
-  return searchTemplate();
+  return searchTemplate({lat: lat, lng: lng});
 }

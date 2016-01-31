@@ -1,169 +1,138 @@
-// var map;
-// var chiTown = {lat: 41.885311, lng: 87.62850019999999}
-// function initMap() {
-// var pin_data;
+///////////////////////
+// Global Variables  //
+///////////////////////
+var map, transformers;
+var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 
-//   map = new google.maps.Map(document.getElementById('map'),
-//   {
-//     zoom: 14,
-//     center: chiTown
-//   });
-//   var input = /** @type {!HTMLInputElement} */(
-//       document.getElementById('loc-input'));
+////////////////////////
+// Map Initialization //
+////////////////////////
+function initMap(){
+  var pin_data;
+  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown});
 
-//   var autocomplete = new google.maps.places.Autocomplete(input);
-//   autocomplete.bindTo('bounds', map);
-//   var infowindow = new google.maps.InfoWindow();
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     anchorPoint: new google.maps.Point(0, -29)
-//   });
+  var getAjax = $.get("/pins", "json");
+  getAjax.done(function(response) {
+    for (var i = 0; i < response.length; i ++) {
+      var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
+      placeMarker(pinLatlng);
+    }
+  });
 
-//   autocomplete.addListener('place_changed', function() {
-//     infowindow.close();
-//     marker.setVisible(false);
-//     var place = autocomplete.getPlace();
-//     if (!place.geometry) {
-//       window.alert("Autocomplete's returned place contains no geometry");
-//       return;
-//     }
+//This centers map go user's browser provided current geolocation
+  var locWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+      var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+      locWindow.setPosition(pos);
+      locWindow.setContent('You are here... I hope...');
+      map.setCenter(pos);
+    }, function(){
+      handleLocationError(true, locWindow, map.getCenter());
+    });
+  }
+  else { handleLocationError(false, locWindow, map.getCenter());}
+//////////////////////////////////////////
+//Autocomplete for search/////////////////
+//////////////////////////////////////////
+  var input = /** @type {!HTMLInputElement} */(
+      document.getElementById('loc-input'));
 
-//     // If the place has a geometry, then present it on a map.
-//     if (place.geometry.viewport) {
-//       map.fitBounds(place.geometry.viewport);
-//     } else {
-//       map.setCenter(place.geometry.location);
-//       map.setZoom(17);  // Why 17? Because it looks good.
-//     }
-//     marker.setIcon(/** @type {google.maps.Icon} */({
-//       url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
-//       size: new google.maps.Size(71, 71),
-//       origin: new google.maps.Point(0, 0),
-//       anchor: new google.maps.Point(17, 34),
-//       scaledSize: new google.maps.Size(35, 35)
-//     }));
-//     marker.setPosition(place.geometry.location);
-//     marker.setVisible(true);
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
 
-//     var address = '';
-//     if (place.address_components) {
-//       address = [
-//         (place.address_components[0] && place.address_components[0].short_name || ''),
-//         (place.address_components[1] && place.address_components[1].short_name || ''),
-//         (place.address_components[2] && place.address_components[2].short_name || '')
-//       ].join(' ');
-//     }
+  autocomplete.addListener('place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
 
-//     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-//     infowindow.open(map, marker);
-//   });
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(transformers);
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
 
-// //get user's pins from database
-//   var getAjax = $.get("/pins", "json");
-//   getAjax.done(function(response)
-//   {
-//     if (response.length > 0)
-//     {
-//       for (var i = 0; i < response.length; i ++)
-//       {
-//         var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
-//         initMarkers(pinLatlng, map);
-//       }
-//     }
-//   });
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
 
-//     //sets position of map to current location
-//   var locWindow = new google.maps.InfoWindow({map: map});
-//   if (navigator.geolocation)
-//   {
-//     navigator.geolocation.getCurrentPosition(function(position)
-//     {
-//       var pos =
-//       {
-//         lat: position.coords.latitude,
-//         lng: position.coords.longitude
-//       };
-//       locWindow.setPosition(pos);
-//       locWindow.setContent('You are here... I hope...');
-//       map.setCenter(pos);
-//     }, function()
-//     {
-//       handleLocationError(true, locWindow, map.getCenter());
-//     });
-//   }
-//   else
-//   {
-//     // Browser doesn't support Geolocation
-//     handleLocationError(false, locWindow, map.getCenter());
-//   }
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
 
-//   //add pins
-//   google.maps.event.addListener(map, 'rightclick', function(event)
-//   {
-//     console.log(event.latLng);
-//     placeMarker(event.latLng, map);
-//     var token = $('meta[name=csrf-token]').attr('content');
-//     pin_data = {lat: event.latLng.lat(), lng: event.latLng.lng(), authenticity_token: token}
-//   });
-//   //function to instantiate pins from database
-//   function initMarkers(position, map)
-//   {
-//     var marker = new google.maps.Marker(
-//     {
-//       position: position,
-//       map: map
-//     });
-//     marker.setIcon(/** @type {google.maps.Icon} */({
-//       url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
-//       size: new google.maps.Size(71, 71),
-//       origin: new google.maps.Point(0, 0),
-//       anchor: new google.maps.Point(17, 34),
-//       scaledSize: new google.maps.Size(35, 35)
-//     }));
-//     var infoWindowOptions =
-//     {
-//       content: loadPinBox()
-//     };
-//     var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+////////////////////////
+///End of autocomplete//
+////////////////////////
 
-//     google.maps.event.addListener(marker,'click',function(e)
-//     {
-//       infoWindow.open(map, marker);
-//     });
-//   }
-//   function placeMarker(position, map)
-//   {
-//     var marker = new google.maps.Marker(
-//     {
-//       position: position,
-//       map: map
-//     });
-//     marker.setIcon(/** @type {google.maps.Icon} */({
-//       url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
-//       size: new google.maps.Size(71, 71),
-//       origin: new google.maps.Point(0, 0),
-//       anchor: new google.maps.Point(17, 34),
-//       scaledSize: new google.maps.Size(35, 35)
-//     }));
-//     var infoWindowOptions =
-//     {
-//       content: loadPinBox()
-//     };
-//     var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  //////////////////////
+  // Event Responders //
+  //////////////////////
+  /// This is happening inside of initMap because this function serves almost as the
+  /// "document ready" for the map.
+  google.maps.event.addListener(map, 'rightclick', function(event) {
+    placeMarker(event.latLng);
+  });
 
-//     google.maps.event.addListener(marker,'click',function(e)
-//     {
-//       infoWindow.open(map, marker);
-//     });
-//   }
-//   //intercept data from song submit form
-//   $(document).on("click", "#song_form", function(event){
-//     event.preventDefault();
-//     var spotify_id = $(this).find('input:first-child').val();
-//     var data = {lat: pin_data["lat"], lng: pin_data["lng"], authenticity_token: pin_data["authenticity_token"], song_id: spotify_id};
-//     $.post("/pins", data);
-//   });
-// };//closing of initMap function
+  // This is also inside initMap because it requires that google maps has been loaded
+  transformers = /** @type {google.maps.Icon} */({
+    url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(35, 35)
+  })
+}
 
+///////////////////////////
+// Marker Initialization //
+///////////////////////////
+function placeMarker(position) {
+  var marker = new google.maps.Marker({position: position, map: map});
+  marker.setIcon(transformers);
+  var infoWindowOptions = { content: loadPinBox(marker) };
+  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+  google.maps.event.addListener(marker,'click',function(e)
+    {
+      infoWindow.open(map, marker);
+      // console.log(marker.position);
+      // console.log(infoWindow.position);
+    });
+}
 
-// //
+////////////////////
+// Document Ready //
+////////////////////
+$(function() {
+  $(document).on("click", "#song_form", function(event){
+    event.preventDefault();
+    console.log("save called");
+    var token = $('meta[name=csrf-token]').attr('content');
+    var song_data = {};
+    $.each($(this).serializeArray(), function(i, field) {
+        song_data[field.name] = field.value;
+    });
+    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"] };
+    $.post("/pins", data);
+  });
+})
