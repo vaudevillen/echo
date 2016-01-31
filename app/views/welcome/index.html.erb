@@ -12,7 +12,7 @@
     <div class="section no-pad-bot">
       <div class="container up-top">
         <br><br>
-        <%= image_tag('logo.png', size: "275x125", :class=>"center-block responsive-img")%>
+        <%= link_to image_tag('logo.png', size: "275x125", :class=>"center-block responsive-img"), maps_path%>
         <div class="row center">
           <h5 class="header col s12 white-text">An app that allows users to share songs, places, and their memories</h5>
         </div>
@@ -29,7 +29,7 @@
           </div>
           <% else %>
           <br>
-          <%= button_to('Logout', logout_path, :class => 'logout btn waves-effect waves-light teal darken-3', :method => :get)  %>
+          <%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
           <% end %>
 
         </div>

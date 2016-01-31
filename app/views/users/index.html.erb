@@ -2,7 +2,7 @@
   <div class="col s8 offset-s2">
     <ul class="collection">
       <% @users.each do |user| %>
-        <%= render template: "users/_searchResult", :locals => { user: user} %>
+        <%= render template: "users/_person", :locals => { user: user} %>
       <% end %>
   </ul>
   </div>

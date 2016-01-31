@@ -8,9 +8,21 @@
 }
 
 .logout {
-  top: -30px;
+  position: absolute;
+  margin: 0;
+  font-size: 10px;
 }
 
 .google {
+  float: right;
+}
+
+.friends {
+  position: absolute;
+  margin-left: 200px;
+  font-size: 10px;
+}
+
+.add-friend {
   float: right;
 }
