@@ -19,15 +19,18 @@
         <div class="row center">
           <%= button_to('Register', new_user_path, :class => 'btn-large waves-effect waves-light teal darken-3', :method => :get)  %>
           <br>
-
-  <!-- Modal Structure -->
-            <button data-target="modal1" class="btn modal-trigger teal darken-3">Login</button>
-<!-- Modal Structure -->
+          <% unless session[:user_id] %>
+          <!-- Modal-->
+          <button data-target="modal1" class="btn modal-trigger teal darken-3">Login</button>
           <div id="modal1" class="modal">
             <div class="modal-content">
              <%= render template: "sessions/new" %>
             </div>
           </div>
+          <% else %>
+          <br>
+          <%= button_to('Logout', logout_path, :class => 'logout btn waves-effect waves-light teal darken-3', :method => :get)  %>
+          <% end %>
 
         </div>
         <br><br>
