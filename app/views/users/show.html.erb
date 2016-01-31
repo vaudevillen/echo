@@ -12,6 +12,7 @@
   <% @user.pins.each do |pin| %>
     <%= pin.song %>
     <%= pin.comment %>
+    <%=link_to "Edit", edit_pin_path(pin.id) %>
   <% end %>
 
 <!--Below will be the link to see all of your frinds -->
