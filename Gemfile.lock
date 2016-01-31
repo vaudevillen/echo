@@ -102,6 +102,7 @@ GEM
       mime-types (>= 1.16, < 3)
     materialize-sass (0.97.5)
       sass (~> 3.3)
+    method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -109,6 +110,10 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -181,6 +186,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    slop (3.6.0)
     spring (1.6.2)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
@@ -224,6 +230,7 @@ DEPENDENCIES
   jquery-rails
   materialize-sass
   pg (~> 0.15)
+  pry
   rails (= 4.2.5)
   rake
   react-rails (~> 1.5.0)
