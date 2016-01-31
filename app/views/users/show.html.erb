@@ -1,32 +1,4 @@
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
-
-<h6>Picture here</h6>
-
-<h6>Username: <%= @user.username %></h6>
-<h6>Member Since: <%= @user.created_at %></h6>
-
-
-
-
-<h4>Recent Echos</h4>
-  <% @user.pins.each do |pin| %>
-    <%= pin.song %>
-    <%= pin.comment %>
-  <% end %>
-
-<!--Below will be the link to see all of your frinds -->
-<!-- # button_to "Your Friends", friends_path -->
-
-
-<h6>Account Settings</h6>
-
-<a href="/maps">Home</a>
-
-<a href="/auth/spotify/callback">Potift</a>
-
-
-
-
 <div>
     <div id="login">
      <h1>First, log in to spotify</h1>
@@ -49,3 +21,7 @@
     </dl>
     <p><a href="/">Log in again</a></p>
  </script>
+
+<%=link_to "Account Settings", edit_user_path%>
+
+

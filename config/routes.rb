@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   resources :maps
   resources :pins
+  resources :friends, only: [:index]
+  resources :friend_requests, only: [:create, :destroy, :update]
 end

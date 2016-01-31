@@ -24,6 +24,8 @@ $(function() {
     var format = {song_id: song_code};
     var template = Handlebars.compile($('#player-template').html());
     $('#player').append(template({spotify_uri: song_uri}))
+    $('#form_type').attr("type", "submit");
+    $('#form_song_id').val(song_code);
   })
 }) //end of document ready
 
@@ -48,8 +50,10 @@ function showFirstTwentySongs(json) {
   }
 }
 
-function loadPinBox() {
+function loadPinBox(marker) {
+  var latLng = marker.position;
+  var lat = latLng.lat();
+  var lng = latLng.lng();
   var searchTemplate = Handlebars.compile($('#search-bar-template').html())
-  // var searchTemplate = Handlebars.compile($('#test-template').html())
-  return searchTemplate();
+  return searchTemplate({lat: lat, lng: lng});
 }

@@ -1,0 +1,19 @@
+<div class="row">
+  <%= form_tag(users_path, :method => "get", id: "search-form") do %>
+  <h6 class="center-align">Find Your Friends</h6>
+  <div class="input-field col s4 offset-s4">
+      <%= text_field_tag :search, params[:search], placeholder: "Search"%>
+  <%= submit_tag "Search" %>
+  </div>
+  <% end %>
+</div>
+
+<div class="row container">
+  <div class="col s8 offset-s2">
+    <ul class="collection">
+      <% @user.friends.each do |friend| %>
+        <%= render template: "users/_person", :locals => { user: friend} %>
+      <% end %>
+  </ul>
+  </div>
+</div>

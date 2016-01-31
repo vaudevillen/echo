@@ -1,20 +1,45 @@
-var map;
+///////////////////////
+// Global Variables  //
+///////////////////////
+var map, transformers;
+var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 
-function initMap() {
-  myLatLng = {lat: 41.885311, lng: 87.62850019999999};
+////////////////////////
+// Map Initialization //
+////////////////////////
+function initMap(){
+  var pin_data;
+  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown});
 
-  map = new google.maps.Map(document.getElementById('map'),
-  {
-    zoom: 14,
-    center: myLatLng
+  var getAjax = $.get("/pins", "json");
+  getAjax.done(function(response) {
+    for (var i = 0; i < response.length; i ++) {
+      var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
+      placeMarker(pinLatlng);
+    }
   });
+
+//This centers map go user's browser provided current geolocation
+  var locWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+      var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+      locWindow.setPosition(pos);
+      locWindow.setContent('You are here... I hope...');
+      map.setCenter(pos);
+    }, function(){
+      handleLocationError(true, locWindow, map.getCenter());
+    });
+  }
+  else { handleLocationError(false, locWindow, map.getCenter());}
+//////////////////////////////////////////
+//Autocomplete for search/////////////////
+//////////////////////////////////////////
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('loc-input'));
 
-
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-
   var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
     map: map,
@@ -37,13 +62,7 @@ function initMap() {
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-    marker.setIcon(/** @type {google.maps.Icon} */({
-      url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(35, 35)
-    }));
+    marker.setIcon(transformers);
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
@@ -60,71 +79,60 @@ function initMap() {
     infowindow.open(map, marker);
   });
 
-//get user's pins from database
-  var getAjax = $.get("/pins", "json");
-  getAjax.done(function(response)
-  {
-    if (response.length > 0)
-    {
-      for (var i = 0; i < response.length; i ++)
-      {
-        var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
-        placeMarker(pinLatlng, map);
-      }
-    }
+////////////////////////
+///End of autocomplete//
+////////////////////////
+
+  //////////////////////
+  // Event Responders //
+  //////////////////////
+  /// This is happening inside of initMap because this function serves almost as the
+  /// "document ready" for the map.
+  google.maps.event.addListener(map, 'rightclick', function(event) {
+    placeMarker(event.latLng);
   });
 
-    //sets position of map to current location
-  var locWindow = new google.maps.InfoWindow({map: map});
-  if (navigator.geolocation)
-  {
-    navigator.geolocation.getCurrentPosition(function(position)
-    {
-      var pos =
-      {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      locWindow.setPosition(pos);
-      locWindow.setContent('You are here... I hope...');
-      map.setCenter(pos);
-    }, function()
-    {
-      handleLocationError(true, locWindow, map.getCenter());
-    });
-  }
-  else
-  {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, locWindow, map.getCenter());
-  }
+  // This is also inside initMap because it requires that google maps has been loaded
+  transformers = /** @type {google.maps.Icon} */({
+    url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(35, 35)
+  })
+}
 
-  //add pins
-  google.maps.event.addListener(map, 'rightclick', function(event)
-  {
-    console.log(event.latLng);
-    placeMarker(event.latLng, map);
-    var token = $('meta[name=csrf-token]').attr('content');
-    var data = {lat: event.latLng.lat(), lng: event.latLng.lng(), authenticity_token: token}
-    $.post("/pins", data);
-  });
-  //function for users to add pins. called in above listener
-  function placeMarker(position, map)
-  {
-    var marker = new google.maps.Marker(
-    {
-      position: position,
-      map: map
-    });
-    var infoWindowOptions =
-    {
-      content: loadPinBox()
-    };
-    var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-
-    google.maps.event.addListener(marker,'click',function(e)
+///////////////////////////
+// Marker Initialization //
+///////////////////////////
+function placeMarker(position) {
+  var marker = new google.maps.Marker({position: position, map: map});
+  marker.setIcon(transformers);
+  var infoWindowOptions = { content: loadPinBox(marker) };
+  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+  google.maps.event.addListener(marker,'click',function(e)
     {
       infoWindow.open(map, marker);
+      // console.log(marker.position);
+      // console.log(infoWindow.position);
     });
-  }
-};//closing of initMap function
+}
+
+////////////////////
+// Document Ready //
+////////////////////
+$(function() {
+  $(document).on("click", "#song_form", function(event){
+    event.preventDefault();
+    console.log("save called");
+    var token = $('meta[name=csrf-token]').attr('content');
+    var song_data = {};
+    $.each($(this).serializeArray(), function(i, field) {
+        song_data[field.name] = field.value;
+    });
+    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"] };
+    $.post("/pins", data);
+  });
+})

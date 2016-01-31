@@ -5,10 +5,12 @@
       <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
       <input id="loc-input" class="controls" type="text"
           placeholder="Enter a location">
-      <%= button_to('Logout', logout_path, :class => 'logout btn waves-effect waves-light teal darken-3', :method => :get)  %>
+      <%= button_to('Logout', logout_path, :class => 'logout waves-light btn', :method => :get)  %>
+      <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>  
     </div>
     <div class="col s4 offset-s2">
       <h6> Recent Posts</h6>
     </div>
   </div>
+  
 </nav>
