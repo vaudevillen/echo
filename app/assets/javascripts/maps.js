@@ -118,7 +118,7 @@ function initMap() {
     });
     var infoWindowOptions =
     {
-      content: 'https://www.google.com'
+      content: loadPinBox()
     };
     var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 

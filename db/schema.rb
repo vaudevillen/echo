@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160129172107) do
 
   create_table "pins", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "song_id"
+    t.string   "song_id"
     t.text     "comment"
     t.decimal  "latitude"
     t.decimal  "longitude"
