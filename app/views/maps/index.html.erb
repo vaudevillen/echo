@@ -10,3 +10,16 @@
 
   </body>
 
+<script id="song-template" type="text/x-handlebars-template">
+  <li>{{artist}} - <a href="#" id="{{song_uri}}">{{title}}</a></li>
+</script>
+<script id="player-template" type="text/x-handlebars-template">
+  <iframe src="https://embed.spotify.com/?uri={{spotify_uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+</script>
+<script id="search-bar-template" type="text/x-handlebars-template">
+<div id='search-box'>
+  <input id="searchbar" type="text" class="form-control" placeholder="Search for...">
+  <div id="results" class="container-fluid"></div>
+  <div id="player"></div>
+</div>
+</script>
