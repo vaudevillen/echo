@@ -32,12 +32,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.new(user_params)
-    if @user.update(params[:user])
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
       redirect_to @user
     else
       @errors = @user.errors.full_messages
-      redirect_to 'edit_user_path'
+      redirect_to edit_user_path
     end
   end
 
