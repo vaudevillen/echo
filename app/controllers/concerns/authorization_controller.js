@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '12e06da5c2414e63992a502036e9e915'; // Your client id
 var client_secret = '5ddbbc55bf494db9a0d51ea3ceb226e6'; // Your client secret
-var redirect_uri = 'http://localhost:8888/index'; // Your redirect uri
+var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -35,7 +35,7 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname)) //+ '/public'))
    .use(cookieParser());
 
 app.get('/login', function(req, res) {

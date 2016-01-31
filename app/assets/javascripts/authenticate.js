@@ -1,69 +1,4 @@
-<h4>Welcome Back <%=@user.first_name.capitalize %></h4>
-<div>
-    <div id="login">
-     <h3>First, log in to spotify</h3>
-     <a href="/login">Log in</a>
-    </div>
-    <div id="loggedin">
-    </div>
- </div>
-
- <script id="loggedin-template" type="text/x-handlebars-template">
-    <h1>Logged in as {{display_name}}</h1>
-    <img id="avatar" width="200" src="{{images.0.url}}" />
-    <dl>
-     <dt>Display name</dt><dd>{{display_name}}</dd>
-     <dt>Username</dt><dd>{{id}}</dd>
-     <dt>Email</dt><dd>{{email}}</dd>
-     <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-     <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
-     <dt>Profile Image</dt><dd>{{images.0.url}}</dd>
-    </dl>
-    <p><a href="/">Log in again</a></p>
- </script>
-
-<%=link_to "Account Settings", edit_user_path%>
-
-
-   <div id="login">
-        <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
-      </div>
-      <div id="loggedin">
-        <div id="user-profile">
-        </div>
-        <div id="oauth">
-        </div>
-      </div>
-    </div>
-
-    <script id="user-profile-template" type="text/x-handlebars-template">
-      <h1>Logged in as {{display_name}}</h1>
-      <div class="media">
-        <div class="pull-left">
-          <img class="media-object" width="150" src="{{images.0.url}}" />
-        </div>
-        <div class="media-body">
-          <dl class="dl-horizontal">
-            <dt>Display name</dt><dd class="clearfix">{{display_name}}</dd>
-            <dt>Id</dt><dd>{{id}}</dd>
-            <dt>Email</dt><dd>{{email}}</dd>
-            <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-            <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
-            <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
-            <dt>Country</dt><dd>{{country}}</dd>
-          </dl>
-        </div>
-      </div>
-    </script>
-
-    <script id="oauth-template" type="text/x-handlebars-template">
-      <h2>oAuth info</h2>
-      <dl class="dl-horizontal">
-        <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
-      </dl>
-    </script>
-    <script>
-      (function() {
+(function() {
 
         var stateKey = 'spotify_auth_state';
 
@@ -135,7 +70,7 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '12e06da5c2414e63992a502036e9e915'; // Your client id
-            var redirect_uri = 'http://localhost:3000/maps'; // Your redirect uri
+            var redirect_uri = 'http://localhost:8888/'; // Your redirect uri
 
             var state = generateRandomString(16);
 
@@ -153,6 +88,3 @@
           }, false);
         }
       })();
-    </script>
-
-

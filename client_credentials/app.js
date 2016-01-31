@@ -34,7 +34,7 @@ request.post(authOptions, function(error, response, body) {
     var options = {
       url: 'https://api.spotify.com/v1/users/jmperezperez',
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'redzulu ' + token
       },
       json: true
     };
