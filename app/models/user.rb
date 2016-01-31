@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :pins
   has_many :songs, through: :pins
+  has_many :sent_requests, class_name: "FriendRequest", foreign_key: :sender_id
+  has_many :received_requests, class_name: "FriendRequest", foreign_key: :recipient_id
   has_secure_password
 
   def friends
@@ -17,6 +19,14 @@ class User < ActiveRecord::Base
       all_friends << User.find(req.sender_id) if req.status == true
     end
     all_friends
+  end
+
+  def fullname
+    self.first_name + " " + self.last_name
+  end
+
+  def location
+    self.city + ", " + self.state
   end
 
   def self.search(query)
