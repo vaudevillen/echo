@@ -99,8 +99,12 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '12e06da5c2414e63992a502036e9e915'; // Your client id
-            var redirect_uri = 'http://localhost:3000/maps'; // Your redirect uri
-
+            if (window.location.host == "localhost:3000")
+                {
+                   var redirect_uri = 'http://localhost:3000/maps';
+                } else {
+                    var redirect_uri = 'http://dbc-echo.herokuapp.com/maps';
+                }
             var state = generateRandomString(16);
 
             localStorage.setItem(stateKey, state);
