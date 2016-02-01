@@ -60,3 +60,5 @@ group :test do
   gem 'simplecov'
 end
 
+gem 'rails_12factor', group: :production
+
