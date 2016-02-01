@@ -14,8 +14,6 @@ var Comment = React.createClass({
 
   mixins: [SetIntervalMixin],
   getInitialState: function(){
-    console.log(this.props.pins);
-
     return {seconds: 0,  pins: this.props.pins};
   },
 
@@ -39,7 +37,7 @@ var Comment = React.createClass({
     console.log(this.state.pins);
      return (<div>{this.state.pins.map(function (key, value){
         return <div key={key.id}>
-         Comment: {key.comment}
+         Comment: {key.comment} Name: {key.username}
         </div>;
       })}
     </div>)
