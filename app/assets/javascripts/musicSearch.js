@@ -61,7 +61,8 @@ function loadPinBox(marker) {
 
 function loadDBPinBox(pinData) {
     var songUri = "spotify%3Atrack%3A" + pinData.song_id;
+    var address = pinData.address;
     //after mvp, put in song data populated from database
     var playerTemplate = Handlebars.compile($('#db-player-template').html());
-    return playerTemplate({song_uri: songUri, });
+    return playerTemplate({song_uri: songUri, address: address });
   }
