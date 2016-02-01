@@ -113,6 +113,7 @@ function placeMarker(position) {
   // notice that functions defined here can see 'marker' in their scope.
   closeWindows();
   infoWindow.open(map, marker);
+  getAddress(marker);
   infowindows.push(infoWindow);
 
   google.maps.event.addListener(infoWindow,'closeclick',function(e)
@@ -251,4 +252,14 @@ function getAddress(){
     console.log(response.results[0])
     $('#song_form #address').val(response.results[0].formatted_address)
   })
+}
+function getPins(){
+  var getAjax = $.get("/pins", "json");
+    getAjax.done(function(response)
+    {
+      for (var i = 0; i < response.length; i ++)
+      {
+        placeDBMarker(response[i]);
+      }
+    });
 }
