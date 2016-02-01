@@ -1,8 +1,8 @@
  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 
   <body>
+    <%= render template: "friends/_sidebar"  %>
     <%= render template: "layouts/_navbar" %>
-
     <%= image_tag('google.png', :class=>"google responsive-img") %>
     <%= button_to "New Echo", new_pin_path, :method => "get" %>
 
@@ -33,6 +33,7 @@
     <input id="form_song_id" type="hidden" name="song_id">
     <input type="hidden" name="lat" value="{{lat}}">
     <input type="hidden" name="lng" value="{{lng}}">
+    <textarea id="form_comment" style="display: none;" name="comment"></textarea>
     <input id="form_type" type="hidden" value="Save">
   </form>
 </div>

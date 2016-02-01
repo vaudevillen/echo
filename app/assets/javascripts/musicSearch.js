@@ -15,7 +15,6 @@ $(function() {
     }
   }
 
-
   $('body').on('click', '#search-box li a', function(event) {
     event.preventDefault();
     console.log("link clicked");
@@ -26,6 +25,7 @@ $(function() {
     var template = Handlebars.compile($('#player-template').html());
     $('#player').append(template({spotify_uri: song_uri}))
     $('#form_type').attr("type", "submit");
+    $('#form_comment').css('display', 'inherit');
     $('#form_song_id').val(song_code);
   })
 }) //end of document ready
@@ -41,13 +41,13 @@ function showFirstTwentySongs(json) {
   $('#results *').remove();
   var resultsToShow = Math.min(json.tracks.items.length, 20);
   var template = Handlebars.compile($('#song-template').html());
-  $('div#results').append('<ul></ul>');
+  $('div#results').append('<ul class="song_results"></ul>');
   for (var i = 0; i < resultsToShow; i++) {
     song = {artist: json.tracks.items[i].artists[0].name,
             title: json.tracks.items[i].name,
             song_uri: encodeURIComponent(json.tracks.items[i].uri),
             song_id: json.tracks.items[i].id}
-    $('ul').append(template(song));
+    $('.song_results').append(template(song));
   }
 }
 
