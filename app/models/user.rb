@@ -44,6 +44,13 @@ class User < ActiveRecord::Base
     end
     recent.sort!{|a,b| b.created_at <=> a.created_at}
     result << recent[0] << recent[1]
+    pinparse(result)
+  end
+
+  def pinparse(pins)
+    return pins if pins[0] && pins[1] != nil
+    pins.pop
+    return pins
   end
 
   def self.search(query)

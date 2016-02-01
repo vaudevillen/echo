@@ -5,7 +5,7 @@ $(function() {
   $('body').on('input', '#searchbar', function() { idleCounter = 0; })
   function searchRefresh() {
     idleCounter++;
-    var query = $('#searchbar').val();
+    var query = $('#searchbar').val() || '';
     if (query == '') {
       $('#results *').remove();
     } else if (idleCounter > 2 && query != lastSearch) {

@@ -15,10 +15,9 @@
       <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>
     </div>
     <div class="col s4 offset-s2">
+      <% unless @pins[0] == nil %>
       <h6> Recent Posts</h6>
-
           <%= react_component("Comment", {:pins => @pins}) %>
-
     </div>
   </div>
 
