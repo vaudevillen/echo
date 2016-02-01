@@ -1,5 +1,14 @@
 class User < ActiveRecord::Base
 
+  has_many :pins
+  has_many :songs, through: :pins
+  has_many :sent_requests, class_name: "FriendRequest", foreign_key: :sender_id
+  has_many :received_requests, class_name: "FriendRequest", foreign_key: :recipient_id
+  has_attached_file :avatar, styles: {
+    thumb: '100x100>'
+  }
+
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :username, presence: true, uniqueness: true
@@ -8,19 +17,9 @@ class User < ActiveRecord::Base
   validates :state, presence: true
 
 # This method associates the attribute ":avatar" with a file attachment
-  has_attached_file :avatar, styles: {
-    thumb: '100x100>',
-    square: '200x200#',
-    medium: '300x300>'
-  }
 
   # Validate the attached image is image/jpg, image/png, etc
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  has_many :pins
-  has_many :songs, through: :pins
-  has_many :sent_requests, class_name: "FriendRequest", foreign_key: :sender_id
-  has_many :received_requests, class_name: "FriendRequest", foreign_key: :recipient_id
   has_secure_password
 
   def friends
