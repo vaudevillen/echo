@@ -4,11 +4,12 @@
 var map, transformers;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 var markers = [];
+var infowindows = [];
 ////////////////////////
 // Map Initialization //
 ////////////////////////
 function initMap(){
-  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown});
+  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
 
   var getAjax = $.get("/pins", "json");
   getAjax.done(function(response) {
@@ -73,8 +74,6 @@ function initMap(){
         (place.address_components[2] && place.address_components[2].short_name || '')
       ].join(' ');
     }
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    console.log(loadPinBox(marker));
     infowindow.setContent(loadPinBox(marker));
     //infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
@@ -115,7 +114,9 @@ function placeMarker(position) {
   // notice that functions defined here can see 'marker' in their scope.
   google.maps.event.addListener(marker,'click',function(e)
     {
+      closeWindows();
       infoWindow.open(map, marker);
+      infowindows.push(infoWindow);
       // console.log(marker.position);
       // console.log(infoWindow.position);
     });
@@ -130,7 +131,9 @@ function placeDBMarker(pinData) {
   // notice that functions defined here can see 'marker' in their scope.
   google.maps.event.addListener(marker,'click',function(e)
     {
+      closeWindows();
       infoWindow.open(map, marker);
+      infowindows.push(infoWindow);
     });
 
 }
@@ -144,7 +147,10 @@ function placeFriendMarker(pinData) {
   // notice that functions defined here can see 'marker' in their scope.
   google.maps.event.addListener(marker,'click',function(e)
     {
+      closeWindows();
       infoWindow.open(map, marker);
+      infowindows.push(infoWindow);
+
     });
   markers.push(marker);
 }
@@ -165,6 +171,7 @@ $(function() {
     });
     var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'] };
     $.post("/pins", data);
+    closeWindows();
   });
 
   $(document).on("submit", ".friend_pin_form", function(event)
@@ -197,4 +204,13 @@ function clearMarkers() {
 function deleteMarkers() {
   clearMarkers();
   markers = [];
+}
+function closeWindows(){
+  infowindows.forEach(function(window){
+    window.close();
+  });
+  deleteWindows();
+}
+function deleteWindows(){
+  infowindows = [];
 }
