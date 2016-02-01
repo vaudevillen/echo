@@ -1,4 +1,4 @@
-<%= form_for(@user) do |f| %>  
+<%= form_for(@user) do |f| %>
     <form class="col s6">
       <div class="row">
         <div class="input-field col s3">
@@ -6,7 +6,7 @@
           <label for="last_name">First Name</label>
         </div>
         <div class="input-field col s3">
-          <%= f.text_field :last_name %>  
+          <%= f.text_field :last_name %>
           <label for="last_name">Last Name</label>
         </div>
       </div>
@@ -36,7 +36,12 @@
           <%= f.collection_select :state, State.all, :id, :name, {prompt: "Choose a State"}, :class => "browser-default" %>
           </div>
         </div>
-      </div> 
+      </div>
+      <div class="row">
+        <div class="input-field col s3">
+          <%= f.file_field :avatar %>
+        </div>
+      </div>
      <%= f.submit :class => "btn waves-effect waves-light" %>
     </form>
 <% end %>

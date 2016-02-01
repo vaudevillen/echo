@@ -5,7 +5,7 @@
       <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
       <%= link_to user_path(current_user) do %>
       <div class="chip chippy">
-        <%= image_tag('stick.png') %>
+        <%= image_tag current_user.avatar.url(:thumb) %>
           <%= current_user.fullname %>
       </div>
       <% end %>
