@@ -18,6 +18,9 @@ $(function() {
   $('body').on('click', '#search-box li a', function(event) {
     event.preventDefault();
     $('#player *').remove();
+    var song_artist_title = $(this).parent()[0].innerText.split(" - ");
+    var song_artist = song_artist_title[0];
+    var song_title = song_artist_title[1];
     var song_uri = $(this).attr('id');
     var song_code = song_uri.replace(/spotify%3Atrack%3A/, ""); //REMOVED 'g' from REPLACE
     var format = {song_id: song_code};
@@ -26,6 +29,8 @@ $(function() {
     $('#form_type').attr("type", "submit");
     $('#form_comment').css('display', 'inherit');
     $('#form_song_id').val(song_code);
+    $('#form_song_artist').val(song_artist);
+    $('#form_song_title').val(song_title);
   })
 }) //end of document ready
 
