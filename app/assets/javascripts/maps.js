@@ -11,13 +11,7 @@ var infowindows = [];
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
 
-
-  var getAjax = $.get("/pins", "json");
-  getAjax.done(function(response) {
-    for (var i = 0; i < response.length; i ++) {
-      placeDBMarker(response[i]);
-    }
-  });
+  getPins();
 
 //This centers map go user's browser provided current geolocation
   var locWindow = new google.maps.InfoWindow({map: map});
@@ -114,6 +108,7 @@ function placeMarker(position) {
   // notice that functions defined here can see 'marker' in their scope.
   closeWindows();
   infoWindow.open(map, marker);
+  getAddress(marker);
   infowindows.push(infoWindow);
 
   google.maps.event.addListener(infoWindow,'closeclick',function(e)
@@ -176,15 +171,7 @@ $(function() {
     $.post("/pins", data);
     closeWindows();
     clearMarkers();
-      //refactor this later
-      var getAjax = $.get("/pins", "json");
-      getAjax.done(function(response)
-      {
-        for (var i = 0; i < response.length; i ++)
-        {
-          placeDBMarker(response[i]);
-        }
-      });
+    getPins();
   });
 
   $(".friend_pin_form").on("submit", function(event)
@@ -206,14 +193,7 @@ $(function() {
   $(document).on("click", "#my_pins", function(event)
   {
     clearMarkers();
-    var getAjax = $.get("/pins", "json");
-    getAjax.done(function(response)
-    {
-      for (var i = 0; i < response.length; i ++)
-      {
-        placeDBMarker(response[i]);
-      }
-    });
+    getPins();
   });
 })
 
@@ -252,4 +232,15 @@ function getAddress(){
     console.log(response.results[0])
     $('#song_form #address').val(response.results[0].formatted_address)
   })
+}
+function getPins(url){
+  var getUrl =  url || "/pins";
+  var getAjax = $.get(getUrl, "json");
+    getAjax.done(function(response)
+    {
+      for (var i = 0; i < response.length; i ++)
+      {
+        placeDBMarker(response[i]);
+      }
+    });
 }

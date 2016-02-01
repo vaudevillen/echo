@@ -4,6 +4,10 @@ module ApplicationHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  def authorize
+    redirect_to '/' unless current_user
+  end
+
   def current_friend?(potential_friend)
     current_user.friends.each do |friend|
       if friend.id == potential_friend
