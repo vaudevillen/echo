@@ -15,7 +15,7 @@ class PinsController < ApplicationController
 
   def create
     user = current_user
-    @pin = Pin.new(song_id: params[:song_id], user_id: user.id, latitude: params[:lat], longitude: params[:lng], comment: params[:comment])
+    @pin = Pin.new(song_id: params[:song_id], user_id: user.id, latitude: params[:lat], longitude: params[:lng], comment: params[:comment], address: params[:address])
     @pin.save
     redirect_to :back
   end

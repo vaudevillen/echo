@@ -35,8 +35,7 @@ function initMap(){
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
-  var input = /** @type {!HTMLInputElement} */(
-      document.getElementById('loc-input'));
+  var input = /** @type {!HTMLInputElement} */(document.getElementById('loc-input'));
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
@@ -117,6 +116,7 @@ function placeMarker(position) {
     {
       closeWindows();
       infoWindow.open(map, marker);
+      getAddress(marker);
       infowindows.push(infoWindow);
       // console.log(marker.position);
       // console.log(infoWindow.position);
@@ -136,6 +136,7 @@ function placeDBMarker(pinData) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
+      // console.log(marker.position);
     });
   markers.push(marker);
 }
@@ -161,7 +162,7 @@ function placeFriendMarker(pinData) {
 ////////////////////
 $(function() {
 
-  $(document).on("click", "#song_form", function(event)
+  $(document).on("submit", "#song_form", function(event)
   {
     event.preventDefault();
     var token = $('meta[name=csrf-token]').attr('content');
@@ -170,7 +171,7 @@ $(function() {
     {
         song_data[field.name] = field.value;
     });
-    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'] };
+    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
     $.post("/pins", data);
     closeWindows();
   });
@@ -230,4 +231,14 @@ function closeWindows(){
 }
 function deleteWindows(){
   infowindows = [];
+}
+function getAddress(){
+  var lat = $('#song_form #latitude').val();
+  var lng = $('#song_form #longitude').val();
+  var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng
+  var getAjax = $.get(url);
+  getAjax.done(function(response) {
+    console.log(response.results[0])
+    $('#song_form #address').val(response.results[0].formatted_address)
+  })
 }

@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160201032253) do
     t.text     "comment"
     t.decimal  "latitude"
     t.decimal  "longitude"
+    t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
