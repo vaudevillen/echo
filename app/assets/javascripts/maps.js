@@ -34,8 +34,7 @@ function initMap(){
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
-  var input = /** @type {!HTMLInputElement} */(
-      document.getElementById('loc-input'));
+  var input = /** @type {!HTMLInputElement} */(document.getElementById('loc-input'));
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
@@ -135,6 +134,7 @@ function placeDBMarker(pinData) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
+      // console.log(marker.position);
     });
   markers.push(marker);
 }
