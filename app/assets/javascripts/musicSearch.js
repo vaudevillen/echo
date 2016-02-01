@@ -25,6 +25,7 @@ $(function() {
     var template = Handlebars.compile($('#player-template').html());
     $('#player').append(template({spotify_uri: song_uri}))
     $('#form_type').attr("type", "submit");
+    $('#form_comment').css('display', 'inherit');
     $('#form_song_id').val(song_code);
   })
 }) //end of document ready
