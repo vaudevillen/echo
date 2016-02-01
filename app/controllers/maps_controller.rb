@@ -6,6 +6,7 @@ class MapsController < ApplicationController
   def index
     user = current_user
     @pins = user.recent_pins
+    @friends_list = current_user.friends
   end
 
 
