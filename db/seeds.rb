@@ -31,7 +31,9 @@ end
     username: Faker::Name.first_name,
     user_id: Faker::Number.between(1, 10),
     song_id: Faker::Number.between(1, 10),
-    comment: Faker::Hipster.sentences(1)
+    comment: Faker::Hipster.sentences(1),
+    song_artist: Faker::Name.name,
+    song_title: Faker::Hipster.words
   )
 end
 
