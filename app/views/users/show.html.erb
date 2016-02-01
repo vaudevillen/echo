@@ -1,6 +1,7 @@
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
 
 <h6>Picture here</h6>
+<%= image_tag @user.avatar.url(:medium) %>
 
 <h6>Username: <%= @user.username %></h6>
 <h6>Member Since: <%= @user.created_at %></h6>

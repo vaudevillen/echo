@@ -1,5 +1,5 @@
 <li class="collection-item avatar">
-      <%= image_tag('stick.png', size: "75x50", :class=>"circle responsive-img")%>
+     <%= image_tag user.avatar.url(:thumb) %>
       <span class="title">
       <%= link_to user.fullname, user_path(user)  %>
       </span>
@@ -15,5 +15,5 @@
       </span>
     <% else %>
       <%= button_to 'Add Friend', {:controller=>"friend_requests", :action=> "create", :recipient_id=> user.id, :sender_id=>session[:user_id]}, :method=>:post, :class => 'btn btn-primary btn-sm add-friend' %>
-    <% end %> 
+    <% end %>
 </li>
