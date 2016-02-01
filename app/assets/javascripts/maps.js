@@ -75,7 +75,7 @@ function initMap(){
       ].join(' ');
     }
     infowindow.setContent(loadPinBox(marker));
-    //infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.setContent('<div><strong>Location: ' + place.name + '</strong><br>' + address + '</div>' + loadPinBox(marker));
     infowindow.open(map, marker);
   });
 
