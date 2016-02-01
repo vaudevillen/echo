@@ -32,6 +32,9 @@ gem 'react-rails', '~> 1.5.0'
 gem 'faker'
 gem 'handlebars'
 
+gem 'spotify-client'
+gem 'omniauth-spotify'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
