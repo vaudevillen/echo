@@ -1,4 +1,4 @@
-(function() {
+function authentication() {
 
         var stateKey = 'spotify_auth_state';
 
@@ -53,7 +53,7 @@
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',
                 headers: {
-                  'Authorization': 'redzulu ' + access_token
+                  'Authorization': 'Bearer' + access_token
                 },
                 success: function(response) {
                   userProfilePlaceholder.innerHTML = userProfileTemplate(response);
@@ -70,7 +70,7 @@
           document.getElementById('login-button').addEventListener('click', function() {
 
             var client_id = '12e06da5c2414e63992a502036e9e915'; // Your client id
-            var redirect_uri = 'http://localhost:8888/'; // Your redirect uri
+            var redirect_uri = 'http://localhost:3000/maps'; // Your redirect uri
 
             var state = generateRandomString(16);
 
@@ -87,4 +87,4 @@
             window.location = url;
           }, false);
         }
-      })();
+      };

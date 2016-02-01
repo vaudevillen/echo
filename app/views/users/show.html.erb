@@ -1,12 +1,4 @@
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
-<div>
-    <div id="login">
-     <h3>First, log in to spotify</h3>
-     <a href="/login">Log in</a>
-    </div>
-    <div id="loggedin">
-    </div>
- </div>
 
  <script id="loggedin-template" type="text/x-handlebars-template">
     <h1>Logged in as {{display_name}}</h1>
@@ -21,49 +13,26 @@
     </dl>
     <p><a href="/">Log in again</a></p>
  </script>
-
+<h4>Recent Echos</h4>
+  <% @user.pins.each do |pin| %>
+    <%= pin.song %>
+    <%= pin.comment %>
+    <%=link_to "Edit", edit_pin_path(pin.id) %>
+  <% end %>
+<br>
+<br>
 <%=link_to "Account Settings", edit_user_path%>
 
 
    <div id="login">
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
       </div>
-      <div id="loggedin">
-        <div id="user-profile">
-        </div>
-        <div id="oauth">
-        </div>
-      </div>
     </div>
 
-    <script id="user-profile-template" type="text/x-handlebars-template">
-      <h1>Logged in as {{display_name}}</h1>
-      <div class="media">
-        <div class="pull-left">
-          <img class="media-object" width="150" src="{{images.0.url}}" />
-        </div>
-        <div class="media-body">
-          <dl class="dl-horizontal">
-            <dt>Display name</dt><dd class="clearfix">{{display_name}}</dd>
-            <dt>Id</dt><dd>{{id}}</dd>
-            <dt>Email</dt><dd>{{email}}</dd>
-            <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-            <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
-            <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
-            <dt>Country</dt><dd>{{country}}</dd>
-          </dl>
-        </div>
-      </div>
-    </script>
-
-    <script id="oauth-template" type="text/x-handlebars-template">
-      <h2>oAuth info</h2>
-      <dl class="dl-horizontal">
-        <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
-      </dl>
-    </script>
     <script>
       (function() {
+
+
 
         var stateKey = 'spotify_auth_state';
 
@@ -96,20 +65,14 @@
           return text;
         };
 
-        var userProfileSource = document.getElementById('user-profile-template').innerHTML,
-            userProfileTemplate = Handlebars.compile(userProfileSource),
-            userProfilePlaceholder = document.getElementById('user-profile');
-
-            oauthSource = document.getElementById('oauth-template').innerHTML,
-            oauthTemplate = Handlebars.compile(oauthSource),
-            oauthPlaceholder = document.getElementById('oauth');
-
         var params = getHashParams();
 
         var access_token = params.access_token,
             state = params.state,
             storedState = localStorage.getItem(stateKey);
 
+
+        //var data = {spotify_token: access_token};
         if (access_token && (state == null || state !== storedState)) {
           alert('There was an error during the authentication');
         } else {
@@ -118,11 +81,10 @@
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',
                 headers: {
-                  'Authorization': 'redzulu ' + access_token
+                  'Authorization': 'Bearer ' + access_token
                 },
                 success: function(response) {
                   userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-
                   $('#login').hide();
                   $('#loggedin').show();
                 }
@@ -131,6 +93,7 @@
               $('#login').show();
               $('#loggedin').hide();
           }
+
 
           document.getElementById('login-button').addEventListener('click', function() {
 
@@ -150,9 +113,8 @@
             url += '&state=' + encodeURIComponent(state);
 
             window.location = url;
+
           }, false);
         }
       })();
     </script>
-
-

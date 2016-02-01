@@ -29,7 +29,20 @@ class PinsController < ApplicationController
 
 
   def edit
-
+    @pin = Pin.find(params[:id])
   end
 
+
+  def update
+    @pin = Pin.find(params[:id])
+    if @pin.update_attributes(pin_params)
+      redirect_to user_path(@pin.user_id)
+    else
+      redirect_to edit_pin_path
+    end
+  end
+
+  def pin_params
+    params.require(:pin).permit(:comment)
+  end
 end
