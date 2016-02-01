@@ -11,6 +11,7 @@ var infowindows = [];
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
 
+
   var getAjax = $.get("/pins", "json");
   getAjax.done(function(response) {
     for (var i = 0; i < response.length; i ++) {
