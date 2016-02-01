@@ -1,4 +1,5 @@
 <div align="center">
+<form class="button_to" method="get" action="/maps"><i class="btn waves-effect waves-light teal darken-3 waves-input-wrapper" style=""><input class="waves-button-input" type="submit" value="Map"></i></form>
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
 
 <%= image_tag @user.avatar.url(:thumb) %>
@@ -7,7 +8,6 @@
 <h6>Member Since: <%= @user.created_at %></h6>
 
 
-<form class="button_to" method="get" action="/maps"><i class="btn waves-effect waves-light teal darken-3 waves-input-wrapper" style=""><input class="waves-button-input" type="submit" value="Map"></i></form>
 
 <h4>Recent Echos</h4>
   <% @user.pins.each do |pin| %>
