@@ -1,20 +1,23 @@
-var River = React.createClass({
+var Friends = React.createClass({
+  render() {
+    var createItem = (friend) => <li>{friend.first_name}</li>;
 
-
-  // getInitialState: function(){
-  //   console.log(this.props);
-  // },
-
-  render: function(){
-    return(
-    <div>
-    <h5> This is from React!</h5>
-    </div>
-    );
+    return <ul>{this.props.friends.map(createItem)}</ul>;
   }
 });
 
-ReactDOM.render(
-  <River url='/maps' />,
-  document.getElementById('river')
-);
+var Comment = React.createClass({
+  render() {
+    // var createItem = ({comment}) => <Comment comment={comment} />;
+
+    return <div>{this.props.comments}</div>;
+  }
+});
+
+// var River = React.createClass({
+//   render() {
+//     var createItem = ({comment}) => <Comment comment={comment} />;
+
+//     return <div>{this.props.comments.map(createItem)}</div>;
+//   }
+// });
