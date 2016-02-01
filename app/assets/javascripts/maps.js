@@ -3,19 +3,18 @@
 ///////////////////////
 var map, transformers;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
-
+var markers = [];
+var infowindows = [];
 ////////////////////////
 // Map Initialization //
 ////////////////////////
 function initMap(){
-  var pin_data;
-  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown});
+  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
 
   var getAjax = $.get("/pins", "json");
   getAjax.done(function(response) {
     for (var i = 0; i < response.length; i ++) {
-      var pinLatlng = new google.maps.LatLng(response[i].latitude, response[i].longitude);
-      placeMarker(pinLatlng);
+      placeDBMarker(response[i]);
     }
   });
 
@@ -40,11 +39,12 @@ function initMap(){
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-  var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
     map: map,
     anchorPoint: new google.maps.Point(0, -29)
   });
+
+  var infowindow = new google.maps.InfoWindow();
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
@@ -74,8 +74,8 @@ function initMap(){
         (place.address_components[2] && place.address_components[2].short_name || '')
       ].join(' ');
     }
-
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.setContent(loadPinBox(marker));
+    //infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
   });
 
@@ -114,25 +114,103 @@ function placeMarker(position) {
   // notice that functions defined here can see 'marker' in their scope.
   google.maps.event.addListener(marker,'click',function(e)
     {
+      closeWindows();
       infoWindow.open(map, marker);
+      infowindows.push(infoWindow);
       // console.log(marker.position);
       // console.log(infoWindow.position);
     });
+}
+function placeDBMarker(pinData) {
+  var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
+  var marker = new google.maps.Marker({position: pinLatlng, map: map});
+  marker.setIcon(transformers);
+  var infoWindowOptions = { content: loadDBPinBox(pinData) };
+  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+  google.maps.event.addListener(marker,'click',function(e)
+    {
+      closeWindows();
+      infoWindow.open(map, marker);
+      infowindows.push(infoWindow);
+    });
+
+}
+function placeFriendMarker(pinData) {
+  var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
+  var marker = new google.maps.Marker({position: pinLatlng, map: map});
+  marker.setIcon(transformers);
+  var infoWindowOptions = { content: loadDBPinBox(pinData) };
+  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+  google.maps.event.addListener(marker,'click',function(e)
+    {
+      closeWindows();
+      infoWindow.open(map, marker);
+      infowindows.push(infoWindow);
+
+    });
+  markers.push(marker);
 }
 
 ////////////////////
 // Document Ready //
 ////////////////////
 $(function() {
-  $(document).on("click", "#song_form", function(event){
+
+  $(document).on("click", "#song_form", function(event)
+  {
     event.preventDefault();
-    console.log("save called");
     var token = $('meta[name=csrf-token]').attr('content');
     var song_data = {};
-    $.each($(this).serializeArray(), function(i, field) {
+    $.each($(this).serializeArray(), function(i, field)
+    {
         song_data[field.name] = field.value;
     });
-    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"] };
+    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'] };
     $.post("/pins", data);
+    closeWindows();
+  });
+
+  $(document).on("submit", ".friend_pin_form", function(event)
+  {
+    event.preventDefault();
+    clearMarkers();
+    $(this).serialize();
+    var friend_id = $(this).serialize().slice(10);
+    var url = "/pins/" + friend_id;
+    var getAjax = $.get(url, "json");
+    getAjax.done(function(response)
+    {
+      for (var i = 0; i < response.length; i ++)
+      {
+        placeFriendMarker(response[i]);
+      }
+    });
   });
 })
+//sets the map for markers in marker array. comes in handy when removing markers
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function closeWindows(){
+  infowindows.forEach(function(window){
+    window.close();
+  });
+  deleteWindows();
+}
+function deleteWindows(){
+  infowindows = [];
+}

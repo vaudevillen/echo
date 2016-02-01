@@ -1,8 +1,8 @@
  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 
   <body>
+    <%= render template: "friends/_sidebar"  %>
     <%= render template: "layouts/_navbar" %>
-
     <%= image_tag('google.png', :class=>"google responsive-img") %>
     <%= button_to "New Echo", new_pin_path, :method => "get" %>
 
@@ -17,6 +17,13 @@
 <script id="player-template" type="text/x-handlebars-template">
   <iframe src="https://embed.spotify.com/?uri={{spotify_uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 </script>
+<script id="db-player-template" type="text/x-handlebars-template">
+  <p>{{artist}} - {{song}}</p>
+  <div id='search-box'>
+  <li><a href="#" id="{{song_uri}}">Play Song</a></li>
+  </div>
+  <div id="player"></div>
+</script>
 <script id="search-bar-template" type="text/x-handlebars-template">
 <div id='search-box'>
   <input id="searchbar" type="text" class="form-control" placeholder="Search for...">
@@ -26,6 +33,7 @@
     <input id="form_song_id" type="hidden" name="song_id">
     <input type="hidden" name="lat" value="{{lat}}">
     <input type="hidden" name="lng" value="{{lng}}">
+    <textarea id="form_comment" style="display: none;" name="comment"></textarea>
     <input id="form_type" type="hidden" value="Save">
   </form>
 </div>
