@@ -31,6 +31,18 @@ class User < ActiveRecord::Base
     self.city + ", " + self.state
   end
 
+  def recent_pins
+    recent = []
+    result = []
+    self.friends.each do |friend|
+      friend.pins.each do |pin|
+        recent << pin
+      end
+    end
+    recent.sort!{|a,b| b.created_at <=> a.created_at}
+    result << recent[0] << recent[1]
+  end
+
   def self.search(query)
     where("first_name like ? or last_name like ?", "%#{query}%", "%#{query}%")
   end
