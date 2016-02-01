@@ -24,10 +24,17 @@ var Comment = React.createClass({
   },
 
   comment: function(){
-    this.props.pins.push({comment: "willy nilly"})
-    this.setState({pins: this.props.pins});
-  },
+    $.ajax({
+      url: "/maps",
+      dataType: 'json',
+      type: 'GET',
+      cache: false,
+      success: function(data){
+        this.setState({pins: data});
+      }.bind(this)
+    });
 
+  },
   render() {
     console.log(this.state.pins);
      return (<div>{this.state.pins.map(function (key, value){
