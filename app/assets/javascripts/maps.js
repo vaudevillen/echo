@@ -18,8 +18,6 @@ function initMap(){
   if (navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
       var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
-      locWindow.setPosition(pos);
-      locWindow.setContent('You are here... I hope...');
       map.setCenter(pos);
     }, function(){
       handleLocationError(true, locWindow, map.getCenter());
@@ -68,7 +66,6 @@ function initMap(){
         (place.address_components[2] && place.address_components[2].short_name || '')
       ].join(' ');
     }
-    infowindow.setContent(loadPinBox(marker));
     infowindow.setContent('<div><strong>Location: ' + place.name + '</strong><br>' + address + '</div>' + loadPinBox(marker));
     infowindow.open(map, marker);
   });
@@ -167,7 +164,7 @@ $(function() {
     {
         song_data[field.name] = field.value;
     });
-    var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
+    var data = { song_artist: song_data["song_artist"], song_title: song_data["song_title"], lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
     $.post("/pins", data);
     closeWindows();
     clearMarkers();
