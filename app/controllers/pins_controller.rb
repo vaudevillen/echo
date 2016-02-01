@@ -1,5 +1,6 @@
 class PinsController < ApplicationController
   include ApplicationHelper
+  before_filter :authorize
   def index
     @pins = Pin.where(user_id: current_user.id)
     if request.xhr?

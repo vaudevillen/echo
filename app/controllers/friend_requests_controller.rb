@@ -1,6 +1,6 @@
 class FriendRequestsController < ApplicationController
   include ApplicationHelper
-
+  before_filter :authorize
   def create
     @request = FriendRequest.create(request_params)
     redirect_to :back
