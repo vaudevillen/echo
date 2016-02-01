@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+
   include ApplicationHelper
 
   before_filter :authorize, except: [:new, :create]
+
   def index
     @users = User.all
     if params[:search]
