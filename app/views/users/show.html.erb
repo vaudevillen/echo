@@ -20,7 +20,9 @@
 </div>
 <!--Below will be the link to see all of your frinds -->
 <!-- # button_to "Your Friends", friends_path -->
-
+<div align="left">
+<%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
+</div>
 <div align="right">
 <%=link_to "Account Settings", edit_user_path%>
 </div>

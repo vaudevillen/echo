@@ -37,7 +37,6 @@ gem 'omniauth-spotify'
 
 gem "paperclip", "~> 4.3"
 
-gem 'firebase'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
