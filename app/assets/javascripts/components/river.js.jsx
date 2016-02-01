@@ -37,7 +37,7 @@ var Comment = React.createClass({
     console.log(this.state.pins);
      return (<div>{this.state.pins.map(function (key, value){
         return <div key={key.id}>
-         Comment: {key.comment} Name: {key.username}
+         <p className='river'>{key.username} @ {key.location} Song: {} - {key.comment}</p>
         </div>;
       })}
     </div>)
