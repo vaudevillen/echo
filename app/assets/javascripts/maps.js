@@ -3,7 +3,7 @@
 ///////////////////////
 var map, transformers;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
-
+var markers = [];
 ////////////////////////
 // Map Initialization //
 ////////////////////////
@@ -134,20 +134,67 @@ function placeDBMarker(pinData) {
     });
 
 }
+function placeFriendMarker(pinData) {
+  var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
+  var marker = new google.maps.Marker({position: pinLatlng, map: map});
+  marker.setIcon(transformers);
+  var infoWindowOptions = { content: loadDBPinBox(pinData) };
+  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+  google.maps.event.addListener(marker,'click',function(e)
+    {
+      infoWindow.open(map, marker);
+    });
+  markers.push(marker);
+}
 
 ////////////////////
 // Document Ready //
 ////////////////////
 $(function() {
-  $(document).on("click", "#song_form", function(event){
+
+  $(document).on("click", "#song_form", function(event)
+  {
     event.preventDefault();
-    console.log("save called");
     var token = $('meta[name=csrf-token]').attr('content');
     var song_data = {};
-    $.each($(this).serializeArray(), function(i, field) {
+    $.each($(this).serializeArray(), function(i, field)
+    {
         song_data[field.name] = field.value;
     });
     var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"] };
     $.post("/pins", data);
   });
+
+  $(document).on("submit", ".friend_pin_form", function(event)
+  {
+    event.preventDefault();
+    clearMarkers();
+    $(this).serialize();
+    var friend_id = $(this).serialize().slice(10);
+    var url = "/pins/" + friend_id;
+    var getAjax = $.get(url, "json");
+    getAjax.done(function(response)
+    {
+      for (var i = 0; i < response.length; i ++)
+      {
+        placeFriendMarker(response[i]);
+      }
+    });
+  });
 })
+//sets the map for markers in marker array. comes in handy when removing markers
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
