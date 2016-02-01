@@ -111,16 +111,18 @@ function placeMarker(position) {
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
   // notice that functions defined here can see 'marker' in their scope.
-  google.maps.event.addListener(marker,'click',function(e)
+  closeWindows();
+  infoWindow.open(map, marker);
+  infowindows.push(infoWindow);
+
+  google.maps.event.addListener(infoWindow,'closeclick',function(e)
     {
-      closeWindows();
-      infoWindow.open(map, marker);
-      getAddress(marker);
-      infowindows.push(infoWindow);
-      // console.log(marker.position);
-      // console.log(infoWindow.position);
+      marker.setMap(null);
     });
-  markers.push(marker);
+  google.maps.event.addListener(map, 'rightclick', function(e)
+  {
+    marker.setMap(null);
+  });
 }
 function placeDBMarker(pinData) {
   var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
@@ -130,7 +132,7 @@ function placeDBMarker(pinData) {
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
   // notice that functions defined here can see 'marker' in their scope.
-  google.maps.event.addListener(marker,'click',function(e)
+    google.maps.event.addListener(marker,'click',function(e)
     {
       closeWindows();
       infoWindow.open(map, marker);
@@ -153,7 +155,6 @@ function placeFriendMarker(pinData) {
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
     });
-  markers.push(marker);
 }
 
 ////////////////////
@@ -173,6 +174,16 @@ $(function() {
     var data = { lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
     $.post("/pins", data);
     closeWindows();
+    clearMarkers();
+      //refactor this later
+      var getAjax = $.get("/pins", "json");
+      getAjax.done(function(response)
+      {
+        for (var i = 0; i < response.length; i ++)
+        {
+          placeDBMarker(response[i]);
+        }
+      });
   });
 
   $(".friend_pin_form").on("submit", function(event)
