@@ -16,6 +16,11 @@
     </div>
     <div class="col s4 offset-s2">
       <h6> Recent Posts</h6>
+
+        <% @pins.each do |pin| %>
+          <%= react_component("Comment", {:comments => pin.comment}) %>
+        <% end %>
+
     </div>
   </div>
 

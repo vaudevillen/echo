@@ -75,7 +75,7 @@ function initMap(){
       ].join(' ');
     }
     infowindow.setContent(loadPinBox(marker));
-    //infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.setContent('<div><strong>Location: ' + place.name + '</strong><br>' + address + '</div>' + loadPinBox(marker));
     infowindow.open(map, marker);
   });
 
@@ -120,6 +120,7 @@ function placeMarker(position) {
       // console.log(marker.position);
       // console.log(infoWindow.position);
     });
+  markers.push(marker);
 }
 function placeDBMarker(pinData) {
   var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
@@ -135,7 +136,7 @@ function placeDBMarker(pinData) {
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
     });
-
+  markers.push(marker);
 }
 function placeFriendMarker(pinData) {
   var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
@@ -150,7 +151,6 @@ function placeFriendMarker(pinData) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
-
     });
   markers.push(marker);
 }
@@ -174,7 +174,7 @@ $(function() {
     closeWindows();
   });
 
-  $(document).on("submit", ".friend_pin_form", function(event)
+  $(".friend_pin_form").on("submit", function(event)
   {
     event.preventDefault();
     clearMarkers();
@@ -190,7 +190,23 @@ $(function() {
       }
     });
   });
+  $(document).on("click", "#my_pins", function(event)
+  {
+    clearMarkers();
+    var getAjax = $.get("/pins", "json");
+    getAjax.done(function(response)
+    {
+      for (var i = 0; i < response.length; i ++)
+      {
+        placeDBMarker(response[i]);
+      }
+    });
+  });
 })
+
+///////////////////////////
+///Helper functions////////
+///////////////////////////
 //sets the map for markers in marker array. comes in handy when removing markers
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
