@@ -17,7 +17,6 @@ $(function() {
 
   $('body').on('click', '#search-box li a', function(event) {
     event.preventDefault();
-    console.log("link clicked");
     $('#player *').remove();
     var song_uri = $(this).attr('id');
     var song_code = song_uri.replace(/spotify%3Atrack%3A/, ""); //REMOVED 'g' from REPLACE

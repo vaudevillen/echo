@@ -1,4 +1,5 @@
 class FriendsController < ApplicationController
+  include ApplicationHelper
 
   before_filter :authorize
 
