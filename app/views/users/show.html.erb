@@ -1,7 +1,7 @@
+<div align="center">
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
 
-<h6>Picture here</h6>
-<%= image_tag @user.avatar.url(:medium) %>
+<%= image_tag @user.avatar.url(:thumb) %>
 
 <h6>Username: <%= @user.username %></h6>
 <h6>Member Since: <%= @user.created_at %></h6>
@@ -17,14 +17,14 @@
     <%=link_to "Edit", edit_pin_path(pin.id) %>
     <br>
   <% end %>
-
+</div>
 <!--Below will be the link to see all of your frinds -->
 <!-- # button_to "Your Friends", friends_path -->
 
-
+<div align="right">
 <%=link_to "Account Settings", edit_user_path%>
-
-   <div id="login">
+</div>
+   <div id="login" align="right">
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
       </div>
     </div>
