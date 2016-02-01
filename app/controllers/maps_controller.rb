@@ -1,6 +1,8 @@
 class MapsController < ApplicationController
   include ApplicationHelper
 
+  before_filter :authorize
+
   respond_to :html, :json
 
   def index
