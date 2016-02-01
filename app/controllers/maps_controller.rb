@@ -4,7 +4,8 @@ class MapsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @pins = Pin.all
+    user = current_user
+    @pins = user.recent_pins
   end
 
 
