@@ -32,6 +32,13 @@ gem 'react-rails', '~> 1.5.0'
 gem 'faker'
 gem 'handlebars'
 
+gem 'spotify-client'
+gem 'omniauth-spotify'
+
+gem "paperclip", "~> 4.3"
+gem 'aws-sdk', '< 2.0'
+gem "dotenv-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -54,4 +61,6 @@ group :test do
   gem 'rake'
   gem 'simplecov'
 end
+
+gem 'rails_12factor', group: :production
 

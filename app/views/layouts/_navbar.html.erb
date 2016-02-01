@@ -5,18 +5,21 @@
       <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
       <%= link_to user_path(current_user) do %>
       <div class="chip chippy">
-        <%= image_tag('stick.png') %>
+        <%= image_tag current_user.avatar.url(:thumb) %>
           <%= current_user.fullname %>
       </div>
       <% end %>
       <input id="loc-input" class="controls" type="text"
           placeholder="Enter a location">
       <%= button_to('Logout', logout_path, :class => 'logout waves-light btn', :method => :get)  %>
-      <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>  
+      <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>
     </div>
     <div class="col s4 offset-s2">
+      <% unless @pins[0] == nil %>
       <h6> Recent Posts</h6>
+          <%= react_component("Comment", {:pins => @pins}) %>
+        <% end %>
     </div>
   </div>
-  
+
 </nav>

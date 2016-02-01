@@ -1,9 +1,0 @@
-<ul>
-  <% current_user.friends.each do |friend| %>
-    <form class="friend_pin_form" method="post" action='/pins'>
-      <input type="hidden" name="friend_id" value="<%= friend.id%>">
-      <input type="submit" value="<%= friend.username %>">
-    </form>
-  <% end %>
-</ul>
-

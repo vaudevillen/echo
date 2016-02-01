@@ -28,9 +28,12 @@ end
 
 40.times do
   Pin.create(
+    username: Faker::Name.first_name,
     user_id: Faker::Number.between(1, 10),
     song_id: Faker::Number.between(1, 10),
-    comment: Faker::Hipster.sentences(1)
+    comment: Faker::Hipster.sentences(1),
+    song_artist: Faker::Name.name,
+    song_title: Faker::Hipster.words
   )
 end
 
@@ -43,8 +46,8 @@ FriendRequest.create(recipient_id: 11, sender_id: 5, status: true)
 FriendRequest.create(recipient_id: 11, sender_id: 6, status: true)
 FriendRequest.create(recipient_id: 11, sender_id: 7, status: true)
 
-Pin.create(user_id: 1, comment: "I really like this song, Go Cards!", song_id: "Hit Song")
-Pin.create(user_id: 2, comment: "This really gets me going", song_id: "Booty Dance")
-Pin.create(user_id: 3, comment: "Heartland Rock is the best guyzz", song_id: "The Best Song Ever")
-Pin.create(user_id: 4, comment: "Remember this one, guys?", song_id: "Mambo Number 5")
-Pin.create(user_id: 5, comment: "A real heartstopper", song_id: "4 33")
+Pin.create(user_id: 1, comment: "I really like this song, Go Cards!", song_id: "Hit Song", username: "Ricky Martin")
+Pin.create(user_id: 2, comment: "This really gets me going", song_id: "Booty Dance", username: "Dan Davis")
+Pin.create(user_id: 3, comment: "Heartland Rock is the best guyzz", song_id: "The Best Song Ever", username: "Ronald Regan")
+Pin.create(user_id: 4, comment: "Remember this one, guys?", song_id: "Mambo Number 5", username: "Saucy Cat")
+Pin.create(user_id: 5, comment: "A real heartstopper", song_id: "4 33", username: "Billy Ocean")
