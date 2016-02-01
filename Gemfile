@@ -36,6 +36,7 @@ gem 'spotify-client'
 gem 'omniauth-spotify'
 
 gem "paperclip", "~> 4.3"
+gem 'aws-sdk'
 
 
 group :development, :test do
