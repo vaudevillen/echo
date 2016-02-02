@@ -42,6 +42,11 @@
           <%= f.file_field :avatar %>
         </div>
       </div>
+          <% if flash[:error] %>
+          <% flash[:error].each do |error| %>
+            <p class="notice red-text text-accent-4"><%= error %></p>
+         <% end %>
+         <% end %>
      <%= f.submit :class => "btn waves-effect waves-light" %>
     </form>
 <% end %>
