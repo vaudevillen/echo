@@ -50,3 +50,8 @@
   position: absolute;
 }
 
+.deny {
+  color: #d10000;
+  float: right;
+  clear: both;
+}

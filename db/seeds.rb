@@ -20,8 +20,8 @@ end
         last_name: Faker::Name.last_name,
         username: Faker::Internet.user_name,
         city: Faker::Address.city,
-        state: Faker::Address.state_abbr
-
+        state: Faker::Address.state_abbr,
+        avatar: File.open(File.join(Rails.root, "/app/assets/images/stick.png"))
       )
 end
 
