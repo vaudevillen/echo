@@ -20,7 +20,8 @@
 <script id="db-player-template" type="text/x-handlebars-template">
   <p>{{address}}</p>
   <div id='search-box'>
-  <li><a href="#" id="{{song_uri}}">Play Song</a></li>
+  <li><a href="#" id="{{song_uri}}">{{artist}} - {{song_title}}</a></li>
+  <li>{{comment}}</li>
   </div>
   <div id="player"></div>
 </script>
