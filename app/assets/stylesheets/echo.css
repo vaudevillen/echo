@@ -44,3 +44,9 @@
 #friend_search{
   color: white;
 }
+
+.inline{
+  display: inline;
+  position: absolute;
+}
+
