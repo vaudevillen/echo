@@ -57,7 +57,8 @@ group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails', '~> 4.0'
-
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
   gem 'rake'
   gem 'simplecov'
 end
