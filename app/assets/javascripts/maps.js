@@ -134,21 +134,6 @@ function placeDBMarker(pinData) {
     });
   markers.push(marker);
 }
-function placeFriendMarker(pinData) {
-  var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
-  var marker = new google.maps.Marker({position: pinLatlng, map: map});
-  marker.setIcon(transformers);
-  var infoWindowOptions = { content: loadDBPinBox(pinData) };
-  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-  // This is where individual click event handlers are created for each pin,
-  // notice that functions defined here can see 'marker' in their scope.
-  google.maps.event.addListener(marker,'click',function(e)
-    {
-      closeWindows();
-      infoWindow.open(map, marker);
-      infowindows.push(infoWindow);
-    });
-}
 
 ////////////////////
 // Document Ready //
@@ -162,41 +147,39 @@ $(function() {
     var song_data = {};
     $.each($(this).serializeArray(), function(i, field)
     {
-        song_data[field.name] = field.value;
+      song_data[field.name] = field.value;
     });
     var data = { song_artist: song_data["song_artist"], song_title: song_data["song_title"], lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
     $.post("/pins", data);
     closeWindows();
-    clearMarkers();
+    deleteMarkers();
     getPins();
   });
 
   $(document).on("click", ".river_div", function(event){
     var commentLat = $(this).children(".river_lat").text();
     var commentLng = $(this).children(".river_lng").text();
-
-    map.setCenter({lat: parseFloat(commentLat), lng: parseFloat(commentLng)});
+    var pinLat = $(this).attr("data-lat");
+    var pinLng = $(this).attr("data-lng");
+    map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
+    var url = "/pins/" + $(this).attr("data-user_id");
+    deleteMarkers();
+    getPins(url);
   });
 
   $(".friend_pin_form").on("submit", function(event)
   {
     event.preventDefault();
-    clearMarkers();
+    deleteMarkers();
     $(this).serialize();
+    //not the most elegant way to do it, but the following code defines the variable with the value of the hash
     var friend_id = $(this).serialize().slice(10);
     var url = "/pins/" + friend_id;
-    var getAjax = $.get(url, "json");
-    getAjax.done(function(response)
-    {
-      for (var i = 0; i < response.length; i ++)
-      {
-        placeFriendMarker(response[i]);
-      }
-    });
+    getPins(url);
   });
   $(document).on("click", "#my_pins", function(event)
   {
-    clearMarkers();
+    deleteMarkers();
     getPins();
   });
 })
@@ -210,20 +193,24 @@ function setMapOnAll(map) {
     markers[i].setMap(map);
   }
 }
-
+//removes markers in the array from the map
 function clearMarkers() {
   setMapOnAll(null);
 }
+//removes markers in the array from the map and removes them from array
 function deleteMarkers() {
   clearMarkers();
   markers = [];
 }
+
+//closes all infoWindows in windows array
 function closeWindows(){
   infowindows.forEach(function(window){
     window.close();
   });
   deleteWindows();
 }
+//deletes infoWindows from array
 function deleteWindows(){
   infowindows = [];
 }
