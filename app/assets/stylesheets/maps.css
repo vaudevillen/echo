@@ -7,3 +7,11 @@ html, body {
 #map {
     height: 100%;
   }
+
+#river_song{
+    top:0;
+    float: left;
+    height: 150px;
+
+}
+
