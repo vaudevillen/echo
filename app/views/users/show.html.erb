@@ -1,35 +1,39 @@
 <div align="center">
-<form class="button_to" method="get" action="/maps"><i class="btn waves-effect waves-light teal darken-3 waves-input-wrapper" style=""><input class="waves-button-input" type="submit" value="Map"></i></form>
+<div class="row">
+
+
+  <div class="col s12 m4 l2">
+    <%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
+  </div>
+<form class="button_to col s12 m4 l8" method="get" action="/maps"><i class="btn waves-effect waves-light teal darken-3 waves-input-wrapper" style=""><input class="waves-button-input" type="submit" value="Map"></i></form>
+  <div class="col s12 m4 l2">
+    <div id="login">
+      <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
+    </div>
+  </div>
+</div>
+
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
 
 <%= image_tag @user.avatar.url(:thumb) %>
 
-<h6>Username: <%= @user.username %></h6>
+<h4>A.k.a: <%= @user.username %></h4>
 <h6>Member Since: <%= @user.created_at %></h6>
-
-
+<%=link_to "Account Settings", edit_user_path%>
 
 <h4>Recent Echos</h4>
   <% @user.pins.each do |pin| %>
-    <%= pin.song %>
     <%= pin.comment %>
     <br>
-    <%=link_to "Edit", edit_pin_path(pin.id) %>
+  <iframe src=<%= 'https://embed.spotify.com/?uri=spotify:track:' + pin.song_id %> frameborder="0" width="300" height="100" allowtransparency="true"></iframe>
+  <br>
+    <%= pin.address %>
     <br>
+    <%=link_to "Edit", edit_pin_path(pin.id) %>
   <% end %>
 </div>
 <!--Below will be the link to see all of your frinds -->
 <!-- # button_to "Your Friends", friends_path -->
-<div align="left">
-<%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
-</div>
-<div align="right">
-<%=link_to "Account Settings", edit_user_path%>
-</div>
-   <div id="login" align="right">
-        <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
-      </div>
-    </div>
     <script>
       (function() {
 
