@@ -171,6 +171,13 @@ $(function() {
     getPins();
   });
 
+  $(document).on("click", ".river_div", function(event){
+    var commentLat = $(this).children(".river_lat").text();
+    var commentLng = $(this).children(".river_lng").text();
+
+    map.setCenter({lat: parseFloat(commentLat), lng: parseFloat(commentLng)});
+  });
+
   $(".friend_pin_form").on("submit", function(event)
   {
     event.preventDefault();
