@@ -1,22 +1,22 @@
 <ul class="collection">
 <% @users.each do |user| %>
 <li class="collection-item avatar">
-     <%= image_tag user.avatar.url(:thumb) %>
+      <%= image_tag user.avatar.url(:thumb), :class => 'circle' %>
       <span class="title">
       <%= link_to user.fullname, user_path(user)  %>
       </span>
       <p> <%= user.location  %> </p>
     <% if current_friend?(user.id) %>
-      <p class="right">This person is your friend</p>
+      <p class="right"><b>Friend</b></p>
     <% elsif request_sent?(user.id) %>
-      <p class="right ">Request Pending</p>
+      <p class="right "><b>Request Pending</b></p>
     <% elsif request_received?(user.id)%>
       
-      <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content' %>
+      <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content request-accept' %>
 
       <%= link_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'deny' %>
     <% else %>
-      <%= link_to 'Add Friend', {:controller=>"friend_requests", :action=> "create", :recipient_id=> user.id, :sender_id=>session[:user_id]}, :method=>:post, :class => 'secondary-content' %>
+      <%= link_to 'Add Friend', {:controller=>"friend_requests", :action=> "create", :recipient_id=> user.id, :sender_id=>session[:user_id]}, :method=>:post, :class => 'secondary-content add-friend' %>
     <% end %>
 </li>
 <% end %>
