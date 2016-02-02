@@ -17,8 +17,10 @@
           <h5 class="header col s12 white-text">An app that allows users to share songs, places, and their memories</h5>
         </div>
         <div class="row center">
+        <% unless current_user %>
           <%= button_to('Register', new_user_path, :class => 'btn-large waves-effect waves-light teal darken-3', :method => :get)  %>
           <br>
+          <% end %>
           <% unless session[:user_id] %>
           <!-- Modal-->
           <button data-target="modal1" class="btn modal-trigger teal darken-3">Login</button>
@@ -30,6 +32,10 @@
           <% else %>
           <br>
           <%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
+          <% end %>
+          <br><br>
+          <% if flash[:error] %>
+            <div class="notice red-text text-accent-4"><%= flash[:error] %></div>
           <% end %>
 
         </div>

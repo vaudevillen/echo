@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to maps_path
     else
+      flash[:error] = "Your username and password do not match"
       redirect_to :back
     end
   end
