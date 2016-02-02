@@ -2,11 +2,17 @@
 
   <body>
     <%= render template: "layouts/_navbar" %>
-    <%= render template: "layouts/_sidebar"  %>
+
     <% if @pin %>
       <div id="query-pin" data-c-user=<%= current_user.id %>data-user-id=<%= @pin.user_id %> data-lng=<%= @pin.longitude %> data-lat=<%= @pin.latitude %> display="none"></div>
     <% end %>
-    <div id="map"></div>
+
+    <%= image_tag('google.png', :class=>"google responsive-img") %>
+    <div id="map-canvas">
+      <div id="overlay"><%= render template: "layouts/_sidebar"  %></div>
+      <div id="map"></div>
+    </div>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
     <div id="gmage">
       <%= image_tag('google.png', :class=>"google responsive-img") %>

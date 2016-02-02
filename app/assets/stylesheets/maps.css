@@ -4,6 +4,15 @@ html, body {
     padding: 0;
   }
 
+#map-canvas {
+  position: absolute;
+  top:200px;
+  left:0;
+  right:0;
+  bottom: 0;
+  overflow: hidden;
+}
+
 #map {
     height: 73%;
   }
@@ -20,4 +29,16 @@ html, body {
   right: 0;
   z-index: 1;
   position: fixed;
+}
+
+#overlay {
+  margin-top: 60px;
+  height: 100%;
+  z-index: 99;
+  position: absolute;
+  pointer-events: none;
+}
+
+#overlay * {
+  pointer-events: all;
 }

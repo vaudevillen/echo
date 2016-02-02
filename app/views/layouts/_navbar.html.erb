@@ -16,9 +16,9 @@
     </div>
     <div id="river_song" class="col s4 offset-s2">
       <% unless @pins[0] == nil %>
-      <h6> Recent Posts</h6>
-          <%= react_component("Comment", {:pins => @pins}) %>
-        <% end %>
+        <h6> Recent Posts</h6>
+        <%= react_component("Comment", {:pins => @pins}) %>
+      <% end %>
     </div>
   </div>
 
