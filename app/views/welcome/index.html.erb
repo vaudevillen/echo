@@ -8,9 +8,9 @@
 </head>
 <body>
 
-  <div id="index-banner" class="parallax-container">
+    <div id="index-banner" class="parallax-container up-top">
     <div class="section no-pad-bot">
-      <div class="container up-top">
+      <div class="container">
         <br><br>
         <%= link_to image_tag('logo.png', size: "275x125", :class=>"center-block responsive-img"), maps_path%>
         <div class="row center">
@@ -18,12 +18,12 @@
         </div>
         <div class="row center">
         <% unless current_user %>
-          <%= button_to('Register', new_user_path, :class => 'btn-large waves-effect waves-light teal darken-3', :method => :get)  %>
+          <%= button_to('Register', new_user_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
           <br>
           <% end %>
           <% unless session[:user_id] %>
           <!-- Modal-->
-          <button data-target="modal1" class="btn modal-trigger teal darken-3">Login</button>
+          <button data-target="modal1" class="btn waves-effect waves-light teal darken-3 modal-trigger">Login</button>
           <div id="modal1" class="modal">
             <div class="modal-content">
              <%= render template: "sessions/new" %>
@@ -42,22 +42,45 @@
         <br><br>
       </div>
     </div>
-    <div class="parallax up-top"><img src="background1.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><%=image_tag('cover.png')%></div>
   </div>
 
-  <div class="section white">
-    <div class="row container">
-      <h2 class="header">Parallax</h2>
-      <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+  <div class="row tallguy">
+        <div class="col s12 m4 offset-m1">
+        <br><br><br>
+          <div class="icon-block">
+            <h5 class="center">Drop Pins</h5>
+            <br>
+            <button class="ghost">Click</button>
+            <br><br>
+            <p class="light center">Find any location and attach a song to a dropped pin</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4 offset-m2">
+        <br><br><br>
+          <div class="icon-block">
+            <h5 class="center">Save Memories</h5>
+            <br>
+            <button class="ghost">Click</button>
+            <br><br>
+            <p class="light center">Write a message on your pin and check with friends</p>
+          </div>
+        </div>
+
     </div>
   </div>
-  <div class="parallax-container">
+
+  <div class="parallax-container bottom-contain">
     <div class="parallax"><img src="images/parallax2.jpg"></div>
   </div>
   <script type="text/javascript">
   $(function() {
     $('.modal-trigger').leanModal();
-  })
+  });
+  $(function(){
+    $('.parallax').parallax();
+  });
   </script>
 </body>
 </html>
