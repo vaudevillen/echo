@@ -3,11 +3,12 @@
   <body>
     <%= render template: "layouts/_navbar" %>
     <%= render template: "layouts/_sidebar"  %>
-    <%= image_tag('google.png', :class=>"google responsive-img") %>
 
     <div id="map"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
-
+    <div id="gmage">
+      <%= image_tag('google.png', :class=>"google responsive-img") %>
+    </div>
   </body>
 
 <script id="song-template" type="text/x-handlebars-template">
