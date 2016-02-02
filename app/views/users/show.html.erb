@@ -7,7 +7,12 @@
 <h6>Username: <%= @user.username %></h6>
 <h6>Member Since: <%= @user.created_at %></h6>
 
-
+<% if @user.pending_requests.length > 0 %>
+  <h5> You have pending friend requests</h5>
+  <% @user.pending_requests.each do |request| %>
+    <%= render template: "friends/_request", :locals => { user: request} %>
+  <% end %>
+  <% end %>
 
 <h4>Recent Echos</h4>
   <% @user.pins.each do |pin| %>
