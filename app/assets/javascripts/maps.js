@@ -174,8 +174,9 @@ $(function() {
   $(document).on("click", ".river_div", function(event){
     var commentLat = $(this).children(".river_lat").text();
     var commentLng = $(this).children(".river_lng").text();
-
-    map.setCenter({lat: parseFloat(commentLat), lng: parseFloat(commentLng)});
+    var pinLat = $(this).attr("data-lat");
+    var pinLng = $(this).attr("data-lng");
+    map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
   });
 
   $(".friend_pin_form").on("submit", function(event)
