@@ -22,11 +22,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.state = State.find(@user.state).name
+    @user.state = State.find(@user.state).name if @user.state != ""
     if @user.save
       session[:user_id] = @user.id
       redirect_to @user
     else
+      flash[:error] = @user.errors.full_messages
       redirect_to :back
     end
   end
