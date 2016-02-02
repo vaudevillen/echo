@@ -1,0 +1,10 @@
+<%= link_to user_path(user) do %>
+<div class="chip">
+    <img src="images/yuna.jpg" alt="Contact Person">
+    <%= user.fullname %>
+</div>
+<% end %>
+<div class="inline">
+    <%= button_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'btn red accent-4 btn-sm' %>
+      <%= button_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'btn green accent-4 btn-sm' %>
+</div>

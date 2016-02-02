@@ -29,4 +29,13 @@ module ApplicationHelper
     return FriendRequest.find_by(sender_id: session[:user_id], recipient_id: id) || FriendRequest.find_by(sender_id: id, recipient_id: session[:user_id])
   end
 
+  def pending_requests
+    holder = []
+    self.received_requests.each do |request|
+      friend = User.find(request.sender_id)
+      holder << friend if request.status == false
+    end
+    return holder
+  end
+
 end

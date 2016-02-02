@@ -40,3 +40,8 @@
 .river {
   margin: 0;
 }
+
+.inline{
+  display: inline;
+  position: absolute;
+}
