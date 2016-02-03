@@ -1,20 +1,14 @@
-<body>
-  <div class="center">
-  <%= button_to('Map', maps_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
-  </div>
-  <br>
 <div class="row">
   <%= form_tag(users_path, :method => "get", id: "search-form") do %>
-  <h6 class="center-align">Find Your Friends</h6>
   <div class="input-field col s4 offset-s4">
-      <%= text_field_tag :search, params[:search], placeholder: "Search"%>
+      <%= text_field_tag :search, params[:search], placeholder: "Search for Friends"%>
   <%= submit_tag("Search") %>
   </div>
   <% end %>
 </div>
 
 <div class="row container">
-  <div class="col s8 offset-s2">
+  <div class="col s10 offset-s1">
     <ul class="collection">
       <% @user.friends.each do |friend| %>
         <%= render template: "users/_person", :locals => { user: friend} %>
@@ -22,4 +16,3 @@
   </ul>
   </div>
 </div>
-</body>

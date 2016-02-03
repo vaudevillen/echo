@@ -1,3 +1,38 @@
+.profile-head {
+  background-color: #F2F2EC;
+  box-shadow: inset -5px -5px 10px #fff;
+}
+
+.pending-accept{
+  right: 20px;
+  position: absolute;
+  top: 10px;
+}
+
+.rounded {
+  margin-top: 15px;
+  border-radius: 50%;
+  height: 125px;
+  width: 125px;
+  overflow: hidden;
+  border: 2px solid #0DA550;
+  margin-bottom: 15px;
+  max-width: 100%
+}
+
+.profile-logo{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.since{
+  font-size: 10px;
+}
+
+.new-font{
+  font-family: 'moon_flower_boldregular';
+}
+
 .top-nav {
   height: 175px;
   background-color: #5a5c51;
@@ -91,6 +126,10 @@
 
 .register h5 {
   color: white;
+}
+
+.profile-logout{
+  margin-top: 20px;
 }
 
 .register{

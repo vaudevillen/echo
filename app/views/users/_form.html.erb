@@ -1,4 +1,5 @@
-<%= form_for(@user) do |f| %>
+
+<%= form_for(@user, multipart: true) do |f| %>
       <div class="row">
         <div class="input-field col s6">
           <%= f.text_field :first_name %>
@@ -48,3 +49,8 @@
          <% end %>
      <%= f.submit :class => "btn waves-effect waves-light" %>
      <% end %>
+
+<% if current_user %>
+  <br>
+   <button id="login-button" class="btn btn-primary teal darken-3">Spotify Login</button>
+<% end %>

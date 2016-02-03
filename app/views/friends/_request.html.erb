@@ -1,10 +1,16 @@
-<%= link_to user_path(user) do %>
-<div class="chip">
-    <img src="images/yuna.jpg" alt="Contact Person">
-    <%= user.fullname %>
-</div>
-<% end %>
-<div class="inline">
-    <%= button_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'btn red accent-4 btn-sm' %>
-      <%= button_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'btn green accent-4 btn-sm' %>
-</div>
+<li class="collection-item avatar">
+      <%= image_tag user.avatar.url(:thumb), :class => 'circle' %>
+      <span class="title">
+      <%= link_to user.fullname, user_path(user)  %>
+      </span>
+      <p> <%= user.location  %> </p>
+      
+      <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content' do%>
+      <i class="pending-accept material-icons green-text text-darken-3">thumb_up</i>
+      <% end %>
+
+      <%= link_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'secondary-content' do%>
+      <i class="deny material-icons red-text text-darken-3">thumb_down</i>
+      <% end %>
+
+</li>
