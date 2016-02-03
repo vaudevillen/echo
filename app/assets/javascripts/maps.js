@@ -215,20 +215,19 @@ $(function() {
     getPins(url);
   });
 
-  $(".friend_pin_form").on("submit", function(event)
-  {
-    event.preventDefault();
-    deleteMarkers();
-    $(this).serialize();
-    //not the most elegant way to do it, but the following code defines the variable with the value of the hash
-    var friend_id = $(this).serialize().slice(10);
-    var url = "/pins/" + friend_id;
-    getPins(url);
-  });
-  $(document).on("click", "#my_pins", function(event)
-  {
-    deleteMarkers();
-    getPins();
+ var target
+ $(".friend_check").on("click", function(event){
+      deleteMarkers();
+      var parent = $(this).closest('form');
+      var inputs = parent.find('input.friend_check');
+      for(var i=0; i < inputs.length; i++) {
+        var target = $(inputs[i]);
+        if(target.is(':checked')){
+          var friend_id = target.attr('id');
+          var url = "/pins/" + friend_id;
+          getPins(url);
+        }
+      };
   });
 })
 

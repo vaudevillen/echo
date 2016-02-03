@@ -8,11 +8,23 @@
     <div id="overlay">
       <input id="loc-input" class="controls" type="text" placeholder="Enter a location">
       <div id="left-menu">
-        <%= render template: "layouts/_navbar" %>
-        <%= image_tag('google.png', :class=>"google responsive-img") %>
+        <div class="menu-overflow">
+          <%= render template: "layouts/_navbar" %>
+          <%= image_tag('google.png', :class=>"google responsive-img") %>
+        </div>
       </div>
       <div id="right-menu">
-        <%= render template: "layouts/_sidebar"  %>
+        <div class="menu-overflow">
+          <div id="river_song" class="col s4 offset-s2">
+            <% unless @pins.length == 0 %>
+              <h6> Recent Posts</h6>
+              <%= react_component("Comment", {:pins => @pins}) %>
+            <% end %>
+          </div>
+          <div class="friend-wrapper">
+            <%= render template: "layouts/_friend_sidebar"  %>
+          </div>
+        </div>
       </div>
       <a href="#" id="left-menu-button"><i class="medium material-icons">perm_identity</i></a>
       <a href="#" id="right-menu-button"><i class="medium material-icons">recent_actors</i></a>

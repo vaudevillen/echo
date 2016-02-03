@@ -1,8 +1,13 @@
 <%= form_for(@user, multipart: true) do |f| %>
-    <div class="row">
-      <div class="input-field col s3">
-        <%= f.text_field :first_name %>
-        <label for="last_name">First Name</label>
+      <div class="row">
+        <div class="input-field col s3">
+          <%= f.text_field :first_name %>
+          <label for="last_name">First Name</label>
+        </div>
+        <div class="input-field col s3">
+          <%= f.text_field :last_name %>
+          <label for="last_name">Last Name</label>
+        </div>
       </div>
       <div class="input-field col s3">
         <%= f.text_field :last_name %>
