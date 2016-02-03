@@ -37,7 +37,7 @@ end
   )
 end
 
-melissa = User.create(first_name: "Melissa", last_name: "Etheridge", username: "onlyone", password: "window", email: "come2window@google.com", city: "Leavenworth", state: "KS", avatar: File.open(File.join(Rails.root, "/app/assets/images/melissa.png")))
+melissa = User.create(first_name: "Melissa", last_name: "Etheridge", username: "onlyone", password: "window", email: "come2window@google.com", city: "Leavenworth", state: 'KS', avatar: File.open(File.join(Rails.root, "/app/assets/images/melissa.png")))
 FriendRequest.create(recipient_id: 11, sender_id: 1, status: true)
 FriendRequest.create(recipient_id: 11, sender_id: 2, status: true)
 FriendRequest.create(recipient_id: 11, sender_id: 3, status: true)
