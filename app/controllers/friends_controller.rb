@@ -5,6 +5,7 @@ class FriendsController < ApplicationController
 
   def index
     @user = User.find(session[:user_id])
+     render :layout => "profile_layout"
   end
 
 end

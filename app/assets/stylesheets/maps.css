@@ -14,10 +14,13 @@ html, body {
   }
 
 #river_song{
-    top:0;
-    float: left;
-    height: 150px;
-
+  margin: 3px;
+  position: absolute;
+  top:0;
+  left:0;
+  width:300px;
+  height: 59%;
+  overflow: scroll;
 }
 
 #gmage{
@@ -41,14 +44,19 @@ html, body {
   pointer-events: all;
 }
 
+.menu-overflow {
+  width: 300px;
+}
+
 #left-menu {
   position: absolute;
   top:0;
   left:0;
   bottom:0;
   width: 300px;
-  background: blue;
+  background-image: url('https://dinksatplay.files.wordpress.com/2014/01/mochagrunge.png?w=960');
   display: none;
+  overflow: hidden;
 }
 
 #right-menu {
@@ -57,8 +65,19 @@ html, body {
   right:0;
   bottom:0;
   width: 300px;
-  background: red;
+  background-image: url('https://dinksatplay.files.wordpress.com/2014/01/mochagrunge.png?w=960');
   display: none;
+  overflow: hidden;
+}
+
+.friend-wrapper {
+  margin: 3px;
+  position: absolute;
+  bottom:0;
+  right:left;
+  height: 40%;
+  width: 300px;
+  overflow: scroll;
 }
 
 #left-menu-button {
