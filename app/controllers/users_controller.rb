@@ -37,10 +37,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-# Fix this possible bug Michael 
     @user = User.find(params[:id])
     if @user != current_user
-      redirect_to '/someplace'
+      flash[:hacker] =  "That's not your Page Silly Billy!"
+      redirect_to user_path(current_user)
     end
   end
 

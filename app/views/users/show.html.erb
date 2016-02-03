@@ -14,14 +14,18 @@
 </div>
 
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
+<% if flash[:hacker] %>
+   <div class="hacker"><%= flash[:hacker] %></div>
+ <% end %>
 
 <%= image_tag @user.avatar.url(:thumb) %>
 
 <h4>A.k.a: <%= @user.username %></h4>
 <h6>Member Since: <%= @user.created_at %></h6>
 
-<%=link_to "Account Settings", edit_user_path%>
-
+<% if current_user.id == @user.id %>
+  <%=link_to "Account Settings", edit_user_path%>
+<% end %>
 
 <% if @user.pending_requests.length > 0 %>
   <h5> You have pending friend requests</h5>
@@ -39,7 +43,9 @@
   <br>
     <%= link_to "#{pin.address}", maps_path(pin: pin) %>
     <br>
-    <%=link_to "Edit", edit_pin_path(pin.id) %>
+    <% if current_user.id == @user.id %>
+      <%=link_to "Edit", edit_pin_path(pin.id) %>
+    <% end %>
   <br>
   <br>
   <% end %>
