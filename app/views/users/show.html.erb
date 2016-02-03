@@ -40,7 +40,9 @@
   <br>
     <%= link_to "#{pin.address}", maps_path(pin: pin) %>
     <br>
-    <%=link_to "Edit", edit_pin_path(pin.id) %>
+    <% if current_user.id == @user.id %>
+      <%=link_to "Edit", edit_pin_path(pin.id) %>
+    <% end %>
   <br>
   <br>
   <% end %>
