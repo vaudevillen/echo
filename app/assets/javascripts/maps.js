@@ -216,10 +216,10 @@ $(function() {
   });
 
  var target
- $(".friends_sidebar").on("click", function(event){
+ $(".friend_check").on("click", function(event){
       deleteMarkers();
       var parent = $(this).closest('form');
-      var inputs = parent.find('input.friends_sidebar');
+      var inputs = parent.find('input.friend_check');
       for(var i=0; i < inputs.length; i++) {
         var target = $(inputs[i]);
         if(target.is(':checked')){

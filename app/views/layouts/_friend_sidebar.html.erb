@@ -1,10 +1,10 @@
-<form id="friendy_thing" action="#">
-    <input class="friends_sidebar" type="checkbox" id=<%= current_user.id %> />
+<form id="friends_sidebar" action="#">
+    <input class="friend_check" type="checkbox" id=<%= current_user.id %> />
     <label for=<%= current_user.id %>>My Pins</label>
 
   <% current_user.friends.each do |friend| %>
   <br>
-    <input class="friends_sidebar" type="checkbox" id=<%= friend.id %> />
+    <input class="friend_check" type="checkbox" id=<%= friend.id %> />
     <label for=<%= friend.id %>><%= friend.username %></label>
 
   <% end %>

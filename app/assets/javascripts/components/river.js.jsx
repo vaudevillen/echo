@@ -38,7 +38,8 @@ var Comment = React.createClass({
   render: function() {
      return (<div>{this.state.pins.map(function (key, value){
         return <div className="river_div" key={key.id} data-lat={key.latitude} data-lng={key.longitude} data-user_id={key.user_id}>
-         <p className='river'>{key.username} @ {key.location} {key.address} Click here Song: {key.artist} - {key.comment}</p>
+          <p className='river'><span class="river-user">{key.username}</span> @ <span class="river-loc">{key.address}</span></p>
+          <p className='river'><span class="river-song-info">Song: {key.artist} - {key.comment}</span></p>
         </div>;
       })}
     </div>)
