@@ -1,7 +1,7 @@
 ///////////////////////
 // Global Variables  //
 ///////////////////////
-var map, userAvatarUrl, redirectLng, redirectLat, redirectUserId;
+var map, userAvatarUrl, redirectLng, redirectLat, redirectUserId, currentUserId;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 var markers = [];
 var infowindows = [];
@@ -17,7 +17,18 @@ function initMap(){
   { //This sets the map's center to the redirect pin's location
     map.setCenter({lat: redirectLat, lng: redirectLng})
     var url = "/pins/" + redirectUserId
-    getUserPins(url);
+    if (currentUserId == redirectUserId)
+    {
+      getUserPins();
+    }
+    else
+    {
+      //there will be a bug if the user clicks a redirect to map
+      //from someone else's page
+      //userAvatarUrl will need to be set
+      getPins(url)
+    }
+
   }
   else
   {
@@ -44,12 +55,6 @@ function initMap(){
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
-
-  var infowindow = new google.maps.InfoWindow();
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
@@ -67,9 +72,8 @@ function initMap(){
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-    marker.setIcon(setAvatarUrl(userAvatarUrl));
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
+
+    placeMarker(place.geometry.location);
 
     var address = '';
     if (place.address_components) {
@@ -96,8 +100,6 @@ function initMap(){
     placeMarker(event.latLng);
   });
 
-  // This is also inside initMap because it requires that google maps has been loaded
-
 }
 
 function setAvatarUrl(avatar_url){
@@ -113,6 +115,7 @@ function setAvatarUrl(avatar_url){
 ///////////////////////////
 // Marker Initialization //
 ///////////////////////////
+//places marker on map from user's right click
 function placeMarker(position) {
   var marker = new google.maps.Marker({position: position, map: map});
   marker.setIcon(setAvatarUrl(userAvatarUrl));
@@ -134,6 +137,7 @@ function placeMarker(position) {
     marker.setMap(null);
   });
 }
+//gets markers from database
 function placeDBMarker(pinData, avatar_url) {
   var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
   var marker = new google.maps.Marker({position: pinLatlng, map: map});
@@ -161,6 +165,7 @@ $(function() {
   redirectLat = parseFloat($('#query-pin').attr("data-lat"));
   redirectLng = parseFloat($('#query-pin').attr("data-lng"));
   redirectUserId = $('#query-pin').attr("data-user-id");
+  currentUserId = $('#query-pin').attr("data-c-user");
 
   $(document).on("submit", "#song_form", function(event)
   {
@@ -175,7 +180,7 @@ $(function() {
     $.post("/pins", data);
     closeWindows();
     deleteMarkers();
-    getPins();
+    getUserPins();
   });
 
   $(document).on("click", ".river_div", function(event){
@@ -245,6 +250,7 @@ function getAddress(){
     $('#song_form #address').val(response.results[0].formatted_address)
   })
 }
+//gets pins of user's friends
 function getPins(url){
   var getUrl =  url || "/pins";
   var getAjax = $.get(getUrl, "json");
@@ -257,6 +263,7 @@ function getPins(url){
       }
     });
 }
+//gets user's pins
 function getUserPins(url){
   var getUrl =  url || "/pins";
   var getAjax = $.get(getUrl, "json");
