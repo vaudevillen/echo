@@ -8,7 +8,6 @@ $(document).ready(function() {
                       data: search
                       })
     request.done(function(response){
-      console.log(response)
       $(".collection").replaceWith(response);
     });
   });

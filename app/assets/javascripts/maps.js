@@ -1,7 +1,7 @@
 ///////////////////////
 // Global Variables  //
 ///////////////////////
-var map, transformers;
+var map, userAvatarUrl;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 var markers = [];
 var infowindows = [];
@@ -11,7 +11,7 @@ var infowindows = [];
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
 
-  getPins();
+  getUserPins();
 
 //This centers map go user's browser provided current geolocation
   var locWindow = new google.maps.InfoWindow({map: map});
@@ -54,7 +54,7 @@ function initMap(){
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-    marker.setIcon(transformers);
+    marker.setIcon(setAvatarUrl(userAvatarUrl));
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
@@ -84,21 +84,25 @@ function initMap(){
   });
 
   // This is also inside initMap because it requires that google maps has been loaded
-  transformers = /** @type {google.maps.Icon} */({
-    url: "http://vignette3.wikia.nocookie.net/transformers-legends/images/6/64/Favicon.ico/revision/20121030153224",
-    size: new google.maps.Size(71, 71),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(17, 34),
-    scaledSize: new google.maps.Size(35, 35)
-  })
+
 }
 
+function setAvatarUrl(avatar_url){
+    var avatar = {
+      url: avatar_url,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }
+    return avatar;
+  }
 ///////////////////////////
 // Marker Initialization //
 ///////////////////////////
 function placeMarker(position) {
   var marker = new google.maps.Marker({position: position, map: map});
-  marker.setIcon(transformers);
+  marker.setIcon(setAvatarUrl(userAvatarUrl));
   var infoWindowOptions = { content: loadPinBox(marker) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -117,10 +121,10 @@ function placeMarker(position) {
     marker.setMap(null);
   });
 }
-function placeDBMarker(pinData) {
+function placeDBMarker(pinData, avatar_url) {
   var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
   var marker = new google.maps.Marker({position: pinLatlng, map: map});
-  marker.setIcon(transformers);
+  marker.setIcon(setAvatarUrl(avatar_url));
   var infoWindowOptions = { content: loadDBPinBox(pinData) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -220,7 +224,6 @@ function getAddress(){
   var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng
   var getAjax = $.get(url);
   getAjax.done(function(response) {
-    console.log(response.results[0])
     $('#song_form #address').val(response.results[0].formatted_address)
   })
 }
@@ -229,9 +232,23 @@ function getPins(url){
   var getAjax = $.get(getUrl, "json");
     getAjax.done(function(response)
     {
-      for (var i = 0; i < response.length; i ++)
+      var avatar_url = response["avatar_url"]
+      for (var i = 0; i < response["pins"].length; i ++)
       {
-        placeDBMarker(response[i]);
+        placeDBMarker(response["pins"][i], avatar_url);
+      }
+    });
+}
+function getUserPins(url){
+  var getUrl =  url || "/pins";
+  var getAjax = $.get(getUrl, "json");
+    getAjax.done(function(response)
+    {
+
+      userAvatarUrl = response["avatar_url"]
+      for (var i = 0; i < response["pins"].length; i ++)
+      {
+        placeDBMarker(response["pins"][i], userAvatarUrl);
       }
     });
 }

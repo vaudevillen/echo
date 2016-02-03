@@ -1,12 +1,13 @@
 <div>
   <button class="friendsbar waves-light btn" id="friends_toggle">Show Friends Bar</button>
   <ul id="friends_sidebar">
-    <% current_user.friends.each do |friend| %>
+      <% current_user.friends.each do |friend| %>
       <form class="friend_pin_form" method="post" action='/pins'>
         <input type="hidden" name="friend_id" value="<%= friend.id%>">
         <input class="btn" type="submit" value="<%= friend.username %>">
       </form>
     <% end %>
+
     <li id="my_pins" class="btn">My Pins</li>
   </ul>
 </div>

@@ -3,7 +3,11 @@ class FriendRequestsController < ApplicationController
   before_filter :authorize
   def create
     @request = FriendRequest.create(request_params)
-    redirect_to :back
+    if request.xhr?
+      render partial:'/friends/pending'
+    else
+      redirect_to :back
+    end
   end
 
   def destroy
@@ -15,7 +19,11 @@ class FriendRequestsController < ApplicationController
   def update
     @request = find_request(request_params[:id])
     @request.update(status: true)
-    redirect_to :back
+    if request.xhr?
+      render partial:'/friends/accept'
+    else
+      redirect_to :back
+    end
   end
 
   private
