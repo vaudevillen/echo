@@ -1,5 +1,4 @@
 <%= form_for(@user, multipart: true) do |f| %>
-
       <div class="row">
         <div class="input-field col s3">
           <%= f.text_field :first_name %>
@@ -10,38 +9,46 @@
           <label for="last_name">Last Name</label>
         </div>
       </div>
-      <div class="row">
-        <div class="input-field col s3">
-          <%= f.email_field :email %>
-          <label for="email">Email</label>
+      <div class="input-field col s3">
+        <%= f.text_field :last_name %>
+        <label for="last_name">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s3">
+        <%= f.email_field :email %>
+        <label for="email">Email</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s3">
+        <%= f.text_field :username %>
+        <label for="last_name">Username</label>
+      </div>
+      <div class="input-field col s3">
+        <%= f.password_field :password %>
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s3">
+        <%= f.text_field :city %>
+        <label for="email">City</label>
+      </div>
+      <div class="input-field col s3">
+        <div class="input-field col s8">
+        <%= f.collection_select :state, State.all, :id, :name, {prompt: "Choose a State"}, :class => "browser-default" %>
         </div>
       </div>
-      <div class="row">
-        <div class="input-field col s3">
-          <%= f.text_field :username %>
-          <label for="last_name">Username</label>
-        </div>
-        <div class="input-field col s3">
-          <%= f.password_field :password %>
-          <label for="password">Password</label>
-        </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s3">
+        <%= f.file_field :avatar %>
       </div>
-      <div class="row">
-        <div class="input-field col s3">
-          <%= f.text_field :city %>
-          <label for="email">City</label>
-        </div>
-        <div class="input-field col s3">
-          <div class="input-field col s8">
-          <%= f.collection_select :state, State.all, :id, :name, {prompt: "Choose a State"}, :class => "browser-default" %>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s3">
-          <%= f.file_field :avatar %>
-        </div>
-      </div>
-     <%= f.submit :class => "btn waves-effect waves-light" %>
-
+    </div>
+     <%= f.submit :class => "btn waves-effect waves-light teal darken-3" %>
 <% end %>
+
+  <br>
+      <button id="login-button" class="btn btn-primary teal darken-3">Spotify Login</button>
+
