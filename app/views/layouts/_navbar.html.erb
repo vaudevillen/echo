@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col s4 offset-s1">
       <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
-      <%= link_to user_path(current_user) do %>
+      <%= link_to user_path(current_user), class: "test-profile" do %>
       <div class="chip chippy">
         <%= image_tag current_user.avatar.url(:thumb) %>
           <%= current_user.fullname %>
