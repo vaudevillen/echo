@@ -1,7 +1,7 @@
 ///////////////////////
 // Global Variables  //
 ///////////////////////
-var map, userAvatarUrl;
+var map, userAvatarUrl, redirectLng, redirectLat, redirectUserId;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 var markers = [];
 var infowindows = [];
@@ -9,21 +9,34 @@ var infowindows = [];
 // Map Initialization //
 ////////////////////////
 function initMap(){
+
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
+  console.log(map);
 
-  getUserPins();
-
-//This centers map go user's browser provided current geolocation
-  var locWindow = new google.maps.InfoWindow({map: map});
-  if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(function(position){
-      var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
-      map.setCenter(pos);
-    }, function(){
-      handleLocationError(true, locWindow, map.getCenter());
-    });
+  if(!isNaN(redirectLng))
+  { //This sets the map's center to the redirect pin's location
+    map.setCenter({lat: redirectLat, lng: redirectLng})
+    var url = "/pins/" + redirectUserId
+    getUserPins(url);
   }
-  else { handleLocationError(false, locWindow, map.getCenter());}
+  else
+  {
+    //This centers map go user's browser provided current geolocation
+    if (navigator.geolocation)
+    {
+      navigator.geolocation.getCurrentPosition(function(position)
+      {
+        var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+        map.setCenter(pos);
+      }, function()
+      {
+        handleLocationError(true, map.getCenter());
+      });
+    }
+    else { handleLocationError(false, map.getCenter());}
+    getUserPins();
+  }
+
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
@@ -143,6 +156,11 @@ function placeDBMarker(pinData, avatar_url) {
 // Document Ready //
 ////////////////////
 $(function() {
+  //variables for redirect if query pin exists
+
+  redirectLat = parseFloat($('#query-pin').attr("data-lat"));
+  redirectLng = parseFloat($('#query-pin').attr("data-lng"));
+  redirectUserId = $('#query-pin').attr("data-user-id");
 
   $(document).on("submit", "#song_form", function(event)
   {
