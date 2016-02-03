@@ -48,6 +48,9 @@ class PinsController < ApplicationController
 
   def edit
     @pin = Pin.find(params[:id])
+    if @pin.user_id != @current_user.id
+      redirect_to "/users/" + (@current_user.id).to_s
+    end
   end
 
 
