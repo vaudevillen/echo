@@ -14,16 +14,20 @@ feature 'login' do
   it "should not be logged in" do
     expect(page).to have_button "Login"
   end
+end
 
-  # it "makes me a new user" do
-  #   fill_in 'First Name', :with => 'mike'
-  #   fill_in 'Last Name', :with => 'Pearl'
-  #   fill_in 'Email', :with => 'm@m.com'
-  #   fill_in 'Password', :with => 'boomboom'
-  #   fill_in 'City', :with => 'Chicago'
-  #   click_button 'Register'
-  #   expect(page).to have_content("Enter Location")
-  # end
+feature 'Create A new User' do
+
+  scenario "makes me a new user" do
+    visit new_user_path
+    fill_in 'First Name', :with => 'mike'
+    fill_in 'Last Name', :with => 'Pearl'
+    fill_in 'Email', :with => 'm@m.com'
+    fill_in 'Password', :with => 'boomboom'
+    fill_in 'City', :with => 'Chicago'
+    click_button 'Create User'
+    expect(page).to have_content("Echo First")
+  end
 
 end
 
@@ -95,10 +99,9 @@ end
       scenario 'The users new information will be saved' do
         @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
         page.set_rack_session(:user_id => @michael.id)
-        visit user_path(edit_user_path(@michael))
-        click_button('Update User')
-        expect(page.current_path).to eq(user_path(@michael))
-        expect(page).to have_content('First Name')
+        visit edit_user_path(@michael)
+        click_on('Update User')
+        expect(page).to have_current_path(user_path(@michael))
       end
 
 
