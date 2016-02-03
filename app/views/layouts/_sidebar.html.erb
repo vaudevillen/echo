@@ -1,6 +1,6 @@
 <div>
   <button class="friendsbar waves-light btn" id="friends_toggle">Show Friends Bar</button>
-  <ul id="friends_sidebar">
+  <ul id="friends_sidebar_original">
       <% current_user.friends.each do |friend| %>
       <form class="friend_pin_form" method="post" action='/pins'>
         <input type="hidden" name="friend_id" value="<%= friend.id%>">

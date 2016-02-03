@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
     # result << recent[0] << recent[1]
     # pinparse(result)
     puts result.length
-    result[0..9]
+    result[0..29]
   end
 
   def pinparse(pins)

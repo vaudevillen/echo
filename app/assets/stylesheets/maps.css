@@ -14,9 +14,12 @@ html, body {
   }
 
 #river_song{
-    top:0;
-    float: left;
-    height: 150px;
+  margin: 3px;
+  position: absolute;
+  top:0;
+  left:0;
+  height: 59%;
+  overflow: scroll;
 }
 
 #gmage{
@@ -64,6 +67,16 @@ html, body {
   background-image: url('mochaGrunge.png');
   display: none;
   overflow: hidden;
+}
+
+.friend-wrapper {
+  margin: 3px;
+  position: absolute;
+  bottom:0;
+  right:left;
+  height: 40%;
+  width: 300px;
+  overflow: scroll;
 }
 
 #left-menu-button {
