@@ -24,9 +24,12 @@ feature 'Create A new User' do
     fill_in 'Last Name', :with => 'Pearl'
     fill_in 'Email', :with => 'm@m.com'
     fill_in 'Password', :with => 'boomboom'
+    fill_in 'Username', :with => 'mikeymike'
     fill_in 'City', :with => 'Chicago'
+    # fill_in 'Choose a State', :with => 'IL'
     click_button 'Create User'
-    expect(page).to have_content("Echo First")
+    expect(page.current_path).to eq(new_user_path)
+    expect(page).to have_content("State can't be blank")
   end
 
 end
