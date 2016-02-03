@@ -23,8 +23,7 @@ function initMap(){
     }
     else
     {
-      //there will be a bug if the user clicks a redirect to map
-      //from someone else's page
+      //there will be a bug if the user clicks a redirect to map from someone else's page
       //userAvatarUrl will need to be set
       getPins(url)
     }
@@ -52,13 +51,12 @@ function initMap(){
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
   var input = /** @type {!HTMLInputElement} */(document.getElementById('loc-input'));
-
+  console.log(input);
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
 
   autocomplete.addListener('place_changed', function() {
-    infowindow.close();
-    marker.setVisible(false);
+
     var place = autocomplete.getPlace();
     if (!place.geometry) {
       window.alert("Autocomplete's returned place contains no geometry");
@@ -73,7 +71,7 @@ function initMap(){
       map.setZoom(17);  // Why 17? Because it looks good.
     }
 
-    placeMarker(place.geometry.location);
+
 
     var address = '';
     if (place.address_components) {
@@ -83,8 +81,9 @@ function initMap(){
         (place.address_components[2] && place.address_components[2].short_name || '')
       ].join(' ');
     }
-    infowindow.setContent('<div><strong>Location: ' + place.name + '</strong><br>' + address + '</div>' + loadPinBox(marker));
-    infowindow.open(map, marker);
+
+    placeAutosearchMarker(place, address);
+
   });
 
 ////////////////////////
@@ -129,6 +128,28 @@ function placeMarker(position) {
   infowindows.push(infoWindow);
 
   google.maps.event.addListener(infoWindow,'closeclick',function(e)
+    {
+      marker.setMap(null);
+    });
+  google.maps.event.addListener(map, 'rightclick', function(e)
+  {
+    marker.setMap(null);
+  });
+}
+function placeAutosearchMarker(place, address){
+  var marker = new google.maps.Marker({position: place.geometry.location, map: map});
+  marker.setIcon(setAvatarUrl(userAvatarUrl));
+  // This is where individual click event handlers are created for each pin,
+  // notice that functions defined here can see 'marker' in their scope.
+
+  var infowindow = new google.maps.InfoWindow();
+  infowindow.setContent('<div><strong>Location: ' + place.name + '</strong><br>' + address + '</div>' + loadPinBox(marker));
+  closeWindows();
+  infowindow.open(map, marker);
+  getAddress(marker);
+  infowindows.push(infowindow);
+
+  google.maps.event.addListener(infowindow,'closeclick',function(e)
     {
       marker.setMap(null);
     });
