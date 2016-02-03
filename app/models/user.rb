@@ -44,15 +44,17 @@ class User < ActiveRecord::Base
 
   def recent_pins
     recent = []
-    result = []
+    # result = []
     self.friends.each do |friend|
       friend.pins.each do |pin|
         recent << pin
       end
     end
-    recent.sort!{|a,b| b.created_at <=> a.created_at}
-    result << recent[0] << recent[1]
-    pinparse(result)
+    result = recent.sort!{|a,b| b.created_at <=> a.created_at}
+    # result << recent[0] << recent[1]
+    # pinparse(result)
+    puts result.length
+    result[0..29]
   end
 
   def pinparse(pins)
