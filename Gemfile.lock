@@ -164,6 +164,9 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (4.2.5)
       actionmailer (= 4.2.5)
       actionpack (= 4.2.5)
@@ -297,6 +300,7 @@ DEPENDENCIES
   paperclip (~> 4.3)
   pg (~> 0.15)
   pry
+  rack_session_access
   rails (= 4.2.5)
   rails_12factor
   rake

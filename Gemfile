@@ -56,6 +56,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem "rack_session_access"
   gem 'factory_girl_rails', '~> 4.0'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
@@ -64,4 +65,3 @@ group :test do
 end
 
 gem 'rails_12factor', group: :production
-
