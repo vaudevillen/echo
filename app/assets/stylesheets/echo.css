@@ -1,3 +1,24 @@
+.profile-head {
+  background-color: #F2F2EC;
+  box-shadow: inset -5px -5px 10px #fff;
+}
+
+.rounded {
+  margin-top: 20px;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  border: 2px solid #0DA550;
+  margin-bottom: 10px;
+  max-width: 100%
+}
+
+.profile-logo{
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
 .new-font{
   font-family: 'moon_flower_boldregular';
 }
@@ -97,11 +118,8 @@
   color: white;
 }
 
-.rounded {
-  border-radius: 50%;
-  height: 250px;
-  width: 250px;
-  overflow: hidden;
+.profile-logout{
+  margin-top: 30px;
 }
 
 .register{
