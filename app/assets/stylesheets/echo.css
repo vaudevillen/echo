@@ -3,20 +3,30 @@
   box-shadow: inset -5px -5px 10px #fff;
 }
 
+.pending-accept{
+  right: 20px;
+  position: absolute;
+  top: 10px;
+}
+
 .rounded {
-  margin-top: 20px;
+  margin-top: 15px;
   border-radius: 50%;
-  height: 150px;
-  width: 150px;
+  height: 125px;
+  width: 125px;
   overflow: hidden;
   border: 2px solid #0DA550;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   max-width: 100%
 }
 
 .profile-logo{
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 10px;
+}
+
+.since{
+  font-size: 10px;
 }
 
 .new-font{
@@ -119,7 +129,7 @@
 }
 
 .profile-logout{
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .register{
