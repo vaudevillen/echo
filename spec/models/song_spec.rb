@@ -2,8 +2,7 @@ require 'rails_helper'
 
 
 describe 'Song' do
-  let(:pinned) {FactoryGirl.create(:song_with_pin)}
-  let(:song) {FactoryGirl.create(:song)}
+  let(:song) {FactoryGirl.build(:song)}
   it 'has a valid factory' do
     expect(song).to be_valid
   end
@@ -24,8 +23,7 @@ describe 'Song' do
     expect(song.album).to eq("Bayou Country")
   end
 
-  it "has a pin" do
-    expect(pinned.song).to eq(song)
+  it 'has a pin' do
+    expect(song.pins.first.comment).to eq("Sounds Great")
   end
-
 end
