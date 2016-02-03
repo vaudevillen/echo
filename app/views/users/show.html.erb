@@ -37,7 +37,7 @@
     <br>
   <iframe src=<%= 'https://embed.spotify.com/?uri=spotify:track:' + pin.song_id %> frameborder="0" width="300" height="100" allowtransparency="true"></iframe>
   <br>
-    <%= pin.address %>
+    <%= link_to "#{pin.address}", maps_path(pin: pin) %>
     <br>
     <%=link_to "Edit", edit_pin_path(pin.id) %>
   <br>

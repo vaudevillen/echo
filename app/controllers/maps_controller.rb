@@ -12,6 +12,9 @@ class MapsController < ApplicationController
     user = current_user
     @pins = user.recent_pins
     @friends_list = current_user.friends
+    if params[:pin]
+      @pin = Pin.find(params[:pin])
+    end
   end
 
 end
