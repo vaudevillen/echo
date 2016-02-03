@@ -11,4 +11,5 @@ $(document).ready(function() {
       $("#friends_toggle").text("Show Friends Bar");
     }
   });
+
 });
