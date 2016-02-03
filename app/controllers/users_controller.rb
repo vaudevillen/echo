@@ -37,7 +37,11 @@ class UsersController < ApplicationController
   end
 
   def edit
+# Fix this possible bug Michael 
     @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to '/someplace'
+    end
   end
 
   def update
