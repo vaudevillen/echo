@@ -14,6 +14,9 @@
 </div>
 
 <h4>Welcome Back <%=@user.first_name.capitalize %></h4>
+<% if flash[:hacker] %>
+   <div class="hacker"><%= flash[:hacker] %></div>
+ <% end %>
 
 <%= image_tag @user.avatar.url(:thumb) %>
 

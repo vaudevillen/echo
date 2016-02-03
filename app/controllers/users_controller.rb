@@ -39,8 +39,8 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     if @user != current_user
-      flash[:error] = @user.errors.full_messages
-      redirect_to :back
+      flash[:hacker] =  "That's not your Page Silly Billy!"
+      redirect_to user_path(current_user)
     end
   end
 
