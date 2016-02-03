@@ -38,8 +38,14 @@ describe 'User' do
     expect(user.location).to eq('Los Angeles, CA')
   end
 
+  it 'has a state' do
+    expect(user.state).to eq('CA')
+  end
+
   it 'can return two recent pins of friends' do
     expect(user.recent_pins).to be_an(Array)
   end
+
+  # it 'can search for itself' do
 
 end
