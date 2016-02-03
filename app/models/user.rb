@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :songs, through: :pins
   has_many :sent_requests, class_name: "FriendRequest", foreign_key: :sender_id
   has_many :received_requests, class_name: "FriendRequest", foreign_key: :recipient_id
-  has_attached_file :avatar, styles: {
+  has_attached_file :avatar, default_url: "http://s3.amazonaws.com/dbcecho/users/avatars/000/000/016/thumb/stick.png", styles: {
     thumb: '100x100>'
   }
 
