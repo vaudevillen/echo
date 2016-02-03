@@ -29,7 +29,7 @@ feature 'Your main page' do
   end
 
   context 'See my profile page' do
-    it " displays a list of my profile features" do
+    it 'displays a list of my profile features' do
       @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
       page.set_rack_session(:user_id => @michael.id)
       visit '/maps'
@@ -39,3 +39,27 @@ feature 'Your main page' do
     end
   end
 end
+
+  feature 'Profile Page' do
+    context 'The button will take us back to the users map'do
+      it 'has a button to go back to the maps' do
+        @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
+        page.set_rack_session(:user_id => @michael.id)
+        visit user_path(@michael)
+        click_button 'Map'
+        # expect(page.current_path).to eq(maps)
+        # This path is wrong and we need to take a look at this. We need to fix this route!
+        expect(page).to have_content('Friends')
+      end
+    end
+
+    context 'This goes to Spotify Login'do
+      it 'has a button to go back to the maps' do
+        @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
+        page.set_rack_session(:user_id => @michael.id)
+        visit user_path(@michael)      
+        click_on('login-button')
+        expect(page).to have_content('Spotify')
+      end
+    end
+  end
