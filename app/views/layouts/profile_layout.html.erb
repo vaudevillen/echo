@@ -10,8 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" type="text/javascript"></script>
 </head>
 
-<%= image_tag current_user.avatar.url(:thumb), :class => 'circle' %>
-<h1>Test!</h1>
+<%= image_tag @user.avatar.url, :class => 'rounded' %>
 <body>
 
 <%= yield %>

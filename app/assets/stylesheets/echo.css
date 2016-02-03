@@ -93,6 +93,13 @@
   color: white;
 }
 
+.rounded {
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  overflow: hidden;
+}
+
 .register{
     display: flex;
     align-items: center;
