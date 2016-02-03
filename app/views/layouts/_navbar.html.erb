@@ -9,8 +9,6 @@
           <%= current_user.fullname %>
       </div>
       <% end %>
-      <input id="loc-input" class="controls" type="text"
-          placeholder="Enter a location">
       <%= button_to('Logout', logout_path, :class => 'logout waves-light btn', :method => :get)  %>
       <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>
     </div>
