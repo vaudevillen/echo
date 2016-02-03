@@ -1,17 +1,25 @@
- <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-
-  <body>
-    <%= render template: "layouts/_navbar" %>
-    <%= render template: "layouts/_sidebar"  %>
     <% if @pin %>
-      <div id="query-pin" data-user-id=<%= @pin.user_id %> data-lng=<%= @pin.longitude %> data-lat=<%= @pin.latitude %> display="none"></div>
+      <div id="query-pin" data-c-user=<%= current_user.id %>data-user-id=<%= @pin.user_id %> data-lng=<%= @pin.longitude %> data-lat=<%= @pin.latitude %> display="none"></div>
     <% end %>
-    <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
-    <div id="gmage">
-      <%= image_tag('google.png', :class=>"google responsive-img") %>
+
+    <div id="map-canvas">
+      <div id="map"></div>
     </div>
-  </body>
+    <div id="overlay">
+      <input id="loc-input" class="controls" type="text" placeholder="Enter a location">
+      <div id="left-menu">
+        <%= render template: "layouts/_navbar" %>
+        <%= image_tag('google.png', :class=>"google responsive-img") %>
+      </div>
+      <div id="right-menu">
+        <%= render template: "layouts/_sidebar"  %>
+      </div>
+      <a href="#" id="left-menu-button"><i class="medium material-icons">perm_identity</i></a>
+      <a href="#" id="right-menu-button"><i class="medium material-icons">recent_actors</i></a>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
+
 <script id="song-template" type="text/x-handlebars-template">
   <li>{{artist}} - <a href="#" id="{{song_uri}}">{{title}}</a></li>
 </script>
