@@ -23,7 +23,6 @@ function initMap(){
       for(var i=0; i < friends.length; i++)
       {
         var target = $(friends[i]);
-        console.log(target);
         if(target.attr('id') == redirectUserId)
         {
           target.click();
@@ -115,8 +114,13 @@ function setAvatarUrl(avatar_url){
 ///////////////////////////
 //places marker on map from user's right click
 function placeMarker(position) {
-  var marker = new google.maps.Marker({position: position, map: map});
-  marker.setIcon(setAvatarUrl(userAvatarUrl));
+  var marker = new google.maps.Marker(
+  {
+      position: position,
+      map: map,
+      icon: setAvatarUrl(userAvatarUrl),
+  });
+  markers.push(marker);
   var infoWindowOptions = { content: loadPinBox(marker) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -136,11 +140,15 @@ function placeMarker(position) {
   });
 }
 function placeAutosearchMarker(place, address){
-  var marker = new google.maps.Marker({position: place.geometry.location, map: map});
-  marker.setIcon(setAvatarUrl(userAvatarUrl));
+  var marker = new google.maps.Marker(
+  {
+    position: place.geometry.location,
+    map: map,
+    icon: setAvatarUrl(userAvatarUrl),
+  });
+  markers.push(marker);
   // This is where individual click event handlers are created for each pin,
   // notice that functions defined here can see 'marker' in their scope.
-
   var infowindow = new google.maps.InfoWindow();
   infowindow.setContent('<div><strong>Location: ' + place.name + '</strong><br>' + address + '</div>' + loadPinBox(marker));
   closeWindows();
@@ -149,19 +157,24 @@ function placeAutosearchMarker(place, address){
   infowindows.push(infowindow);
 
   google.maps.event.addListener(infowindow,'closeclick',function(e)
-    {
+  {
       marker.setMap(null);
-    });
+  });
   google.maps.event.addListener(map, 'rightclick', function(e)
   {
     marker.setMap(null);
   });
 }
 //gets markers from database
-function placeDBMarker(pinData, avatar_url) {
+function placeDBMarker(pinData, avatarUrl) {
   var pinLatlng = new google.maps.LatLng(pinData.latitude, pinData.longitude);
-  var marker = new google.maps.Marker({position: pinLatlng, map: map});
-  marker.setIcon(setAvatarUrl(avatar_url));
+  var marker = new google.maps.Marker(
+  {
+    position: pinLatlng,
+    map: map,
+    icon: setAvatarUrl(avatarUrl),
+  });
+  markers.push(marker);
   var infoWindowOptions = { content: loadDBPinBox(pinData) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -172,7 +185,6 @@ function placeDBMarker(pinData, avatar_url) {
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
     });
-  markers.push(marker);
 }
 
 ////////////////////

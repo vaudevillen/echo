@@ -14,8 +14,6 @@ class MapsController < ApplicationController
     @friends_list = current_user.friends
     if params[:pin]
       @pin = Pin.find(params[:pin])
-      puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-      puts @pin.user_id
     end
   end
 
