@@ -6,9 +6,9 @@
       <div data-c-user=<%= current_user.id %> id="map"></div>
     </div>
     <div id="overlay">
-      <div align="center">
-      <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
-    </div>
+      <div id="top-bar" align="center">
+        <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+      </div>
       <input id="loc-input" class="controls" type="text" placeholder="Enter a location">
 
       <div id="left-menu">
@@ -21,7 +21,7 @@
 
       <div id="right-menu">
         <div class="menu-overflow">
-          <div id="river_song" class="col s4 offset-s2">
+          <div id="river_song" style="color: #0DA550; font-size: 110%;" class="col s4 offset-s2">
             <% unless @pins.length == 0 %>
               <h5> Recent Posts</h5>
               <%= react_component("Comment", {:pins => @pins}) %>
