@@ -35,7 +35,7 @@
           <div class="col s7 echo-content center-align">
           <br>
               <h6><b> <%= pin.created_at.strftime("%b. %d, %Y") %> </b><br> "<%=pin.song_title%>" <br><%= pin.song_artist %></h6>
-              <p><strong><%= pin.comment %></strong></p>
+              <p><%= pin.comment %></p>
               <%= link_to "#{pin.address}", maps_path(pin: pin) %>
           </div>
       </div>
