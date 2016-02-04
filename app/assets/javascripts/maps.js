@@ -11,7 +11,6 @@ var infowindows = [];
 function initMap(){
 
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
-  console.log(map);
 
   if(!isNaN(redirectLng))
   { //This sets the map's center to the redirect pin's location
@@ -50,7 +49,7 @@ function initMap(){
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
   var input = /** @type {!HTMLInputElement} */(document.getElementById('loc-input'));
-  console.log(input);
+
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
 
@@ -69,8 +68,6 @@ function initMap(){
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-
-
 
     var address = '';
     if (place.address_components) {
@@ -171,7 +168,6 @@ function placeDBMarker(pinData, avatar_url) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
-      // console.log(marker.position);
     });
   markers.push(marker);
 }
