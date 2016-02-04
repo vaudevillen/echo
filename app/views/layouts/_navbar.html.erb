@@ -1,26 +1,20 @@
 <div id="prof-nav-bar" align="center">
   <br>
   <%= link_to user_path(current_user), class: "test-profile" do %>
-    <%= image_tag current_user.avatar.url, :class => 'rounded' %>
-
-    <h5><%= current_user.fullname %></h5>
+  <%= image_tag current_user.avatar.url, :class => 'rounded' %>
+  <h5><%= current_user.fullname %></h5>
   <% end %>
   <br>
-
-
   <%= button_to('Friends', friends_path, :class => 'friends waves-effect waves-light btn green lighten-1', :method => :get)  %>
   <br>
   <%= button_to('Logout', logout_path, :class => 'logout waves-effect waves-light btn green lighten-1 ', :method => :get)  %>
-
-
-<br>
+  <br>
 </div>
-
 
 <div class="menu-overflow">
   <div class="friend-wrapper">
     <%= render template: "layouts/_friend_sidebar"  %>
-    </div>
+  </div>
 </div>
      <!--  <div id="gmage">
         <%= image_tag('google.png', :class=>"google responsive-img") %>
