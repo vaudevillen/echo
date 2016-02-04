@@ -161,6 +161,7 @@ function placeAutosearchMarker(place, address){
   {
     marker.setMap(null);
   });
+
 }
 //gets markers from database
 function placeDBMarker(pinData, avatarUrl) {
@@ -232,7 +233,7 @@ $(function() {
   $(function(){
     $('.friend_check:first-child').click();
   })
- var target
+
  $(".friend_check").on("click", function(event){
       deleteMarkers();
       var parent = $(this).closest('form');
@@ -334,17 +335,4 @@ function getPins(url){
       }
     });
 }
-//gets user's pins
-function getUserPins(url){
-  var getUrl =  url || "/pins";
-  var getAjax = $.get(getUrl, "json");
-    getAjax.done(function(response)
-    {
 
-      userAvatarUrl = response["avatar_url"]
-      for (var i = 0; i < response["pins"].length; i ++)
-      {
-        placeDBMarker(response["pins"][i], userAvatarUrl);
-      }
-    });
-}
