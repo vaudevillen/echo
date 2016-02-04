@@ -1,9 +1,9 @@
     <% if @pin %>
-      <div id="query-pin" data-c-user=<%= current_user.id %> data-user-id=<%= @pin.user_id %> data-lng=<%= @pin.longitude %> data-lat=<%= @pin.latitude %> display="none"></div>
+      <div id="query-pin" data-redirectuser-id=<%= @pin.user_id %> data-lng=<%= @pin.longitude %> data-lat=<%= @pin.latitude %> display="none"></div>
     <% end %>
 
     <div id="map-canvas">
-      <div id="map"></div>
+      <div data-c-user=<%= current_user.id %> id="map"></div>
     </div>
     <div id="overlay">
       <div id="top-bar" align="center">
