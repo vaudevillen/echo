@@ -22,8 +22,6 @@ function initMap(){
     }
     else
     {
-      //if we change things so the user's 'my pins' option is checked on map load, need to take out 'getUserPins()'
-      getUserPins();
       getPins(url);
     }
 
