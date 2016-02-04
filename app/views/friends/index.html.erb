@@ -2,7 +2,7 @@
   <%= form_tag(users_path, :method => "get", id: "search-form") do %>
   <div class="input-field col s4 offset-s4">
       <%= text_field_tag :search, params[:search], placeholder: "Search for Friends"%>
-  <%= submit_tag("Search") %>
+      <input class="btn waves-effect waves-light green lighten-1" type="submit" value="Search">
   </div>
   <% end %>
 </div>
