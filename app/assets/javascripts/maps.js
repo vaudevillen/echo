@@ -18,18 +18,7 @@ function initMap(){
     var url = "/pins/" + redirectUserId
     if (currentUserId != redirectUserId)
     {
-      //check corresponding friend in checkbox
       checkFriendBox(redirectUserId);
-      // var parentForm = $(".friend_check").closest('form');
-      // var friends = parentForm.find('input.friend_check');
-      // for(var i=0; i < friends.length; i++)
-      // {
-      //   var target = $(friends[i]);
-      //   if(target.attr('id') == redirectUserId)
-      //   {
-      //     target.click();
-      //   }
-      // }
     }
   }
   else
@@ -221,9 +210,12 @@ $(function() {
     var pinLat = $(this).attr("data-lat");
     var pinLng = $(this).attr("data-lng");
     map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
-    var url = "/pins/" + $(this).attr("data-user_id");
-    deleteMarkers();
-    getPins(url);
+    var river_user_id = $(this).attr("data-user_id");
+    //check if the friend's name is already checked. if it's not checked, check it
+    if(!isChecked(river_user_id))
+    {
+      checkFriendBox(river_user_id);
+    }
   });
 
   //Makes sure user's 'My Pins' button is clicked on page load
@@ -251,7 +243,22 @@ $(function() {
 ///////////////////////////
 ///Helper functions////////
 ///////////////////////////
-//sets the map for markers in marker array. comes in handy when removing markers
+//
+function isChecked(riverUserId){
+  var parentForm = $(".friend_check").closest('form');
+  var friends = parentForm.find('input.friend_check');
+  for(var i=0; i < friends.length; i++)
+  {
+    var target = $(friends[i]);
+    if(target.is(':checked'))
+    {
+      var checked_friend_id = target.attr('id');
+      if (riverUserId = checked_friend_id) { return true; }
+      else { return false; }
+    }
+  }
+}
+//Checks the appropriate name in the friend sidebar
 function checkFriendBox(friend_id){
   var parentForm = $(".friend_check").closest('form');
   var friends = parentForm.find('input.friend_check');
@@ -264,7 +271,7 @@ function checkFriendBox(friend_id){
     }
   }
 }
-
+//sets the map for markers in marker array. comes in handy when removing markers
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
