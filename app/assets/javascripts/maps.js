@@ -46,7 +46,6 @@ function initMap(){
     else { handleLocationError(false, map.getCenter());}
     getUserPins();
   }
-
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
@@ -229,7 +228,9 @@ $(function() {
         }
       };
   });
+
 })
+
 
 ///////////////////////////
 ///Helper functions////////
