@@ -1,8 +1,26 @@
-#searchbar{
-  /*float: left;*/
-  width: 250px;
-  /*top:0;*/
-  /*position: absolute;*/
+ #searchbar {
+   /*float: left;*/
+   width: 250px;
+  display: block;
+  margin:0 auto;
+   /*top:0;*/
+   /*position: absolute;*/
+ }
+
+#search-box {
+  margin-top: 30px;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  overflow: scroll;
+  width: 320px;
+  height: 200px;
+}
+
+#search-box .btn {
+  width: 300px;
+  display: block;
+  margin:0 auto;
+  margin-top: 10px;
 }
 
 
