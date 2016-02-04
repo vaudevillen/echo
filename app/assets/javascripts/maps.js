@@ -16,17 +16,20 @@ function initMap(){
   { //This sets the map's center to the redirect pin's location
     map.setCenter({lat: redirectLat, lng: redirectLng})
     var url = "/pins/" + redirectUserId
-    if (currentUserId == redirectUserId)
+    if (currentUserId != redirectUserId)
     {
-      getUserPins();
+      var parentForm = $(".friend_check").closest('form');
+      var friends = parentForm.find('input.friend_check');
+      for(var i=0; i < friends.length; i++)
+      {
+        var target = $(friends[i]);
+        console.log(target);
+        if(target.attr('id') == redirectUserId)
+        {
+          target.click();
+        }
+      }
     }
-    else
-    {
-      //there will be a bug if the user clicks a redirect to map from someone else's page
-      //userAvatarUrl will need to be set
-      getPins(url)
-    }
-
   }
   else
   {
@@ -210,6 +213,10 @@ $(function() {
     getPins(url);
   });
 
+  //Makes sure user's 'My Pins' button is clicked on page load
+  $(function(){
+    $('.friend_check:first-child').click();
+  })
  var target
  $(".friend_check").on("click", function(event){
       deleteMarkers();
