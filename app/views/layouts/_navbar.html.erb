@@ -1,17 +1,21 @@
-<nav class='top-nav'>
+<div id="prof-nav-bar" align="center">
+  <br>
+  <%= link_to user_path(current_user), class: "test-profile" do %>
+  <%= image_tag current_user.avatar.url, :class => 'rounded' %>
+  <h5><%= current_user.fullname %></h5>
+  <% end %>
+  <br>
+  <%= button_to('Friends', friends_path, :class => 'friends waves-effect waves-light btn green lighten-1', :method => :get)  %>
+  <br>
+  <%= button_to('Logout', logout_path, :class => 'logout waves-effect waves-light btn green lighten-1 ', :method => :get)  %>
+  <br>
+</div>
 
-  <div class="row">
-    <div class="col s4 offset-s1">
-      <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
-      <%= link_to user_path(current_user), class: "test-profile" do %>
-      <div class="chip chippy">
-        <%= image_tag current_user.avatar.url(:thumb) %>
-          <%= current_user.fullname %>
-      </div>
-      <% end %>
-      <%= button_to('Logout', logout_path, :class => 'logout waves-light btn', :method => :get)  %>
-      <%= button_to('Friends', friends_path, :class => 'friends waves-light btn', :method => :get)  %>
-    </div>
+<div class="menu-overflow">
+  <div class="friend-wrapper">
+    <%= render template: "layouts/_friend_sidebar"  %>
   </div>
-
-</nav>
+</div>
+     <!--  <div id="gmage">
+        <%= image_tag('google.png', :class=>"google responsive-img") %>
+      </div> -->
