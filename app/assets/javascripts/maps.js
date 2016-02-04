@@ -18,16 +18,18 @@ function initMap(){
     var url = "/pins/" + redirectUserId
     if (currentUserId != redirectUserId)
     {
-      var parentForm = $(".friend_check").closest('form');
-      var friends = parentForm.find('input.friend_check');
-      for(var i=0; i < friends.length; i++)
-      {
-        var target = $(friends[i]);
-        if(target.attr('id') == redirectUserId)
-        {
-          target.click();
-        }
-      }
+      //check corresponding friend in checkbox
+      checkFriendBox(redirectUserId);
+      // var parentForm = $(".friend_check").closest('form');
+      // var friends = parentForm.find('input.friend_check');
+      // for(var i=0; i < friends.length; i++)
+      // {
+      //   var target = $(friends[i]);
+      //   if(target.attr('id') == redirectUserId)
+      //   {
+      //     target.click();
+      //   }
+      // }
     }
   }
   else
@@ -45,7 +47,6 @@ function initMap(){
       });
     }
     else { handleLocationError(false, map.getCenter());}
-    getUserPins();
   }
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
@@ -99,7 +100,7 @@ function initMap(){
 
 }
 
-function setAvatarUrl(avatar_url){
+function setAvatar(avatar_url){
     var avatar = {
       url: avatar_url,
       size: new google.maps.Size(71, 71),
@@ -118,7 +119,7 @@ function placeMarker(position) {
   {
       position: position,
       map: map,
-      icon: setAvatarUrl(userAvatarUrl),
+      icon: setAvatar(userAvatarUrl),
   });
   markers.push(marker);
   var infoWindowOptions = { content: loadPinBox(marker) };
@@ -144,7 +145,7 @@ function placeAutosearchMarker(place, address){
   {
     position: place.geometry.location,
     map: map,
-    icon: setAvatarUrl(userAvatarUrl),
+    icon: setAvatar(userAvatarUrl),
   });
   markers.push(marker);
   // This is where individual click event handlers are created for each pin,
@@ -172,7 +173,7 @@ function placeDBMarker(pinData, avatarUrl) {
   {
     position: pinLatlng,
     map: map,
-    icon: setAvatarUrl(avatarUrl),
+    icon: setAvatar(avatarUrl),
   });
   markers.push(marker);
   var infoWindowOptions = { content: loadDBPinBox(pinData) };
@@ -195,8 +196,8 @@ $(function() {
 
   redirectLat = parseFloat($('#query-pin').attr("data-lat"));
   redirectLng = parseFloat($('#query-pin').attr("data-lng"));
-  redirectUserId = $('#query-pin').attr("data-user-id");
-  currentUserId = $('#query-pin').attr("data-c-user");
+  redirectUserId = $('#query-pin').attr("data-redirectuser-id");
+  currentUserId = $('#map').attr("data-c-user");
 
   $(document).on("submit", "#song_form", function(event)
   {
@@ -251,6 +252,19 @@ $(function() {
 ///Helper functions////////
 ///////////////////////////
 //sets the map for markers in marker array. comes in handy when removing markers
+function checkFriendBox(friend_id){
+  var parentForm = $(".friend_check").closest('form');
+  var friends = parentForm.find('input.friend_check');
+  for(var i=0; i < friends.length; i++)
+  {
+    var target = $(friends[i]);
+    if(target.attr('id') == friend_id)
+    {
+      target.click();
+    }
+  }
+}
+
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
@@ -292,10 +306,14 @@ function getPins(url){
   var getAjax = $.get(getUrl, "json");
     getAjax.done(function(response)
     {
-      var avatar_url = response["avatar_url"]
-      for (var i = 0; i < response["pins"].length; i ++)
+      var avatarUrl = response.avatar_url;
+      for (var i = 0; i < response.pins.length; i ++)
       {
-        placeDBMarker(response["pins"][i], avatar_url);
+        if(response.pins[i].user_id == currentUserId)
+        {
+          userAvatarUrl = avatarUrl;
+        }
+        placeDBMarker(response.pins[i], avatarUrl);
       }
     });
 }
