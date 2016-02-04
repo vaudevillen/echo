@@ -4,13 +4,9 @@
       <%= link_to user.fullname, user_path(user)  %>
       </span>
       <p> <%= user.location  %> </p>
-      
-      <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content' do%>
-      <i class="pending-accept material-icons green-text text-darken-3">thumb_up</i>
-      <% end %>
 
-      <%= link_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'secondary-content' do%>
-      <i class="deny material-icons red-text text-darken-3">thumb_down</i>
-      <% end %>
+      <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content request-accept' %>
+
+      <%= link_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'deny' %>
 
 </li>

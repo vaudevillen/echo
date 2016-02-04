@@ -1,6 +1,12 @@
 require 'rails_helper'
 
-describe 'User' do
+describe User do
+  before(:all) do
+    @person = User.new(id: 2)
+    @friend = User.new(id: 3)
+    @request = FriendRequest.new(sender_id: @friend.id, recipient_id: @person.id, status: true)
+  end
+
   let(:user) { FactoryGirl.build(:user) }
   it 'has a valid factory' do
     expect(user).to be_valid
@@ -45,7 +51,5 @@ describe 'User' do
   it 'can return two recent pins of friends' do
     expect(user.recent_pins).to be_an(Array)
   end
-
-  # it 'can search for itself' do
 
 end

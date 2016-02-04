@@ -10,7 +10,6 @@ var SetIntervalMixin = {
   }
 };
 
-
 // React Comp called in _navbar
 var Comment = React.createClass({
 
@@ -38,8 +37,9 @@ var Comment = React.createClass({
   render: function() {
      return (<div>{this.state.pins.map(function (key, value){
         return <div className="river_div" key={key.id} data-lat={key.latitude} data-lng={key.longitude} data-user_id={key.user_id}>
-          <p className='river'><span class="river-user">{key.username}</span> @ <span class="river-loc">{key.address}</span></p>
-          <p className='river'><span class="river-song-info">Song: {key.artist} - {key.comment}</span></p>
+          <p className='river'><span className="river-user">{key.username}</span> @ <span class="river-loc">{key.address}</span></p>
+          <p className='river'><span className="river-song-info">{key.song_artist} - {key.song_title}</span></p>
+          <p className='river'><span className="river-comment">{key.comment}</span></p>
         </div>;
       })}
     </div>)
