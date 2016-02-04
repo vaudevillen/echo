@@ -138,6 +138,10 @@ function placeMarker(position) {
   {
     marker.setMap(null);
   });
+
+  map.panTo(marker.getPosition())
+  map.panBy(0, -150);
+  $('#searchbar').focus();
 }
 function placeAutosearchMarker(place, address){
   var marker = new google.maps.Marker(
@@ -184,6 +188,8 @@ function placeDBMarker(pinData, avatarUrl) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
+      map.panTo(marker.getPosition())
+      map.panBy(0, -150);
     });
 }
 

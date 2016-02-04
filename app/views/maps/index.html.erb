@@ -43,15 +43,16 @@
   <li>{{artist}} - <a href="#" id="{{song_uri}}">{{title}}</a></li>
 </script>
 <script id="player-template" type="text/x-handlebars-template">
-  <iframe src="https://embed.spotify.com/?uri={{spotify_uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+  <iframe src="https://embed.spotify.com/?uri={{spotify_uri}}" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
 </script>
 <script id="db-player-template" type="text/x-handlebars-template">
-  <p>{{address}}</p>
   <div id='search-box'>
-  <li><a href="#" id="{{song_uri}}">{{artist}} - {{song_title}}</a></li>
-  <li>{{comment}}</li>
+    <p>{{address}}</p>
+    <p>{{comment}}</p>
+    <div id="player">
+      <iframe src="https://embed.spotify.com/?uri={{song_uri}}" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
+    </div>
   </div>
-  <div id="player"></div>
 </script>
 <script id="search-bar-template" type="text/x-handlebars-template">
 <div id='search-box'>
@@ -66,7 +67,7 @@
     <input id="longitude" type="hidden" name="lng" value="{{lng}}">
     <input id="address" type="hidden" name="address">
     <textarea id="form_comment" style="display: none;" name="comment"></textarea>
-    <input id="form_type" type="hidden" value="Save">
+    <input id="form_type" class="btn" type="hidden" value="Save">
   </form>
 </div>
 </script>
