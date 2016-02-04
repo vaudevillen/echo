@@ -62,6 +62,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'rake'
   gem 'simplecov'
+  gem 'jasmine'
 end
 
 gem 'rails_12factor', group: :production
