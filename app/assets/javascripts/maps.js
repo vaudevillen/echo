@@ -3,8 +3,9 @@
 ///////////////////////
 var map, userAvatarUrl, redirectLng, redirectLat, redirectUserId, currentUserId;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
-var markers = [];
+var currentMarkers = [];
 var infowindows = [];
+var newMarkers = []
 ////////////////////////
 // Map Initialization //
 ////////////////////////
@@ -15,6 +16,7 @@ function initMap(){
   if(!isNaN(redirectLng))
   { //This sets the map's center to the redirect pin's location
     map.setCenter({lat: redirectLat, lng: redirectLng})
+    map.setZoom(17);
     var url = "/pins/" + redirectUserId
     if (currentUserId != redirectUserId)
     {
@@ -110,7 +112,7 @@ function placeMarker(position) {
       map: map,
       icon: setAvatar(userAvatarUrl),
   });
-  markers.push(marker);
+  currentMarkers.push(marker);
   var infoWindowOptions = { content: loadPinBox(marker) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -128,6 +130,7 @@ function placeMarker(position) {
   {
     marker.setMap(null);
   });
+  //if user clicks off of marker before saving, marker gets erased in helper method
 }
 function placeAutosearchMarker(place, address){
   var marker = new google.maps.Marker(
@@ -136,7 +139,7 @@ function placeAutosearchMarker(place, address){
     map: map,
     icon: setAvatar(userAvatarUrl),
   });
-  markers.push(marker);
+  currentMarkers.push(marker);
   // This is where individual click event handlers are created for each pin,
   // notice that functions defined here can see 'marker' in their scope.
   var infowindow = new google.maps.InfoWindow();
@@ -164,7 +167,7 @@ function placeDBMarker(pinData, avatarUrl) {
     map: map,
     icon: setAvatar(avatarUrl),
   });
-  markers.push(marker);
+  currentMarkers.push(marker);
   var infoWindowOptions = { content: loadDBPinBox(pinData) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -200,8 +203,8 @@ $(function() {
     var data = { song_artist: song_data["song_artist"], song_title: song_data["song_title"], lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
     $.post("/pins", data);
     closeWindows();
+    getPins();
     deleteMarkers();
-    getUserPins();
   });
 
   $(document).on("click", ".river_div", function(event){
@@ -210,6 +213,7 @@ $(function() {
     var pinLat = $(this).attr("data-lat");
     var pinLng = $(this).attr("data-lng");
     map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
+
     var river_user_id = $(this).attr("data-user_id");
     //check if the friend's name is already checked. if it's not checked, check it
     if(!isChecked(river_user_id))
@@ -273,18 +277,18 @@ function checkFriendBox(friend_id){
 }
 //sets the map for markers in marker array. comes in handy when removing markers
 function setMapOnAll(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
+  for (var i = 0; i < currentMarkers.length; i++) {
+    currentMarkers[i].setMap(map);
   }
 }
-//removes markers in the array from the map
+//removes currentMarkers in the array from the map
 function clearMarkers() {
   setMapOnAll(null);
 }
-//removes markers in the array from the map and removes them from array
+//removes currentMarkers in the array from the map and removes them from array
 function deleteMarkers() {
   clearMarkers();
-  markers = [];
+  currentMarkers = [];
 }
 
 //closes all infoWindows in windows array
