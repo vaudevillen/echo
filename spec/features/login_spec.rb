@@ -61,18 +61,15 @@ end
         @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
         page.set_rack_session(:user_id => @michael.id)
         visit user_path(@michael)
-        click_button 'Map'
+        click_on('Map')
         expect(page.current_path).to eq(maps_path)
-        # This path is wrong and we need to take a look at this. We need to fix this route!
-        expect(page).to have_content('Friends')
+        expect(page).to have_content('recent_actors')
       end
-    # end
 
-    # context 'This goes to Spotify Login'do
-      scenario 'The user clicks a button to go back to the maps' do
+      scenario 'The user clicks a button to go back to login to Spotify' do
         @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
         page.set_rack_session(:user_id => @michael.id)
-        visit user_path(@michael)
+        visit edit_user_path(@michael)
         click_on('login-button')
         expect(page).to have_content('Spotify')
       end
