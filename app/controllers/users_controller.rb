@@ -5,12 +5,13 @@ class UsersController < ApplicationController
   before_filter :authorize, except: [:new, :create]
 
   def index
-    @users = User.all
     if request.xhr?
-      @users = User.search(params[:search]).order("created_at DESC")
+      people = User.search(params[:search]).order("created_at DESC")
+      @users = people.where.not(id: current_user.id)
       render partial:'/friends/search', local: @users
     elsif params[:search]
-      @users = User.search(params[:search]).order("created_at DESC")
+      people = User.search(params[:search]).order("created_at DESC")
+      @users = people.where.not(id: current_user.id)
     else
       @users = User.all.order("created_at DESC")
     end
