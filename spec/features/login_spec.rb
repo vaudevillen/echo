@@ -69,10 +69,10 @@ end
     # end
 
     # context 'This goes to Spotify Login'do
-      scenario 'The user clicks a button to go back to the maps' do
+      scenario 'The user clicks a button to go back to login to Spotify' do
         @michael = User.create!(first_name: "Michael", last_name: "Pearl", username: 'mjas', email: "m@p.com", city: "Chicago", state: "IL", password: "boomboom")
         page.set_rack_session(:user_id => @michael.id)
-        visit user_path(@michael)
+        visit edit_user_path(@michael)
         click_on('login-button')
         expect(page).to have_content('Spotify')
       end
