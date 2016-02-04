@@ -31,6 +31,8 @@ $(function() {
     $('#form_song_id').val(song_code);
     $('#form_song_artist').val(song_artist);
     $('#form_song_title').val(song_title);
+    $('#results').animate({height: 'hide'}, 100)
+    $('#searchbar').animate({height: 'hide'}, 100)
   })
 }) //end of document ready
 

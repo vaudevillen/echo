@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_to maps_path
     else
       flash[:error] = "Your username and password do not match"
-      redirect_to :back
+      redirect_to '/login'
     end
   end
 

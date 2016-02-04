@@ -130,6 +130,10 @@ function placeMarker(position) {
   {
     marker.setMap(null);
   });
+
+  map.panTo(marker.getPosition())
+  map.panBy(0, -150);
+  $('#searchbar').focus();
   //if user clicks off of marker before saving, marker gets erased in helper method
 }
 function placeAutosearchMarker(place, address){
@@ -177,6 +181,8 @@ function placeDBMarker(pinData, avatarUrl) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
+      map.panTo(marker.getPosition())
+      map.panBy(0, -150);
     });
 }
 
