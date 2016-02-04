@@ -6,9 +6,9 @@
       <div id="map"></div>
     </div>
     <div id="overlay">
-      <div align="center">
-      <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
-    </div>
+      <div id="top-bar" align="center">
+        <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+      </div>
       <input id="loc-input" class="controls" type="text" placeholder="Enter a location">
 
       <div id="left-menu">
@@ -16,25 +16,18 @@
           <%= render template: "layouts/_navbar" %>
         </div>
       </div>
-
-
-
       <div id="right-menu">
         <div class="menu-overflow">
-          <div id="river_song" class="col s4 offset-s2">
+          <div id="river_song" style="color: #F2F4EC; font-size: 110%;" class="col s4 offset-s2">
             <% unless @pins.length == 0 %>
-              <h5> Recent Posts</h5>
+              <h5 align="center"> Recent Posts</h5>
               <%= react_component("Comment", {:pins => @pins}) %>
             <% end %>
           </div>
         </div>
       </div>
-
-
-
-
       <a href="#" id="left-menu-button"><i class="medium material-icons">perm_identity</i></a>
-      <a href="#" id="right-menu-button"><i class="medium material-icons">recent_actors</i></a>
+      <a href="#" id="right-menu-button"><i class="medium material-icons">person_pin</i></a>
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
@@ -67,7 +60,7 @@
     <input id="longitude" type="hidden" name="lng" value="{{lng}}">
     <input id="address" type="hidden" name="address">
     <textarea id="form_comment" style="display: none;" name="comment"></textarea>
-    <input id="form_type" class="btn" type="hidden" value="Save">
+    <input id="form_type" class="btn green lighten-1" type="hidden" value="Save">
   </form>
 </div>
 </script>
