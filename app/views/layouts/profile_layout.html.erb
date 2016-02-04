@@ -17,7 +17,7 @@
         <%= image_tag @user.avatar.url, :class => 'rounded' %>
       </div>
       <div class="col s7">
-      <h4><%= @user.fullname %></h4>
+      <h4 id="light-header"><%= @user.fullname %></h4>
       <h6><b>Username:</b> <%= @user.username %></h6>
       <h6><b>Location: </b><%= @user.location %></h6>
       <h6 class='since'>Signed Up: <%= @user.created_at.strftime("%b. %d, %Y") %></h6>
