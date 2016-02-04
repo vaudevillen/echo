@@ -21,9 +21,9 @@
 
       <div id="right-menu">
         <div class="menu-overflow">
-          <div id="river_song" style="color: #0DA550; font-size: 110%;" class="col s4 offset-s2">
+          <div id="river_song" style="color: #F2F4EC; font-size: 110%;" class="col s4 offset-s2">
             <% unless @pins.length == 0 %>
-              <h5> Recent Posts</h5>
+              <h5 align="center"> Recent Posts</h5>
               <%= react_component("Comment", {:pins => @pins}) %>
             <% end %>
           </div>
