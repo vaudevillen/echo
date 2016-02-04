@@ -21,10 +21,9 @@
     <div class='center'>
       <h4 id="light-header">Recent Echos</h4>
     </div>
-                    <br>
-    <div class="row container recent-echos">
+    <div class="row container">
         <% @user.pins.each do |pin| %>
-      <div class="col s10 offset-s1 echo-holder">
+      <div class="col s12 echo-holder">
           <br>
           <div class="col s5 spotify-holder">
               <!-- spotify player -->
@@ -33,9 +32,9 @@
                 <%=link_to "Edit", edit_pin_path(pin.id) %>
               <% end %>
           </div>
-          <div class="col s7 echo-content">
+          <div class="col s7 echo-content center-align">
           <br>
-              <h6 class='center-align'> <%= pin.created_at.strftime("%b. %d, %Y") %> <br> "<%=pin.song_title%>" <br><%= pin.song_artist %> <br> <%= pin.address %></h6>
+              <h6><b> <%= pin.created_at.strftime("%b. %d, %Y") %> </b><br> "<%=pin.song_title%>" <br><%= pin.song_artist %></h6>
               <p><strong><%= pin.comment %></strong></p>
               <%= link_to "#{pin.address}", maps_path(pin: pin) %>
           </div>

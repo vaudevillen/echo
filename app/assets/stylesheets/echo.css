@@ -4,11 +4,7 @@
 }
 
 .echo-holder{
-  border-bottom: 2px solid black;
-  margin: 10px;
-}
-
-.recent-echos{
+  margin: 30px;
   background-color: #F2F4EC;
 }
 
@@ -40,6 +36,10 @@
   border: 2px solid #0DA550;
   margin-bottom: 15px;
   max-width: 100%
+}
+
+.friend-list{
+  background-color: #F2F4EC;
 }
 
 .profile-logo{
