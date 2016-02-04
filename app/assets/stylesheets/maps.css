@@ -24,10 +24,10 @@ html, body {
 }
 
 #gmage{
-  top:0;
-  right: 0;
+  bottom:0;
+  left: 0;
   z-index: 1;
-  position: fixed;
+  position: absolute;
 }
 
 #overlay {
@@ -54,7 +54,7 @@ html, body {
   left:0;
   bottom:0;
   width: 300px;
-  background-image: url('https://dinksatplay.files.wordpress.com/2014/01/mochagrunge.png?w=960');
+  background:black;
   display: none;
   overflow: hidden;
 }
@@ -70,15 +70,43 @@ html, body {
   overflow: hidden;
 }
 
+
+#prof-nav-bar{
+ background: rgba(19,19,19,1);
+ background: -moz-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(43,43,43,1) 0%, rgba(28,28,28,1) 6%, rgba(28,28,28,1) 16%, rgba(17,17,17,1) 33%, rgba(0,0,0,1) 42%, rgba(44,44,44,1) 53%, rgba(71,71,71,1) 62%, rgba(102,102,102,1) 93%, rgba(89,89,89,1) 98%, rgba(76,76,76,1) 100%);
+ background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(19,19,19,1)), color-stop(0%, rgba(43,43,43,1)), color-stop(6%, rgba(28,28,28,1)), color-stop(16%, rgba(28,28,28,1)), color-stop(33%, rgba(17,17,17,1)), color-stop(42%, rgba(0,0,0,1)), color-stop(53%, rgba(44,44,44,1)), color-stop(62%, rgba(71,71,71,1)), color-stop(93%, rgba(102,102,102,1)), color-stop(98%, rgba(89,89,89,1)), color-stop(100%, rgba(76,76,76,1)));
+ background: -webkit-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(43,43,43,1) 0%, rgba(28,28,28,1) 6%, rgba(28,28,28,1) 16%, rgba(17,17,17,1) 33%, rgba(0,0,0,1) 42%, rgba(44,44,44,1) 53%, rgba(71,71,71,1) 62%, rgba(102,102,102,1) 93%, rgba(89,89,89,1) 98%, rgba(76,76,76,1) 100%);
+ background: -o-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(43,43,43,1) 0%, rgba(28,28,28,1) 6%, rgba(28,28,28,1) 16%, rgba(17,17,17,1) 33%, rgba(0,0,0,1) 42%, rgba(44,44,44,1) 53%, rgba(71,71,71,1) 62%, rgba(102,102,102,1) 93%, rgba(89,89,89,1) 98%, rgba(76,76,76,1) 100%);
+ background: -ms-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(43,43,43,1) 0%, rgba(28,28,28,1) 6%, rgba(28,28,28,1) 16%, rgba(17,17,17,1) 33%, rgba(0,0,0,1) 42%, rgba(44,44,44,1) 53%, rgba(71,71,71,1) 62%, rgba(102,102,102,1) 93%, rgba(89,89,89,1) 98%, rgba(76,76,76,1) 100%);
+ background: linear-gradient(to bottom, rgba(19,19,19,1) 0%, rgba(43,43,43,1) 0%, rgba(28,28,28,1) 6%, rgba(28,28,28,1) 16%, rgba(17,17,17,1) 33%, rgba(0,0,0,1) 42%, rgba(44,44,44,1) 53%, rgba(71,71,71,1) 62%, rgba(102,102,102,1) 93%, rgba(89,89,89,1) 98%, rgba(76,76,76,1) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131313', endColorstr='#4c4c4c', GradientType=0 );
+}
+
+.menu-overflow{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #F2F4EC;
+}
+
+
+#river_song{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-right: 15px; /* Increase this value for cross-browser compatibility */
+}
+
 .friend-wrapper {
   margin: 3px;
+  top:370px;
   position: absolute;
-  bottom:0;
-  right:left;
+  vertical-align: center;
   height: 40%;
-  width: 300px;
-  overflow: scroll;
+  width: 100%;
+  overflow: auto;
 }
+
 
 #left-menu-button {
   margin-top: 60px;
@@ -93,9 +121,13 @@ html, body {
 }
 
 #loc-input {
-  width: 400px;
+  border-radius: 25px;
+  height: 25px;
+  text-align: center;
+  width: 370px;
   background: white;
   display: block;
+  border: inset .3px silver;
   margin:0 auto;
-  margin-top: 40px;
+  margin-top: 10px;
 }

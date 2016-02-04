@@ -6,26 +6,33 @@
       <div id="map"></div>
     </div>
     <div id="overlay">
+      <div align="center">
+      <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+    </div>
       <input id="loc-input" class="controls" type="text" placeholder="Enter a location">
+
       <div id="left-menu">
         <div class="menu-overflow">
           <%= render template: "layouts/_navbar" %>
-          <%= image_tag('google.png', :class=>"google responsive-img") %>
         </div>
       </div>
+
+
+
       <div id="right-menu">
         <div class="menu-overflow">
           <div id="river_song" class="col s4 offset-s2">
             <% unless @pins.length == 0 %>
-              <h6> Recent Posts</h6>
+              <h5> Recent Posts</h5>
               <%= react_component("Comment", {:pins => @pins}) %>
             <% end %>
           </div>
-          <div class="friend-wrapper">
-            <%= render template: "layouts/_friend_sidebar"  %>
-          </div>
         </div>
       </div>
+
+
+
+
       <a href="#" id="left-menu-button"><i class="medium material-icons">perm_identity</i></a>
       <a href="#" id="right-menu-button"><i class="medium material-icons">recent_actors</i></a>
     </div>
