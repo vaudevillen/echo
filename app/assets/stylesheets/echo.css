@@ -40,8 +40,16 @@
 
 .logout {
   position: absolute;
-  margin: 0;
-  font-size: 10px;
+  vertical-align: center;
+  bottom: 0;
+  font-size: 15px;
+  width: 70%;
+}
+
+.friends {
+  vertical-align: center;
+  width: 70%;
+  font-size: 15px;
 }
 
 .friendsbar{
@@ -52,11 +60,6 @@
   float: right;
 }
 
-.friends {
-  position: absolute;
-  margin-left: 200px;
-  font-size: 10px;
-}
 
 .add-friend {
   float: right;
