@@ -5,7 +5,7 @@ var map, userAvatarUrl, redirectLng, redirectLat, redirectUserId, currentUserId;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
 var currentMarkers = [];
 var infowindows = [];
-var newMarkers = []
+
 ////////////////////////
 // Map Initialization //
 ////////////////////////
