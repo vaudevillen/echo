@@ -132,3 +132,11 @@ background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAA
   margin:0 auto;
   margin-top: 10px;
 }
+
+#top-bar {
+  pointer-events: none;
+}
+
+#top-bar * {
+  pointer-events: all;
+}
