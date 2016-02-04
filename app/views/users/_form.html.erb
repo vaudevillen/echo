@@ -1,54 +1,56 @@
+
 <%= form_for(@user, multipart: true) do |f| %>
       <div class="row">
-        <div class="input-field col s3">
+        <div class="input-field col s6">
           <%= f.text_field :first_name %>
-          <label for="last_name">First Name</label>
+          <%= f.label :first_name, 'First Name' %>
         </div>
-        <div class="input-field col s3">
+        <div class="input-field col s6">
           <%= f.text_field :last_name %>
-          <label for="last_name">Last Name</label>
+          <%= f.label :last_name, 'Last Name' %>
         </div>
       </div>
-      <div class="input-field col s3">
-        <%= f.text_field :last_name %>
-        <label for="last_name">Last Name</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s3">
-        <%= f.email_field :email %>
-        <label for="email">Email</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s3">
-        <%= f.text_field :username %>
-        <label for="last_name">Username</label>
-      </div>
-      <div class="input-field col s3">
-        <%= f.password_field :password %>
-        <label for="password">Password</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s3">
-        <%= f.text_field :city %>
-        <label for="email">City</label>
-      </div>
-      <div class="input-field col s3">
-        <div class="input-field col s8">
-        <%= f.collection_select :state, State.all, :id, :name, {prompt: "Choose a State"}, :class => "browser-default" %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.email_field :email %>
+          <%= f.label :email, 'Email' %>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s3">
-        <%= f.file_field :avatar %>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= f.text_field :username %>
+          <%= f.label :username, 'Username' %>
+        </div>
+        <div class="input-field col s6">
+          <%= f.password_field :password %>
+          <%= f.label :password, 'Password' %>
+        </div>
       </div>
-    </div>
-     <%= f.submit :class => "btn waves-effect waves-light teal darken-3" %>
-<% end %>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= f.text_field :city %>
+          <%= f.label :city, 'City' %>
+        </div>
+        <div class="input-field col s6">
+          <div class="input-field col s12">
+          <%= f.collection_select :state, State.all, :id, :name, {prompt: "Choose a State"}, :class => "browser-default" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= f.file_field :avatar %>
+        </div>
+      </div>
+          <% if flash[:error] %>
+          <% flash[:error].each do |error| %>
+            <p class="notice red-text text-accent-4"><%= error %></p>
+         <% end %>
+         <% end %>
+     <%= f.submit :class => "btn waves-effect waves-light" %>
+     <% end %>
 
+<% if current_user %>
   <br>
-      <button id="login-button" class="btn btn-primary teal darken-3">Spotify Login</button>
-
+   <button id="login-button" class="btn btn-primary teal darken-3">Spotify Login</button>
+<% end %>

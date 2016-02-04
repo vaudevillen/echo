@@ -11,23 +11,25 @@ var infowindows = [];
 function initMap(){
 
   map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
-  console.log(map);
 
   if(!isNaN(redirectLng))
   { //This sets the map's center to the redirect pin's location
     map.setCenter({lat: redirectLat, lng: redirectLng})
     var url = "/pins/" + redirectUserId
-    if (currentUserId == redirectUserId)
+    if (currentUserId != redirectUserId)
     {
-      getUserPins();
+      var parentForm = $(".friend_check").closest('form');
+      var friends = parentForm.find('input.friend_check');
+      for(var i=0; i < friends.length; i++)
+      {
+        var target = $(friends[i]);
+        console.log(target);
+        if(target.attr('id') == redirectUserId)
+        {
+          target.click();
+        }
+      }
     }
-    else
-    {
-      //there will be a bug if the user clicks a redirect to map from someone else's page
-      //userAvatarUrl will need to be set
-      getPins(url)
-    }
-
   }
   else
   {
@@ -46,12 +48,11 @@ function initMap(){
     else { handleLocationError(false, map.getCenter());}
     getUserPins();
   }
-
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
 //////////////////////////////////////////
   var input = /** @type {!HTMLInputElement} */(document.getElementById('loc-input'));
-  console.log(input);
+
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
 
@@ -70,8 +71,6 @@ function initMap(){
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-
-
 
     var address = '';
     if (place.address_components) {
@@ -172,7 +171,6 @@ function placeDBMarker(pinData, avatar_url) {
       closeWindows();
       infoWindow.open(map, marker);
       infowindows.push(infoWindow);
-      // console.log(marker.position);
     });
   markers.push(marker);
 }
@@ -215,6 +213,10 @@ $(function() {
     getPins(url);
   });
 
+  //Makes sure user's 'My Pins' button is clicked on page load
+  $(function(){
+    $('.friend_check:first-child').click();
+  })
  var target
  $(".friend_check").on("click", function(event){
       deleteMarkers();
@@ -229,7 +231,9 @@ $(function() {
         }
       };
   });
+
 })
+
 
 ///////////////////////////
 ///Helper functions////////
