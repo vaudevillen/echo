@@ -22,9 +22,9 @@ function initMap(){
     }
     else
     {
-      //there will be a bug if the user clicks a redirect to map from someone else's page
-      //userAvatarUrl will need to be set
-      getPins(url)
+      //if we change things so the user's 'my pins' option is checked on map load, need to take out 'getUserPins()'
+      getUserPins();
+      getPins(url);
     }
 
   }
