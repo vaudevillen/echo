@@ -15,7 +15,7 @@
   height: 125px;
   width: 125px;
   overflow: hidden;
-  border: 2px solid #0DA550;
+  border: 2px solid #66bb6a;
   margin-bottom: 15px;
   max-width: 100%
 }
@@ -47,6 +47,7 @@
 }
 
 .friends {
+  margin-top: 10px;
   vertical-align: center;
   width: 70%;
   font-size: 15px;
@@ -94,7 +95,7 @@
   height: 400px;
   border-top: thick solid #ffffff;
   border-bottom: #ffffff;
-  background-image: url("/assets/mochaGrunge.png");
+  background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/mochaGrunge.png");
   color: white;
 }
 
@@ -141,5 +142,5 @@
     justify-content: center;
     flex-direction: column;
     height: 100%;
-    background-image: url("/assets/mochaGrunge.png");
+    background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/mochaGrunge.png");
 }
