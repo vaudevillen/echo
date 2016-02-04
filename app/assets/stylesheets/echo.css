@@ -44,6 +44,7 @@
   bottom: 0;
   font-size: 15px;
   width: 70%;
+  color: #F2F4EC;
 }
 
 .friends {
@@ -51,6 +52,7 @@
   vertical-align: center;
   width: 70%;
   font-size: 15px;
+  color: #F2F4EC;
 }
 
 .friendsbar{

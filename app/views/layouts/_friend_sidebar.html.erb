@@ -1,12 +1,12 @@
 
 <form id="friends_sidebar" action="#">
     <input class="friend_check" type="checkbox" id=<%= current_user.id %> />
-    <label for=<%= current_user.id %> style="color: #66bb6a; font-size: 125%;">My Pins</label>
+    <label for=<%= current_user.id %> style="color: #F2F4EC; font-size: 125%;">My Pins</label>
 
   <% current_user.friends.each do |friend| %>
   <br>
     <input class="friend_check" type="checkbox" id=<%= friend.id %> />
-    <label for=<%= friend.id %> style="color: #66bb6a; font-size: 125%;"><%= friend.username %></label>
+    <label for=<%= friend.id %> style="color: #F2F4EC; font-size: 125%;"><%= friend.username %></label>
 
   <% end %>
 </form>
