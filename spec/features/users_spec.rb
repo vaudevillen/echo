@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 feature 'Your main page' do
-  # Create a let to clean this up for consistancy
+  let(:penelope) { User.create!(first_name: "Penelope", last_name: "Pearl", username: 'peneloperocks', email: "p@p.com", city: "Chicago", state: "IL", password: "boomboom") }
+  let(:mike) { User.create!(first_name: "mike", last_name: "Pearl", username: 'mikeymike', email: "m@m.com", city: "Chicago", state: "IL", password: "boomboom") }
   context 'Check Button Features' do
     scenario "displays  a button to see your friends" do
-      @penelope = User.create!(first_name: "Penelope", last_name: "Pearl", username: 'peneloperocks', email: "p@p.com", city: "Chicago", state: "IL", password: "boomboom")
-      @mike = User.create!(first_name: "mike", last_name: "Pearl", username: 'mikeymike', email: "m@m.com", city: "Chicago", state: "IL", password: "boomboom")
-      FriendRequest.create!(sender: @penelope, recipient: @mike, status: true)
-      page.set_rack_session(:user_id => @penelope.id)
+      # @penelope = User.create!(first_name: "Penelope", last_name: "Pearl", username: 'peneloperocks', email: "p@p.com", city: "Chicago", state: "IL", password: "boomboom")
+      # @mike = User.create!(first_name: "mike", last_name: "Pearl", username: 'mikeymike', email: "m@m.com", city: "Chicago", state: "IL", password: "boomboom")
+      FriendRequest.create!(sender: penelope, recipient: mike, status: true)
+      page.set_rack_session(:user_id => penelope.id)
       visit '/maps'
       click_button "Friends"
       expect(page).to have_content('mike Pearl')
