@@ -41,11 +41,11 @@ describe User do
   end
 
   it 'has a location' do
-    expect(user.location).to eq('Los Angeles, CA')
+    expect(user.city).to eq('Birmingham')
   end
 
   it 'has a state' do
-    expect(user.state).to eq('CA')
+    expect(user.state).to eq('1')
   end
 
   it 'can return two recent pins of friends' do

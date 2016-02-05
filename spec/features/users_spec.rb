@@ -26,7 +26,7 @@ feature 'Your main page' do
         visit user_path(mike)
         click_on('Map')
         expect(page.current_path).to eq(maps_path)
-        expect(page).to have_content('person_pin')
+        expect(page).to have_content('comment')
       end
 
       scenario 'The user clicks a button to go back to login to Spotify' do
