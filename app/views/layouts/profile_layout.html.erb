@@ -17,7 +17,7 @@
         <%= image_tag @user.avatar.url, :class => 'rounded' %>
       </div>
       <div class="col s7">
-      <h4><%= @user.fullname %></h4>
+      <h4 id="light-header"><%= @user.fullname %></h4>
       <h6><b>Username:</b> <%= @user.username %></h6>
       <h6><b>Location: </b><%= @user.location %></h6>
       <h6 class='since'>Signed Up: <%= @user.created_at.strftime("%b. %d, %Y") %></h6>
@@ -27,7 +27,8 @@
       </div>
 
       <div class="col s2"><%= link_to image_tag('logo.png', size: "100x60", :class => 'profile-logo'), root_path%>
-      <%= button_to('Logout', logout_path, :class => 'profile-logout btn waves-effect waves-light teal darken-3', :method => :get)  %>
+      <%= button_to('Logout', logout_path, :class => 'profile-logout btn waves-effect waves-light green lighten-1', :method => :get)  %>
+
       </div>
     </div>
   </div>

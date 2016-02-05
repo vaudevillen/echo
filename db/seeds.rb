@@ -25,8 +25,7 @@ end
       )
 end
 
-
-40.times do
+30.times do
   Pin.create(
     username: Faker::Name.first_name,
     user_id: Faker::Number.between(1, 10),
@@ -38,13 +37,14 @@ end
 end
 
 melissa = User.create(first_name: "Melissa", last_name: "Etheridge", username: "onlyone", password: "window", email: "come2window@google.com", city: "Leavenworth", state: 'KS', avatar: File.open(File.join(Rails.root, "/app/assets/images/melissa.png")))
-FriendRequest.create(recipient_id: 11, sender_id: 1, status: true)
-FriendRequest.create(recipient_id: 11, sender_id: 2, status: true)
-FriendRequest.create(recipient_id: 11, sender_id: 3, status: true)
-FriendRequest.create(recipient_id: 11, sender_id: 4, status: true)
-FriendRequest.create(recipient_id: 11, sender_id: 5, status: true)
-FriendRequest.create(recipient_id: 11, sender_id: 6, status: true)
-FriendRequest.create(recipient_id: 11, sender_id: 7, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 1, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 2, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 3, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 4, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 5, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 6, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 7, status: true)
+FriendRequest.create(recipient_id: melissa.id, sender_id: 11, status: true)
 
 Pin.create(user_id: 1, comment: "I really like this song, Go Cards!", song_id: "Hit Song", username: "Ricky Martin")
 Pin.create(user_id: 2, comment: "This really gets me going", song_id: "Booty Dance", username: "Dan Davis")

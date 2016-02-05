@@ -1,7 +1,7 @@
 <div id="prof-nav-bar" align="center">
   <%= link_to user_path(current_user), class: "test-profile" do %>
   <%= image_tag current_user.avatar.url, :class => 'rounded' %>
-  <h5 style="color: #66bb6a;"><%= current_user.fullname %></h5>
+  <h5 style="color: #F2F4EC;"><%= current_user.fullname %></h5>
   <% end %>
 
   <%= button_to('Friends', friends_path, :class => 'friends waves-effect waves-light btn green lighten-1', :method => :get)  %>

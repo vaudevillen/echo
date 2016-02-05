@@ -3,8 +3,9 @@
 ///////////////////////
 var map, userAvatarUrl, redirectLng, redirectLat, redirectUserId, currentUserId;
 var chiTown = {lat: 41.885311, lng: -87.62850019999999}
-var markers = [];
+var currentMarkers = [];
 var infowindows = [];
+
 ////////////////////////
 // Map Initialization //
 ////////////////////////
@@ -15,19 +16,11 @@ function initMap(){
   if(!isNaN(redirectLng))
   { //This sets the map's center to the redirect pin's location
     map.setCenter({lat: redirectLat, lng: redirectLng})
+    map.setZoom(17);
     var url = "/pins/" + redirectUserId
     if (currentUserId != redirectUserId)
     {
-      var parentForm = $(".friend_check").closest('form');
-      var friends = parentForm.find('input.friend_check');
-      for(var i=0; i < friends.length; i++)
-      {
-        var target = $(friends[i]);
-        if(target.attr('id') == redirectUserId)
-        {
-          target.click();
-        }
-      }
+      checkFriendBox(redirectUserId);
     }
   }
   else
@@ -45,7 +38,6 @@ function initMap(){
       });
     }
     else { handleLocationError(false, map.getCenter());}
-    getUserPins();
   }
 //////////////////////////////////////////
 //Autocomplete for search/////////////////
@@ -99,7 +91,7 @@ function initMap(){
 
 }
 
-function setAvatarUrl(avatar_url){
+function setAvatar(avatar_url){
     var avatar = {
       url: avatar_url,
       size: new google.maps.Size(71, 71),
@@ -118,9 +110,9 @@ function placeMarker(position) {
   {
       position: position,
       map: map,
-      icon: setAvatarUrl(userAvatarUrl),
+      icon: setAvatar(userAvatarUrl),
   });
-  markers.push(marker);
+  currentMarkers.push(marker);
   var infoWindowOptions = { content: loadPinBox(marker) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -142,15 +134,16 @@ function placeMarker(position) {
   map.panTo(marker.getPosition())
   map.panBy(0, -150);
   $('#searchbar').focus();
+  //if user clicks off of marker before saving, marker gets erased in helper method
 }
 function placeAutosearchMarker(place, address){
   var marker = new google.maps.Marker(
   {
     position: place.geometry.location,
     map: map,
-    icon: setAvatarUrl(userAvatarUrl),
+    icon: setAvatar(userAvatarUrl),
   });
-  markers.push(marker);
+  currentMarkers.push(marker);
   // This is where individual click event handlers are created for each pin,
   // notice that functions defined here can see 'marker' in their scope.
   var infowindow = new google.maps.InfoWindow();
@@ -168,6 +161,7 @@ function placeAutosearchMarker(place, address){
   {
     marker.setMap(null);
   });
+
 }
 //gets markers from database
 function placeDBMarker(pinData, avatarUrl) {
@@ -176,9 +170,9 @@ function placeDBMarker(pinData, avatarUrl) {
   {
     position: pinLatlng,
     map: map,
-    icon: setAvatarUrl(avatarUrl),
+    icon: setAvatar(avatarUrl),
   });
-  markers.push(marker);
+  currentMarkers.push(marker);
   var infoWindowOptions = { content: loadDBPinBox(pinData) };
   var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
   // This is where individual click event handlers are created for each pin,
@@ -201,8 +195,8 @@ $(function() {
 
   redirectLat = parseFloat($('#query-pin').attr("data-lat"));
   redirectLng = parseFloat($('#query-pin').attr("data-lng"));
-  redirectUserId = $('#query-pin').attr("data-user-id");
-  currentUserId = $('#query-pin').attr("data-c-user");
+  redirectUserId = $('#query-pin').attr("data-redirectuser-id");
+  currentUserId = $('#map').attr("data-c-user");
 
   $(document).on("submit", "#song_form", function(event)
   {
@@ -216,8 +210,8 @@ $(function() {
     var data = { song_artist: song_data["song_artist"], song_title: song_data["song_title"], lat: song_data["lat"], lng: song_data["lng"], authenticity_token: token, song_id: song_data["song_id"], comment: song_data['comment'], address: song_data['address'] };
     $.post("/pins", data);
     closeWindows();
+    getPins();
     deleteMarkers();
-    getUserPins();
   });
 
   $(document).on("click", ".river_div", function(event){
@@ -226,16 +220,20 @@ $(function() {
     var pinLat = $(this).attr("data-lat");
     var pinLng = $(this).attr("data-lng");
     map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
-    var url = "/pins/" + $(this).attr("data-user_id");
-    deleteMarkers();
-    getPins(url);
+
+    var river_user_id = $(this).attr("data-user-id");
+    //check if the friend's name is already checked. if it's not checked, check it
+    if(!isChecked(river_user_id))
+    {
+      checkFriendBox(river_user_id);
+    }
   });
 
   //Makes sure user's 'My Pins' button is clicked on page load
   $(function(){
     $('.friend_check:first-child').click();
   })
- var target
+
  $(".friend_check").on("click", function(event){
       deleteMarkers();
       var parent = $(this).closest('form');
@@ -256,20 +254,47 @@ $(function() {
 ///////////////////////////
 ///Helper functions////////
 ///////////////////////////
-//sets the map for markers in marker array. comes in handy when removing markers
-function setMapOnAll(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
+//
+function isChecked(riverUserId){
+  var parentForm = $(".friend_check").closest('form');
+  var friends = parentForm.find('input.friend_check');
+  for(var i=0; i < friends.length; i++)
+  {
+    var target = $(friends[i]);
+    if(target.is(':checked'))
+    {
+      var checked_friend_id = target.attr('id');
+      if (riverUserId == checked_friend_id) { return true; }
+    }
   }
 }
-//removes markers in the array from the map
+//Checks the appropriate name in the friend sidebar
+function checkFriendBox(friend_id){
+  var parentForm = $(".friend_check").closest('form');
+  var friends = parentForm.find('input.friend_check');
+  for(var i=0; i < friends.length; i++)
+  {
+    var target = $(friends[i]);
+    if(target.attr('id') == friend_id)
+    {
+      target.click();
+    }
+  }
+}
+//sets the map for markers in marker array. comes in handy when removing markers
+function setMapOnAll(map) {
+  for (var i = 0; i < currentMarkers.length; i++) {
+    currentMarkers[i].setMap(map);
+  }
+}
+//removes currentMarkers in the array from the map
 function clearMarkers() {
   setMapOnAll(null);
 }
-//removes markers in the array from the map and removes them from array
+//removes currentMarkers in the array from the map and removes them from array
 function deleteMarkers() {
   clearMarkers();
-  markers = [];
+  currentMarkers = [];
 }
 
 //closes all infoWindows in windows array
@@ -298,24 +323,15 @@ function getPins(url){
   var getAjax = $.get(getUrl, "json");
     getAjax.done(function(response)
     {
-      var avatar_url = response["avatar_url"]
-      for (var i = 0; i < response["pins"].length; i ++)
+      var avatarUrl = response.avatar_url;
+      for (var i = 0; i < response.pins.length; i ++)
       {
-        placeDBMarker(response["pins"][i], avatar_url);
+        if(response.pins[i].user_id == currentUserId)
+        {
+          userAvatarUrl = avatarUrl;
+        }
+        placeDBMarker(response.pins[i], avatarUrl);
       }
     });
 }
-//gets user's pins
-function getUserPins(url){
-  var getUrl =  url || "/pins";
-  var getAjax = $.get(getUrl, "json");
-    getAjax.done(function(response)
-    {
 
-      userAvatarUrl = response["avatar_url"]
-      for (var i = 0; i < response["pins"].length; i ++)
-      {
-        placeDBMarker(response["pins"][i], userAvatarUrl);
-      }
-    });
-}

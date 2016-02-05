@@ -18,12 +18,12 @@
         </div>
         <div class="row center">
         <% unless current_user %>
-          <%= button_to('Register', new_user_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
+          <%= button_to('Register', new_user_path, :class => 'btn waves-effect waves-light green lighten-1', :method => :get)  %>
           <br>
           <% end %>
           <% unless session[:user_id] %>
           <!-- Modal-->
-          <button data-target="modal1" class="btn waves-effect waves-light teal darken-3 modal-trigger">Login</button>
+          <button data-target="modal1" class="btn waves-effect waves-light green lighten-1 modal-trigger">Login</button>
           <div id="modal1" class="modal">
             <div class="modal-content">
              <%= render template: "sessions/new" %>
@@ -31,11 +31,14 @@
           </div>
           <% else %>
           <br>
-          <%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light teal darken-3', :method => :get)  %>
+          <%= button_to('Logout', logout_path, :class => 'btn waves-effect waves-light green lighten-1', :method => :get)  %>
           <% end %>
           <br><br>
           <% if flash[:error] %>
             <div class="notice red-text text-accent-4"><%= flash[:error] %></div>
+          <% end %>
+          <% if flash[:deleted_account] %>
+            <div class="notice red-text text-accent-4"><%= flash[:deleted_account] %></div>
           <% end %>
 
         </div>
