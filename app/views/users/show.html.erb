@@ -31,7 +31,9 @@
               <!-- spotify player -->
               <iframe src=<%= 'https://embed.spotify.com/?uri=spotify:track:' + pin.song_id %> frameborder="0" width="250" height="100" allowtransparency="true"></iframe>
               <% if current_user.id == @user.id %>
+              <br>
                 <%=link_to "Edit", edit_pin_path(pin.id) %>
+                <%= link_to 'Delete', pin_path(pin.id), :method => :delete, :action=> 'destroy'  %>
               <% end %>
           </div>
           <div class="col s7 echo-content center-align">
