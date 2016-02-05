@@ -221,7 +221,7 @@ $(function() {
     var pinLng = $(this).attr("data-lng");
     map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
 
-    var river_user_id = $(this).attr("data-user_id");
+    var river_user_id = $(this).attr("data-user-id");
     //check if the friend's name is already checked. if it's not checked, check it
     if(!isChecked(river_user_id))
     {
@@ -264,8 +264,7 @@ function isChecked(riverUserId){
     if(target.is(':checked'))
     {
       var checked_friend_id = target.attr('id');
-      if (riverUserId = checked_friend_id) { return true; }
-      else { return false; }
+      if (riverUserId == checked_friend_id) { return true; }
     }
   }
 }
