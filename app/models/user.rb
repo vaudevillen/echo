@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
     all_friends
   end
 
+
   def fullname
     self.first_name + " " + self.last_name
   end
