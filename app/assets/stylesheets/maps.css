@@ -18,9 +18,11 @@ html, body {
   position: absolute;
   top:0;
   left:10px;
+  bottom: 40px;
   width:300px;
-  height: 59%;
   overflow: scroll;
+  background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
+  padding-right: 15px; /* Increase this value for cross-browser compatibility */
 }
 
 #gmage{
@@ -107,6 +109,13 @@ background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAA
     background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
 }
 
+.menu-overflow > img {
+  text-align:center;
+  position:absolute;
+  bottom:10px;
+  left:80px;
+}
+
 .left-menu-overflow{
   height: 100%;
   width: 300px;
@@ -117,13 +126,6 @@ background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAA
 }
 
 
-#river_song{
-    width: 300px;
-    height: 100%;
-    overflow: scroll;
-    background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
-    padding-right: 15px; /* Increase this value for cross-browser compatibility */
-}
 
 .friend-wrapper {
   margin-left: 25px;
