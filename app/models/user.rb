@@ -40,8 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def location
-    text = State.find(self.state)
-    self.city + ", " + text.name
+    self.city
   end
 
   def recent_pins
