@@ -11,12 +11,13 @@
     <% elsif request_sent?(user.id) %>
       <p class="right "><b>Request Pending</b></p>
     <% elsif request_received?(user.id)%>
-      
+
       <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content request-accept' %>
 
       <%= link_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'deny' %>
     <% else %>
       <%= link_to 'Add Friend', {:controller=>"friend_requests", :action=> "create", :recipient_id=> user.id, :sender_id=>session[:user_id]}, :method=>:post, :class => 'secondary-content add-friend' %>
+
     <% end %>
 </li>
 <% end %>

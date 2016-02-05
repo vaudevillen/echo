@@ -5,11 +5,11 @@
       </span>
       <p> <%= user.location  %> </p>
     <% if current_friend?(user.id) %>
-      <p class="right"><b>Friend</b></p>
+    <%= link_to 'Remove Friend', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'deny' %>
     <% elsif request_sent?(user.id) %>
       <p class="right"><b>Request Pending</b></p>
     <% elsif request_received?(user.id)%>
-      
+
       <%= link_to 'Accept Request', {:controller=>"friend_requests", :action=> "update", :id=>user.id}, :method=>:patch, :class => 'secondary-content request-accept' %>
 
       <%= link_to 'Delete Request', {:controller=>"friend_requests", :action=> "destroy", :id=> user.id}, :method=>:delete, :class => 'deny' %>

@@ -48,6 +48,12 @@ class PinsController < ApplicationController
     end
   end
 
+  def destroy
+    @pin = Pin.find(params[:id])
+    @pin.destroy
+    redirect_to user_path(current_user)
+  end
+
   def pin_params
     params.require(:pin).permit(:comment)
   end
