@@ -31,21 +31,6 @@ class PinsController < ApplicationController
     end
   end
 
-#the following is incomplete. It's to return nested arrays to show multiple users pins
-  def show_multiple
-    @friends_arrays = []
-    @friends_arrays << Pin.where(user_id: params[:id])
-    friend_ids = params[:friend_ids].split('+')
-    friend_ids.each do |id|
-      @friends_arrays << Pin.where(user_id: params[:id])
-    end
-    if request.xhr?
-        respond_to do |format|
-          format.json { render json: @friend_arrays }
-        end
-    end
-  end
-
   def edit
     @pin = Pin.find(params[:id])
     if @pin.user_id != @current_user.id
