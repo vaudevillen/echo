@@ -7,9 +7,11 @@
     </div>
     <div id="overlay">
       <div id="top-bar" align="center">
-        <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+        <%= link_to(current_user) do %>
+          <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+        <% end %>
       </div>
-      <input id="loc-input" class="controls" type="text" placeholder="Enter a location">
+      <input id="loc-input" class="controls" type="text" placeholder="Start ECHO location">
 
       <div id="left-menu">
         <div class="menu-overflow">
@@ -27,8 +29,8 @@
           <img src="https://developers.google.com/places/documentation/images/powered-by-google-on-non-white.png">
         </div>
       </div>
-      <a href="#" id="left-menu-button"><i class="medium material-icons">perm_identity</i></a>
-      <a href="#" id="right-menu-button"><i class="medium material-icons">person_pin</i></a>
+      <a href="#" id="left-menu-button"><i class="medium material-icons">list</i></a>
+      <a href="#" id="right-menu-button"><i class="medium material-icons">comment</i></a>
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAPS"] %>&libraries=places&callback=initMap" async defer></script>
@@ -46,6 +48,7 @@
     <div id="player">
       <iframe src="https://embed.spotify.com/?uri={{song_uri}}" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
     </div>
+    <a href="/pins/{{pin_id}}/edit">Edit</a>
   </div>
 </script>
 <script id="search-bar-template" type="text/x-handlebars-template">
@@ -60,9 +63,8 @@
     <input id="latitude" type="hidden" name="lat" value="{{lat}}">
     <input id="longitude" type="hidden" name="lng" value="{{lng}}">
     <input id="address" type="hidden" name="address">
-    <textarea id="form_comment" style="display: none;" name="comment"></textarea>
+    <textarea id="form_comment" style="display: none;" name="comment" placeholder="Enter comment"></textarea>
     <input id="form_type" class="btn green lighten-1" type="hidden" value="Save">
   </form>
 </div>
 </script>
-

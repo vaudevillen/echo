@@ -43,6 +43,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'better_errors'
+  gem 'jasmine-rails'
 end
 
 group :development do
@@ -62,6 +63,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'rake'
   gem 'simplecov'
+  gem 'jasmine'
 end
 
 gem 'rails_12factor', group: :production

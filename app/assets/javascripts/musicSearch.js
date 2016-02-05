@@ -71,7 +71,8 @@ function loadDBPinBox(pinData) {
     var artist = pinData.song_artist;
     var song_title = pinData.song_title;
     var comment = pinData.comment;
+    var pin_id = pinData.id;
     //after mvp, put in song data populated from database
     var playerTemplate = Handlebars.compile($('#db-player-template').html());
-    return playerTemplate({comment: comment, song_uri: songUri, address: address, artist: artist, song_title: song_title });
+    return playerTemplate({pin_id: pin_id, comment: comment, song_uri: songUri, address: address, artist: artist, song_title: song_title });
   }

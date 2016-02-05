@@ -37,6 +37,9 @@
           <% if flash[:error] %>
             <div class="notice red-text text-accent-4"><%= flash[:error] %></div>
           <% end %>
+          <% if flash[:deleted_account] %>
+            <div class="notice red-text text-accent-4"><%= flash[:deleted_account] %></div>
+          <% end %>
 
         </div>
         <br><br>

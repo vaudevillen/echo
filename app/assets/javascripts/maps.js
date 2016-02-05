@@ -11,7 +11,7 @@ var infowindows = [];
 ////////////////////////
 function initMap(){
 
-  map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: chiTown, zoomControl: true});
+  map = new google.maps.Map(document.getElementById('map'), {zoom: 17, center: chiTown, zoomControl: true});
 
   if(!isNaN(redirectLng))
   { //This sets the map's center to the redirect pin's location
@@ -220,8 +220,8 @@ $(function() {
     var pinLat = $(this).attr("data-lat");
     var pinLng = $(this).attr("data-lng");
     map.setCenter({lat: parseFloat(pinLat), lng: parseFloat(pinLng)})
-
-    var river_user_id = $(this).attr("data-user_id");
+    map.setZoom(17);
+;    var river_user_id = $(this).attr("data-user-id");
     //check if the friend's name is already checked. if it's not checked, check it
     if(!isChecked(river_user_id))
     {
@@ -264,8 +264,7 @@ function isChecked(riverUserId){
     if(target.is(':checked'))
     {
       var checked_friend_id = target.attr('id');
-      if (riverUserId = checked_friend_id) { return true; }
-      else { return false; }
+      if (riverUserId == checked_friend_id) { return true; }
     }
   }
 }
