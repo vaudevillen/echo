@@ -7,7 +7,9 @@
     </div>
     <div id="overlay">
       <div id="top-bar" align="center">
-        <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+        <%= link_to(current_user) do %>
+          <%= image_tag('logo.png', size: "75x50", :class=>"responsive-img")%>
+        <% end %>
       </div>
       <input id="loc-input" class="controls" type="text" placeholder="Start ECHO location">
 
