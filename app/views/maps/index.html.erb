@@ -46,6 +46,7 @@
     <div id="player">
       <iframe src="https://embed.spotify.com/?uri={{song_uri}}" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
     </div>
+    <a href="/pins/{{pin_id}}/edit">Edit</a>
   </div>
 </script>
 <script id="search-bar-template" type="text/x-handlebars-template">
@@ -60,7 +61,7 @@
     <input id="latitude" type="hidden" name="lat" value="{{lat}}">
     <input id="longitude" type="hidden" name="lng" value="{{lng}}">
     <input id="address" type="hidden" name="address">
-    <textarea id="form_comment" style="display: none;" name="comment"></textarea>
+    <textarea id="form_comment" style="display: none;" name="comment" placeholder="Enter comment"></textarea>
     <input id="form_type" class="btn green lighten-1" type="hidden" value="Save">
   </form>
 </div>
