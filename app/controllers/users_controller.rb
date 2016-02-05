@@ -57,6 +57,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    session[:user_id] = nil
+    flash[:deleted_account] = "Your account has been deleted"
+    redirect_to root_path
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username, :city, :state, :email, :password, :avatar)

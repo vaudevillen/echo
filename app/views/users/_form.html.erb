@@ -52,5 +52,6 @@
 
 <% if current_user %>
   <br>
-   <button id="login-button" class="btn btn-primary green lighten-1">Spotify Login</button>
+   <button id="login-button" class="btn btn-primary green lighten-1">Spotify Login</button><br>
+   <%=link_to "Delete Account", {:controller =>"users", :action=>"destroy"}, :method=>:delete, data: {confirm: 'Are you sure you want to delete your account?'}, :class => 'since center-align'%>
 <% end %>
