@@ -7,7 +7,6 @@ $(document).ready(function() {
                       url: '/users',
                       data: search
                       })
-    console.log(request);
     request.done(function(response){
       $(".collection").replaceWith(response);
     });

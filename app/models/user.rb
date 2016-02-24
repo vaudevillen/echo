@@ -62,11 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(query)
-    if query == ""
-    where("username ilike ?", "%#{xxxxx}%")
-    else
-    where("username ilike ?", "%#{query}%")
-    end
+    where("first_name ilike ? or last_name ilike ?", "%#{query}%", "%#{query}%")
   end
 
 end
