@@ -21,7 +21,7 @@ html, body {
   bottom: 40px;
   width:300px;
   overflow: scroll;
-  background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
+  background-image: url('https://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
   padding-right: 15px; /* Increase this value for cross-browser compatibility */
 }
 
@@ -100,13 +100,13 @@ html, body {
   position: absolute;
   top:0;
   right:0;
-background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png')
+background-image: url('https://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png')
 }
 
 .menu-overflow{
     height: 100%;
     overflow: hidden;
-    background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
+    background-image: url('https://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
 }
 
 .menu-overflow > img {
@@ -122,7 +122,7 @@ background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAA
   bottom: 0;
   right: 0;
   overflow: hidden;
-  background-image: url('http://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
+  background-image: url('https://3.bp.blogspot.com/-SewyHzhA4Bo/T6DFUqkjJOI/AAAAAAAAAQg/ijzcM7D9bdg/s1600/Green+Fibers.png');
 }
 
 
