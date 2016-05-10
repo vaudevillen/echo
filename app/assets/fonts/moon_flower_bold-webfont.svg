@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
-<svg xmlns="http://www.w3.org/2000/svg">
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "https://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="https://www.w3.org/2000/svg">
 <metadata></metadata>
 <defs>
 <font id="moon_flower_boldregular" horiz-adv-x="739" >
@@ -234,4 +234,4 @@
 <glyph unicode="&#x2122;" horiz-adv-x="931" d="M225 1244v15q14 49 244 66q42 -12 42 -48q0 -16 -35 -38l-27 6q-66 -7 -51 0q17 -29 33 -294q-12 -34 -37 -34h-20q-17 0 -38 28l5 25q-19 251 -44 251v4h25l-40 -12h-16q-21 0 -41 31zM481 957q13 241 32 341q0 29 37 51h20q40 0 57 -80h-38q0 37 54 84h27q70 0 85 -423 l-26 -13h-31q-37 21 -37 60q0 173 -20 272h37q-15 -60 -15 -168v-16q0 -17 -30 -32h-19q-44 0 -59 156q-5 0 -8 28h42q-10 -87 -14 -260q-30 -24 -63 -24z" />
 <glyph unicode="&#x25fc;" horiz-adv-x="1395" d="M0 0v1395h1395v-1395h-1395z" />
 </font>
-</defs></svg> 
+</defs></svg>
