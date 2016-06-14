@@ -1,14 +1,11 @@
-# echo
-An app for users to share songs, places, and the memories they bring
+# Echo
+Echo is a social media web-app that maps the intersection of songs, places, and memories. Users can select a location and add a song and comment to that location, sharing their songs, impressions, and echoes of their memories.
 
-Team norms:
+Echo was built using Ruby on Rails, Javascript, jQuery, React.js, as well as the Spotify and Google Maps APIs.
 
-- Be respectful
-- Regular check-ins at 8:15, 1:00, 4:30
-- Don't forget to take breaks
-- Communicate if encounter problems/ask for a second pair of eyes
-- Teamwork is the dream work
-- Don't merge your own branch to master
-- Test features & models
-- Frontload any scheduling issues
-- Keep every member of the team updated and informed
+Materialize was used for styling.
+
+Capybara and Rspec were used for testing.
+
+Visit the site here:
+https://dbc-echo.herokuapp.com

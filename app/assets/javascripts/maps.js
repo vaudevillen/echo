@@ -9,10 +9,10 @@ var infowindows = [];
 ////////////////////////
 // Map Initialization //
 ////////////////////////
+
 function initMap(){
 
   map = new google.maps.Map(document.getElementById('map'), {zoom: 17, center: chiTown, zoomControl: true});
-
   if(!isNaN(redirectLng))
   { //This sets the map's center to the redirect pin's location
     map.setCenter({lat: redirectLat, lng: redirectLng})
@@ -334,4 +334,3 @@ function getPins(url){
       }
     });
 }
-

@@ -7,6 +7,11 @@ class MapsController < ApplicationController
 
   def index
     if request.xhr?
+      @pins
+      if params[:friends]
+        friends = params[:friends].split("+")
+
+      end
       render :json => current_user.recent_pins
     end
     user = current_user

@@ -8,6 +8,7 @@
 /.bundle
 .DS_Store
 .env
+app/assets/javascripts/scratch.js
 
 # Ignore all logfiles and tempfiles.
 /log/*
